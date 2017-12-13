@@ -23,13 +23,11 @@
   },
   "devDependencies": {
     "nebenan-ui-kit": "^1.0.2",
-
     "lodash": "^4.17.4",
     "classnames": "^2.2.5",
     "react": "^16.x.x",
     "prop-types": "^15.6.x",
     "nib": "^1.1.2",
-
     "babel-cli": "6.26.0",
     "babel-register": "6.26.0",
     "babel-core": "6.26.0",

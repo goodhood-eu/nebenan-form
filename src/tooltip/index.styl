@@ -1,0 +1,78 @@
+$tooltipArrowSize = 5px
+
+.c-tooltip
+  position: relative
+  cursor: default
+
+  > em
+    padding: 5px 10px
+
+    display: none
+    position: absolute
+    z-index: 1
+
+    background: $colorDark95
+    border-radius: $borderRadiusM
+
+    font-size: 12px
+    line-height: 16px
+    font-style: normal
+    color: $colorSnow00
+    word-wrap: break-word
+    white-space: pre
+
+    &:after
+      content: ''
+      position: absolute
+      border: $tooltipArrowSize solid transparent
+
+  &:hover em
+    display: block
+
+.c-tooltip-bottom > em
+  margin-top: $tooltipArrowSize + 2px
+  top: 100%
+  left: 50%
+  transform: translateX(-50%)
+
+  &:after
+    bottom: 100%
+    left: 50%
+    transform: translateX(-50%)
+    border-bottom-color: $colorDark95
+
+.c-tooltip-top > em
+  margin-bottom: $tooltipArrowSize + 2px
+  bottom: 100%
+  left: 50%
+  transform: translateX(-50%)
+
+  &:after
+    top: 100%
+    left: 50%
+    transform: translateX(-50%)
+    border-top-color: $colorDark95
+
+.c-tooltip-right > em
+  margin-left: $tooltipArrowSize + 2px
+  top: 50%
+  left: 100%
+  transform: translateY(-50%)
+
+  &:after
+    top: 50%
+    right: 100%
+    transform: translateY(-50%)
+    border-right-color: $colorDark95
+
+.c-tooltip-left > em
+  margin-right: $tooltipArrowSize + 2px
+  top: 50%
+  right: 100%
+  transform: translateY(-50%)
+
+  &:after
+    top: 50%
+    left: 100%
+    transform: translateY(-50%)
+    border-left-color: $colorDark95

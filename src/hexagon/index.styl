@@ -1,0 +1,38 @@
+hexagonBackground($position)
+  background-image: linear-gradient($position, $colorAction70 50%, $colorAction 50%)
+
+.c-hexagon
+  display: inline-block
+  position: relative
+
+.c-hexagon-shape
+  width: 1.732em
+  height: 1em
+  margin: .5em 0
+  display: block
+  position: relative
+  border-radius: .05em/.1em
+  text-align: left
+  background-color: $colorAction
+  hexagonBackground(to right)
+
+  &:before,
+  &:after
+    width: inherit
+    height: inherit
+    absolute: top left
+    content: ''
+    border-radius: .05em/.1em
+    background-color: inherit
+
+  &:before
+    transform: rotate(60deg)
+    hexagonBackground(30deg)
+
+  &:after
+    transform: rotate(-60deg)
+    hexagonBackground(150deg)
+
+.c-hexagon-content
+  blockCenter()
+  color: $colorSnow00

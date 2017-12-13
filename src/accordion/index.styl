@@ -1,0 +1,26 @@
+.c-accordion
+  overflow: hidden
+  background: $colorSnow00
+  box-shadow: $shadowS
+  border-radius: $borderRadiusS
+
+.c-accordion-item
+  border-top: $borderSnow
+  &:first-child
+    border-top: none
+
+  &.is-active .c-accordion-item-title
+    background-color: $colorHighlight45
+
+.c-accordion-item-title
+  padding: 15px
+  cursor: pointer
+  color: $colorDark
+  font-weight: $fontWeightL
+
+  i
+    float: right
+    color: $colorDark70
+
+.c-accordion-item-content
+  padding: 15px

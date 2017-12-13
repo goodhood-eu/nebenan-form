@@ -1,0 +1,37 @@
+.c-progress
+  height: 20px
+  position: relative
+
+  overflow: hidden
+
+  border-radius: $borderRadiusM
+  background: $colorDark20
+
+  color: $colorSnow00
+  font-size: $fontSizeS
+  line-height: @height
+  text-align: right
+
+.c-progress-state
+  height: 100%
+  absolute: top left
+
+  transition: width $transition
+
+  em
+    padding: 0 5px
+    font-style: normal
+
+.c-progress-small
+  height: 10px
+  border-radius: (@height / 2)
+  .c-progress-state
+    textInvisible()
+
+.c-progress-primary
+  .c-progress-state
+    background: $colorAction
+
+.c-progress-secondary
+  .c-progress-state
+    background: $colorBase

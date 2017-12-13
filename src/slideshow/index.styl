@@ -1,0 +1,21 @@
+.c-slideshow
+  overflow-x: hidden
+
+  &.is-animated .c-slideshow-draggable
+    transition: transform $transition
+
+  .c-dots
+    margin-top: 10px
+
+.c-slideshow-draggable
+  display: inline-block
+
+.c-slideshow-list
+  white-space: nowrap
+  cursorDraggable()
+
+  > li
+    padding: 5px
+    display: inline-block
+    vertical-align: top
+    white-space: normal

@@ -1,0 +1,21 @@
+.c-autocomplete
+  .c-context_list
+    display: block
+
+  .c-input-container
+    position: relative
+
+  .c-context_list
+    width: 250px
+    margin-top: 2px
+    display: none
+    overflow: hidden
+    position: absolute
+    z-index: 1
+    pointer-events: auto
+
+    &.is-active
+      max-height: 220px
+      display: block
+      overflow-y: auto
+      -webkit-overflow-scrolling: touch

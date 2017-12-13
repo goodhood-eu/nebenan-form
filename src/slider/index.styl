@@ -1,0 +1,44 @@
+$sliderHeight = 25px
+
+.c-slider-track
+  height: $sliderHeight + 20px // accomodate label that is positioned absolutely
+  margin: 0 20px
+
+  position: relative
+
+  cursor: pointer
+
+.c-slider-line
+  blockFill(100%, 5px)
+  margin-top: 10px
+
+  background: $colorDark20
+  border-radius: $borderRadiusS
+
+.c-slider-handle
+  blockRound($sliderHeight)
+  margin-left: -($sliderHeight / 2)
+
+  position: absolute
+
+  background: $colorAction
+  border: 3px solid $colorSnow00
+  box-shadow: $shadowL
+
+  cursorDraggable()
+
+  .c-slider-error &
+    background: $colorSignal
+
+.c-slider-label
+  margin-top: 5px
+
+  position: absolute
+  top: 100%
+  left: 50%
+
+  transform: translateX(-50%)
+
+  font-style: normal
+  font-size: $fontSizeS
+  white-space: nowrap

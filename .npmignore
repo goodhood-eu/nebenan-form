@@ -1,0 +1,11 @@
+!lib/
+!style.css
+compiled/
+preview/
+test/
+.babelrc
+.eslintignore
+.eslintrc
+.gitignore
+.npmignore
+.stylintrc

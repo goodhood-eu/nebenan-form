@@ -1,0 +1,37 @@
+.c-editable_section.is-empty
+  .c-editable_section-header
+    margin-bottom: 0
+    padding-bottom: 0
+    border-bottom: none
+
+.c-editable_section-header
+  margin-bottom: 15px
+  padding-bottom: 5px
+  overflow: hidden
+  border-bottom: $borderSnow
+
+  h2
+    margin-right: 20px
+    @media $mediaM
+      margin-right: 100px
+
+  .ui-link
+    margin-top: 3px
+    float: right
+
+    span
+      display: none
+
+    i
+      font-size: 14px
+
+    .icon-circle_plus
+      font-size: 20px
+
+  @media $mediaM
+    .ui-link
+      span
+        display: inline
+
+      i
+        margin-left: .6em

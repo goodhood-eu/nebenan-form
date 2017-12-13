@@ -1,0 +1,36 @@
+.c-hamburger_icon
+  $iconSize = 24px
+
+  width: $iconSize
+  height: @width
+  display: inline-block
+  position: relative
+
+  i
+    blockFill(100%, 2px)
+    background: $colorSnow00
+    transition: transform $transition, opacity $transition
+    pointer-events: none
+
+  .c-hamburger_icon-1
+    top: 5px
+    transform-origin: left center
+
+  .c-hamburger_icon-2
+    top: (($iconSize / 2) - 1px)
+
+  .c-hamburger_icon-3
+    top: auto
+    bottom: 5px
+    transform-origin: left center
+
+  &.is-active
+    .c-hamburger_icon-2
+      opacity: 0
+      transform: translateX(-146%)
+
+    .c-hamburger_icon-1
+      transform: translate(3px, -2px) rotateZ(45deg)
+
+    .c-hamburger_icon-3
+      transform: translate(3px, 3px) rotateZ(-45deg)

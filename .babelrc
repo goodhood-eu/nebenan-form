@@ -1,0 +1,12 @@
+{
+  "presets": [
+    ["env", { "useBuiltIns": true }],
+    "stage-3",
+    "react"
+  ],
+  "plugins": [
+    ["transform-runtime", { "polyfill": false, "regenerator": true, "helpers": true }],
+    "transform-node-env-inline",
+    "transform-react-remove-prop-types"
+  ]
+}

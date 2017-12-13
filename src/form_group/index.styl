@@ -1,0 +1,24 @@
+$formGroupSpacing = 15px
+
+.c-form_group-item
+  margin-top: $formGroupSpacing
+
+
+.c-form_group.is-multiple
+  @media $mediaM
+    margin-top: $formGroupSpacing
+    clearfix()
+
+    .c-form_group-item
+      margin-top: 0
+      padding-left: 10px
+      float: left
+
+      &:first-child
+        padding-left: 0
+
+.c-form_group
+  @media $mediaM
+    for $size in (2..4)
+      &.is-size-{$size} .c-form_group-item
+        width: (100% / $size)

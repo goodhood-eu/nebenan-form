@@ -1,0 +1,17 @@
+.c-dots
+  display: block
+  text-align: center
+
+  > li
+    blockRound(15px)
+    margin-left: 10px
+    display: inline-block
+    cursor: pointer
+    background-color: $colorDark20
+    border: 2px solid $colorSnow00
+
+    &.is-active
+      background: $colorAction
+
+    &:first-child
+      margin-left: 0

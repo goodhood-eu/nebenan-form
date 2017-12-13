@@ -1,0 +1,29 @@
+.c-dropzone
+  display: block
+  position: relative
+
+.c-dropzone-overlay
+  blockFill()
+  textCenter()
+
+  display: none
+  z-index: 1
+
+  background: $colorSnow00
+  color: $colorAction
+  border: 2px solid $colorAction
+
+  > span
+    display: none
+
+.c-dropzone.is-active
+  .c-dropzone-overlay
+    display: block
+  .c-dropzone-overlay-text-active
+    display: inline-block
+
+.c-dropzone.is-hover
+  .c-dropzone-overlay-text-active
+    display: none
+  .c-dropzone-overlay-text-hover
+    display: inline-block

@@ -1,0 +1,33 @@
+.c-fancy_select-item
+  margin-top: 3px
+  padding: 5px
+  border: $borderDark
+  border-radius: $borderRadiusM
+  font-weight: $fontWeightL
+  color: $colorDark
+
+  user-select: none
+  cursor: pointer
+  touch-action: manipulation
+  touch-callout: none
+  pointer-events: auto
+
+  @media $mediaM
+    &:hover
+      border-color: $colorAction50
+      background-color: $colorHighlight45
+
+  &.is-active
+    border-color: $colorAction50
+    background-color: $colorHighlight
+
+  i
+    width: 30px
+    height: @width
+    margin-right: 10px
+    display: inline-block
+    vertical-align: middle
+    backgroundFill()
+
+.c-fancy_select.is-error .c-fancy_select-item
+  border-color: $colorSignal

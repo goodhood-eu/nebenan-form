@@ -1,0 +1,32 @@
+.c-info_marker
+  .icon-i
+    width: 32px
+    height: @width
+    blockCenter()
+
+    font-size: 17px
+    text-align: center
+    color: $colorSnow00
+
+    background: $colorAction
+    box-shadow: $shadowS
+    border: 2px solid $colorSnow00
+    border-radius: 50%
+
+    &:before
+      vertical-align: middle
+
+    @media $mediaM
+      width: 55px
+      height: @width
+      font-size: 28px
+
+  &.is-small .icon-i
+    width: 21px
+    height: @width
+    font-size: 10px
+
+    @media $mediaM
+      width: 48px
+      height: @width
+      font-size: 24px

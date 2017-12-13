@@ -1,0 +1,216 @@
+import React, { PureComponent } from 'react';
+import PropTypes from 'prop-types';
+import omit from 'lodash/omit';
+import classNames from 'classnames';
+import { invoke, has } from '../utils';
+import { bindTo } from '../base';
+
+
+class Form extends PureComponent {
+  constructor(props) {
+    super(props);
+    // Fixes weird iteration over object bugs
+    this.inputs = [];
+    this.state = this.getDefaultState();
+
+    bindTo(this,
+      'addInput',
+      'removeInput',
+      'setValues',
+      'setErrors',
+      'setPristine',
+      'updateValidity',
+      'reset',
+      'validate',
+      'submit',
+    );
+  }
+
+  getChildContext() {
+    return {
+      form: {
+        addInput: this.addInput,
+        removeInput: this.removeInput,
+        updateValidity: this.updateValidity,
+      },
+    };
+  }
+
+  getDefaultState() {
+    return {
+      isValid: true,
+    };
+  }
+
+  getModel() {
+    return this.inputs.reduce((acc, Component) => {
+      acc[Component.getName()] = Component.getValue();
+      return acc;
+    }, {});
+  }
+
+  setValues(data = {}) {
+    this.inputs.forEach((Component) => {
+      const name = Component.getName();
+      if (has(data, name)) Component.setValue(data[name]);
+    });
+  }
+
+  setErrors(data = {}) {
+    this.inputs.forEach((Component) => {
+      const name = Component.getName();
+      if (has(data, name)) Component.setError(data[name]);
+    });
+  }
+
+  setPristine(done) {
+    this.inputs.forEach((Component) => Component.setPristine());
+
+    // TODO: check if this hack is still needed
+    let complete;
+    if (done) complete = () => process.nextTick(done);
+
+    this.setState(this.getDefaultState(), complete);
+  }
+
+  addInput(Component) {
+    if (!this.inputs.includes(Component)) this.inputs.push(Component);
+  }
+
+  removeInput(Component) {
+    this.inputs = this.inputs.filter((item) => item !== Component);
+  }
+
+  isDisabled() {
+    return !this.state.isValid || this.props.locked;
+  }
+
+  isValid() {
+    return this.inputs.every((Component) => Component.isValid());
+  }
+
+  isPristine() {
+    return this.inputs.every((Component) => Component.isPristine());
+  }
+
+  updateValidity(done) {
+    this.setState({ isValid: this.isValid() }, done);
+  }
+
+  reset(done) {
+    // a quickhack solution to avoid having to pass down callbacks to each Component.reset()
+    // and then checking when each was called
+    this.inputs.forEach((Component) => Component.reset());
+
+    let complete;
+    if (done) complete = () => process.nextTick(done);
+
+    this.setState(this.getDefaultState(), complete);
+  }
+
+  validate(done) {
+    const promises = this.inputs.map((Component) => Component.validate());
+
+    const success = () => this.setState({ isValid: true }, done);
+    const fail = () => this.setState({ isValid: false }, done);
+
+    const promise = Promise.all(promises);
+    promise.then(success).catch(fail);
+    return promise;
+  }
+
+  submit(event) {
+    if (event) event.preventDefault();
+    if (this.isDisabled()) return;
+    const { onValidSubmit, onInvalidSubmit, onSubmit } = this.props;
+
+    const args = [this.getModel(), this.setErrors, this.setValues];
+
+    const success = () => invoke(onValidSubmit, ...args);
+    const fail = () => invoke(onInvalidSubmit, ...args);
+
+    this.validate().then(success).catch(fail);
+
+    invoke(onSubmit, event);
+  }
+
+  render() {
+    const {
+      formError,
+      buttonClass,
+      buttonText,
+      alternativeAction,
+      children,
+    } = this.props;
+
+    const className = classNames('c-form', this.props.className);
+    const cleanProps = omit(this.props,
+      'children',
+      'onValidSubmit',
+      'onInvalidSubmit',
+      'formError',
+      'buttonText',
+      'buttonClass',
+      'alternativeAction',
+      'locked',
+    );
+
+    let error;
+    if (formError) {
+      error = <strong className="c-form-error ui-error">{formError}</strong>;
+    }
+
+    let button;
+    if (buttonText) {
+      const buttonClassName = buttonClass || 'ui-button ui-button-primary';
+      button = (
+        <button className={buttonClassName} type="submit" disabled={this.isDisabled()}>
+          {buttonText}
+        </button>
+      );
+    }
+
+    let footer;
+    if (button || alternativeAction) {
+      footer = (
+        <div className="c-form-footer ui-controls">
+          {button}
+          {alternativeAction}
+        </div>
+      );
+    }
+
+    return (
+      <form
+        {...cleanProps} className={className}
+        method="post" onSubmit={this.submit} noValidate
+      >
+        {children}
+        {error}
+        {footer}
+      </form>
+    );
+  }
+}
+
+Form.childContextTypes = {
+  form: PropTypes.object,
+};
+
+Form.propTypes = {
+  className: PropTypes.string,
+  formError: PropTypes.node,
+  buttonClass: PropTypes.string,
+  buttonText: PropTypes.node,
+  alternativeAction: PropTypes.node,
+
+  onValidSubmit: PropTypes.func,
+  onInvalidSubmit: PropTypes.func,
+  onSubmit: PropTypes.func,
+
+  locked: PropTypes.bool,
+
+  children: PropTypes.node,
+};
+
+export default Form;

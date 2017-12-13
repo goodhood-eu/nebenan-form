@@ -27,6 +27,7 @@
     "classnames": "^2.2.5",
     "react": "^16.x.x",
     "prop-types": "^15.6.x",
+    "string-validate": "^1.x.x",
     "nib": "^1.1.2",
     "babel-cli": "6.26.0",
     "babel-register": "6.26.0",
@@ -53,6 +54,7 @@
     "lodash": "^4.x.x",
     "classnames": "^2.2.5",
     "react": "^16.x.x",
-    "prop-types": "^15.6.x"
+    "prop-types": "^15.6.x",
+    "string-validate": "^1.x.x"
   }
 }

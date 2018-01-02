@@ -6,5 +6,5 @@ import browserHistory from 'react-router/lib/browserHistory';
 
 import createRouter from './router';
 
-const { routes } = createRouter();
+const routes = createRouter();
 hydrate(<Router history={browserHistory} routes={routes} />, document.getElementById('main'));

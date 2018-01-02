@@ -48,7 +48,7 @@ const renderApp = (req, res, next) => {
     renderPage(props);
   };
 
-  const { routes } = createRouter();
+  const routes = createRouter();
   match({ routes, location: req.url }, matchPage);
 };
 

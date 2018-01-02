@@ -1,3 +1,4 @@
+require('babel-register')({ extensions: ['.es'] });
 const app = require('express')();
 
 const React = require('react');
@@ -6,7 +7,7 @@ const { renderToString } = require('react-dom/server');
 const match = require('react-router/lib/match');
 const RouterContext = require('react-router/lib/RouterContext');
 const createRouter = require('./router').default;
-const Error404 = require('../../client/containers/error_404');
+const Error404 = require('./containers/error404');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 

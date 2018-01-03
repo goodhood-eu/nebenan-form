@@ -15,6 +15,11 @@
     "clean": "rm -rf ./compiled/ ./lib/ style.css || exit 1",
     "build:babel": "NODE_ENV=production babel src --out-dir lib",
     "build:styles": "stylus index.styl -I node_modules -o style.css",
+    "preview:clean": "rm -rf ./preview/public || exit 1",
+    "preview:babel": "mkdir -p ./preview/public && NODE_ENV=production watchify ./preview/app.es -v --extension .es -o ./preview/public/script.js -t [ babelify --extensions .es ]",
+    "preview:styles": "mkdir -p ./preview/public && stylus ./preview/index.styl -I node_modules -w -o ./preview/public/style.css",
+    "preview:server": "nodemon -e js,es --ignore test/ --ignore compiled/ --ignore preview/public/ ./preview/server.js",
+    "preview": "npm run preview:clean && npm run preview:styles & npm run preview:babel & npm run preview:server",
     "prepublishOnly": "npm run clean && npm run build:styles & npm run build:babel",
     "lint": "eslint --ext .es,.js ./",
     "lint:tofile": "eslint --ext .es,.js --no-color -o ./eslint-report.log ./",
@@ -24,6 +29,7 @@
   },
   "devDependencies": {
     "nebenan-ui-kit": "^1.2.1",
+    "normalize.css": "^7.0.0",
     "lodash": "^4.17.4",
     "classnames": "^2.2.5",
     "react": "^16.x.x",
@@ -45,7 +51,10 @@
     "babel-plugin-transform-runtime": "6.23.0",
     "babel-plugin-transform-node-env-inline": "0.2.0",
     "babel-plugin-transform-react-remove-prop-types": "0.4.12",
+    "watchify": "3.9.0",
+    "babelify": "8.0.0",
     "stylus": "0.54.5",
+    "nodemon": "1.14.7",
     "eslint": "4.14.0",
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsx-a11y": "6.0.3",
@@ -63,5 +72,6 @@
     "react": "^16.x.x",
     "prop-types": "^15.6.x",
     "string-validate": "^1.x.x"
-  }
+  },
+  "dependencies": {}
 }

@@ -11,15 +11,22 @@ const Error404 = require('./containers/error404');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 
-const getHTML = (content) => (`
-<!DOCTYPE html>
-<html>
+const getHTML = (content) => (`<!DOCTYPE html>
+<html lang="en-US">
   <head>
-    <meta charset="utf-8">
-    <title>Preview</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Nebenan.de React form components</title>
+    <meta name="viewport" content="initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, width=device-width, shrink-to-fit=no" />
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="MobileOptimized" content="320" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="cleartype" content="on" />
+    <link rel="stylesheet", href="/style.css" />
   </head>
   <body>
     ${content}
+    <script src="/script.js" async></script>
   </body>
 </html>
 `);
@@ -55,7 +62,7 @@ const renderApp = (req, res, next) => {
 app.set('port', port);
 
 app.use(require('morgan')('dev'));
-app.use(require('serve-static')(`${__dirname}/../public`, { redirect: false }));
+app.use(require('serve-static')(`${__dirname}/public`, { redirect: false }));
 
 app.use(renderApp);
 app.get('*', (req, res) => res.send('Unhandled request'));

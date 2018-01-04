@@ -1,2 +1,33 @@
+@require 'nebenan-ui-kit/styles'
+@require '../style.css'
+
+@require './components/*'
+@require './containers/*'
+
+
 html
-  background: red
+  background: $colorSnow
+
+main
+  margin: 10px
+  @media $mediaM
+    margin: 30px 100px
+
+.preview-section
+  margin-top: 30px
+
+  ul
+    overflow: hidden
+
+    li
+      margin-top: 10px
+      display: block
+      @media $mediaM
+        width: 33%
+        float: left
+
+.preview-push
+  margin-top: 30px
+
+.preview-fancy_image
+  background: hotpink

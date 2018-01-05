@@ -7,7 +7,8 @@ import { invoke, bindTo } from '../utils';
 
 import InputComponent from '../base';
 
-const CHECKBOX_CHANGE_RATE = 300;
+import { CHECKBOX_CHANGE_RATE } from '../constants';
+
 
 class Radio extends InputComponent {
   constructor(props) {

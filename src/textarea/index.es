@@ -8,7 +8,7 @@ import { invoke, bindTo } from '../utils';
 
 import TextInputComponent from '../input/base';
 
-const RESIZE_RATE = 300;
+import { RESIZE_RATE } from '../constants';
 
 
 class Textarea extends TextInputComponent {

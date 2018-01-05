@@ -3,7 +3,7 @@ import { invoke, bindTo } from '../utils';
 import { insertString, replaceString } from './utils';
 import InputComponent from '../base';
 
-const ENTER = 13;
+import { ENTER_CHAR_CODE } from '../constants';
 
 
 class TextInputComponent extends InputComponent {
@@ -62,7 +62,7 @@ class TextInputComponent extends InputComponent {
   handleKeyDown(event) {
     const { onShiftEnterKey, onEnterKey, onKeyDown } = this.props;
 
-    if (event.keyCode === ENTER && !event.ctrlKey) {
+    if (event.keyCode === ENTER_CHAR_CODE && !event.ctrlKey) {
       if (event.shiftKey) invoke(onShiftEnterKey, event);
       else invoke(onEnterKey, event);
     }

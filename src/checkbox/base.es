@@ -3,7 +3,7 @@ import throttle from 'lodash/throttle';
 import { invoke } from '../utils';
 import InputComponent from '../base';
 
-export const CHECKBOX_CHANGE_RATE = 300;
+import { CHECKBOX_CHANGE_RATE } from '../constants';
 
 
 class CheckboxInputComponent extends InputComponent {

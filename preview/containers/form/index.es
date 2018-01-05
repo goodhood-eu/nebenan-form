@@ -51,33 +51,30 @@ class FormPreview extends PureComponent {
   }
 
   setError() {
-    this.setState((state) => {
-      let error;
-
-      if (state.error) {
-        error = null;
-      } else {
-        error = 'Unknown server error! Please insert 100EUR into your mouth and press eject.';
-      }
-
-      return { error };
+    this.setState({
+      error: 'Unknown server error! Please insert 100EUR into your mouth and press eject.',
     });
   }
 
-  resetForm() { this.form.reset(); }
+  resetForm() {
+    this.form.reset();
+    this.setState({ error: null });
+  }
 
   render() {
     const buttonText = 'Submit!';
 
     const alternativeAction = (
-      <span>
-        <span className="ui-link" onClick={this.setError}>Abort!</span>
-        <span className="ui-link" onClick={this.resetForm}>Reset</span>
+      <span className="preview-form-actions">
+        <span className="ui-link" onClick={this.setError}>Error</span>
+        <span className="ui-button ui-button-danger ui-button-small" onClick={this.resetForm}>
+          Reset
+        </span>
       </span>
     );
 
     return (
-      <article className="preview-forms">
+      <article className="preview-form">
         <Header>Forms</Header>
 
         <div className="preview-section">

@@ -28,7 +28,7 @@ class Inputs extends PureComponent {
     return (
       <article className="preview-inputs">
         <Header>Inputs</Header>
-        <div className="preview-subsection">
+        <div className="preview-section">
           <ul>
             <li>
               <FancySelect

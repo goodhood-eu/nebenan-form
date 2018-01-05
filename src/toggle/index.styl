@@ -74,11 +74,16 @@
 
         background: $colorSnow00
 
-  input[type='checkbox']:checked + .c-toggle-slide
-    background: $colorOn
+  // @stylint off
+  input[type='checkbox']
+  // @stylint on
+    blockInvisible()
 
-    .c-toggle-state
-      transform: translateX(0)
+    &:checked + .c-toggle-slide
+      background: $colorOn
+
+      .c-toggle-state
+        transform: translateX(0)
 
   &.is-error .c-toggle-container .c-toggle-control .c-toggle-slide
     transition: none

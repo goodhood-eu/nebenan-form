@@ -31,9 +31,13 @@
     background: $colorDark
     display: none
 
-  input[type='radio']:checked + .c-radio-item-state
-    display: block
+  // @stylint off
+  input[type='radio']
+  // @stylint on
+    blockInvisible()
 
+    &:checked + .c-radio-item-state
+      display: block
 
   &.is-error .c-radio-item-control
     border-color: $colorSignal

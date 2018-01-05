@@ -34,8 +34,13 @@
     display: none
     color: $colorDark
 
-  input[type='checkbox']:checked + .c-checkbox-state
-    display: block
+  // @stylint off
+  input[type='checkbox']
+  // @stylint on
+    blockInvisible()
+
+    &:checked + .c-checkbox-state
+      display: block
 
   .ui-label-primary
     margin-left: $size + $padding

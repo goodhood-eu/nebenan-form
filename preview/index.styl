@@ -16,18 +16,13 @@ main
 .preview-section
   margin-top: 30px
 
-  ul
-    overflow: hidden
-
-    li
-      margin-top: 10px
-      display: block
-      @media $mediaM
-        width: 33%
-        float: left
-
-.preview-push
-  margin-top: 30px
-
 .preview-fancy_image
   background: hotpink
+
+[class^='icon-']:before,
+[class*=' icon-']:before
+  width: 1em
+  height: 1em
+  content: ''
+  display: inline-block
+  background: red

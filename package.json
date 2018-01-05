@@ -17,15 +17,15 @@
     "build:styles": "stylus index.styl -I node_modules -o style.css",
     "preview:clean": "npm run clean && rm -rf ./preview/public || exit 1",
     "preview:babel": "mkdir -p ./preview/public && npm run build:babel && NODE_ENV=production watchify ./preview/app.es -v --extension .es -o ./preview/public/script.js -t [ babelify --extensions .es ]",
-    "preview:styles": "mkdir -p ./preview/public && npm run build:styles && stylus ./preview/index.styl -I node_modules -w -o ./preview/public/style.css",
-    "preview:server": "nodemon -e js,es --ignore test/ --ignore lib/ --ignore preview/public/ --ignore node_modules ./preview/server.js",
-    "preview": "npm run preview:clean && npm run preview:styles & npm run preview:babel & npm run preview:server",
+    "preview:styles": "mkdir -p ./preview/public && npm run build:styles && stylus ./preview/index.styl -I node_modules --include-css -w -o ./preview/public/style.css",
+    "preview:server": "nodemon -e js,es --ignore test/ --ignore src/ --ignore preview/public/ --ignore node_modules ./preview/server.js",
+    "watch": "npm run preview:clean && npm run preview:styles & npm run preview:babel",
     "prepublishOnly": "npm run clean && npm run build:styles & npm run build:babel",
     "lint": "eslint --ext .es,.js ./",
     "lint:tofile": "eslint --ext .es,.js --no-color -o ./eslint-report.log ./",
     "test": "env TZ='Europe/Berlin' mocha \"test/**/*.js\"",
     "test:tofile": "mocha --no-colors -R spec \"test/**/*.js\" 2>&1 | tee test-report.log",
-    "start": "npm run preview"
+    "start": "npm run preview:server"
   },
   "devDependencies": {
     "nebenan-ui-kit": "^1.2.1",

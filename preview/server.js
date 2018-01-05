@@ -25,7 +25,7 @@ const getHTML = (content) => (`<!DOCTYPE html>
     <link rel="stylesheet", href="/style.css" />
   </head>
   <body>
-    <main>${content}</main>
+    <main id="main">${content}</main>
     <script src="/script.js" async></script>
   </body>
 </html>

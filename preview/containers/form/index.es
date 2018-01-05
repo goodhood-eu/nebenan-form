@@ -11,10 +11,10 @@ import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
 
-import Form from '../../ui/form';
-import FormGroup from '../../ui/form_group';
+import Form from '../../../lib/form';
+import FormGroup from '../../../lib/form_group';
 
-import content from './sample_data';
+import content from '../../sample_data';
 
 
 const secretValidation = (value) => {
@@ -35,7 +35,7 @@ const secretValidation = (value) => {
   return new Promise(executor);
 };
 
-class SandboxForms extends PureComponent {
+class FormPreview extends PureComponent {
   static handleSubmit() { console.info('model submitted'); }
   static handleValidSubmit(model) { console.info('valid model', model); }
   static handleInvalidSubmit() { console.info('invalid model'); }
@@ -64,7 +64,7 @@ class SandboxForms extends PureComponent {
     });
   }
 
-  resetForm() { this.els.form.reset(); }
+  resetForm() { this.form.reset(); }
 
   render() {
     const buttonText = 'Submit!';
@@ -82,7 +82,7 @@ class SandboxForms extends PureComponent {
 
         <div className="preview-section">
           <Form
-            ref={this.setEl('form')} formError={this.state.error}
+            ref={(el) => { this.form = el; }} formError={this.state.error}
             buttonText={buttonText} alternativeAction={alternativeAction}
             onSubmit={this.constructor.handleSubmit}
             onValidSubmit={this.constructor.handleValidSubmit}
@@ -196,4 +196,4 @@ class SandboxForms extends PureComponent {
   }
 }
 
-export default SandboxForms;
+export default FormPreview;

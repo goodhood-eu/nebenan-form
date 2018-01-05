@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
-import { invoke } from '../utils';
+import { invoke, bindTo } from '../utils';
 import { insertString, replaceString } from './utils';
-import InputComponent, { bindTo } from '../base';
+import InputComponent from '../base';
 
 const ENTER = 13;
 
@@ -69,12 +69,12 @@ class TextInputComponent extends InputComponent {
     invoke(onKeyDown, event);
   }
 
-  insertValue(text, done) {
+  updateValue(updater, done) {
     // Raw value to deal with unicode
     const { value } = this.state;
     const caret = this.getCaretPosition();
 
-    const { result, position } = insertString(value, text, caret);
+    const { result, position } = updater(value, caret);
     const complete = () => {
       this.focus();
       this.setSelection(position);
@@ -85,20 +85,14 @@ class TextInputComponent extends InputComponent {
     return result;
   }
 
+  insertValue(text, done) {
+    const updater = (value, caret) => insertString(value, text, caret);
+    return this.updateValue(updater, done);
+  }
+
   replaceValue(pattern, replacement, done) {
-    // Raw value to deal with unicode
-    const { value } = this.state;
-    const caret = this.getCaretPosition();
-
-    const { result, position } = replaceString(value, pattern, replacement, caret);
-    const complete = () => {
-      this.focus();
-      this.setSelection(position);
-      invoke(done);
-    };
-
-    this.setValue(result, complete);
-    return result;
+    const updater = (value, caret) => replaceString(value, pattern, replacement, caret);
+    return this.updateValue(updater, done);
   }
 }
 

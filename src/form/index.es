@@ -2,8 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import classNames from 'classnames';
-import { invoke, has } from '../utils';
-import { bindTo } from '../base';
+import { bindTo, invoke, has } from '../utils';
 
 
 class Form extends PureComponent {
@@ -66,7 +65,6 @@ class Form extends PureComponent {
   setPristine(done) {
     this.inputs.forEach((Component) => Component.setPristine());
 
-    // TODO: check if this hack is still needed
     let complete;
     if (done) complete = () => process.nextTick(done);
 

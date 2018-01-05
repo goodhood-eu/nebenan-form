@@ -1,0 +1,33 @@
+.c-textarea
+  display: block
+
+  .ui-input
+    box-sizing: padding-box // to allow autogrow avoid calculating borders
+
+  .ui-label
+    margin-bottom: 5px
+    display: block
+    &:empty
+      display: none
+
+.c-textarea_wrap.has-emojis
+  position: relative
+
+  .ui-input
+    padding-right: 35px
+
+  .c-emoji_cloud
+    margin: 10px
+    absolute: right top
+
+  &.has-label .c-emoji_cloud
+    margin-top: 30px
+
+  .c-emoji_suggestions
+    width: 100%
+    margin-bottom: 5px
+    padding: 5px
+
+    position: absolute
+    bottom: 100%
+    left: 0

@@ -5,23 +5,20 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import * as validations from 'string-validate';
-import { invoke } from '../utils';
+import { bindTo, invoke } from '../utils';
 
 
 export const parseValidations = (validationsString) => {
   if (!validationsString) return [];
-  if (typeof validationsString !== 'string') throw new Error('validation must be a string');
+  if (typeof validationsString !== 'string') throw new Error('Validation must be a string');
 
-  const result = [];
-
-  for (const validation of validationsString.split(';')) {
+  return validationsString.split(';').reduce((acc, validation) => {
     const [name, argString] = validation.split(':');
-    if (name === 'isRequired' || name === 'isRegex' || !validations[name]) continue;
+    if (name === 'isRequired' || name === 'isRegex' || !validations[name]) return acc;
     const args = argString ? argString.split(',') : [];
-    result.push((...ownArgs) => validations[name](...ownArgs, ...args.map(JSON.parse)));
-  }
-
-  return result;
+    acc.push((...ownArgs) => validations[name](...ownArgs, ...args.map(JSON.parse)));
+    return acc;
+  }, []);
 };
 
 export const getRegexValidation = (pattern) => {
@@ -29,16 +26,12 @@ export const getRegexValidation = (pattern) => {
   return (value) => validations.isRegex(value, regex);
 };
 
-export const bindTo = (context, ...funcs) => funcs.forEach((func) => {
-  if (context[func]) context[func] = context[func].bind(context);
-});
 
 class InputComponent extends PureComponent {
   constructor(props) {
     super(props);
 
-    bindTo(
-      this,
+    bindTo(this,
       'validate',
       'clearValidationError',
       'setValidationError',
@@ -95,13 +88,14 @@ class InputComponent extends PureComponent {
   }
 
   getInput() {
+    // TODO: update all inputs and remove this check
     return this.refs.input || this.els.input;
   }
 
   getValidation(value) {
     const hasValue = validations.isRequired(value);
 
-    // Prevent validating empty non-required fields, reject early if input required and empty
+    // Prevent validating empty non-required fields, reject early if input is required and empty
     if (!hasValue) {
       if (this.isRequired()) return Promise.reject();
       return Promise.resolve();
@@ -114,7 +108,7 @@ class InputComponent extends PureComponent {
 
     if (this.customValidation) {
       const isValid = this.customValidation(value);
-      // Expect must be some kind of a promise
+      // Expect it to be some kind of a promise
       if (typeof isValid === 'object') return isValid;
       if (!isValid) return Promise.reject();
     }
@@ -222,10 +216,6 @@ class InputComponent extends PureComponent {
     this.setState(updater, done);
   }
 
-  bindToComponent(...methods) {
-    return bindTo(this, ...methods);
-  }
-
   actionChange(action) {
     return (event) => {
       this.setValue(event.target.value);
@@ -249,7 +239,6 @@ class InputComponent extends PureComponent {
 }
 
 InputComponent.contextTypes = {
-  locale: PropTypes.object,
   form: PropTypes.object,
 };
 

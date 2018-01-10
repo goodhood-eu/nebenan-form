@@ -45,7 +45,6 @@ class FancySelect extends InputComponent {
     const className = classNames('c-fancy_select-item', {
       'is-active': index === this.state.index,
     });
-    console.warn(this.props.name, index, this.state.index, index === this.state.index)
 
     const handler = this.handleSelect.bind(this, index);
 

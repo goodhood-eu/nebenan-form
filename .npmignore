@@ -1,6 +1,6 @@
+build/
 !lib/
 !style.css
-compiled/
 preview/
 test/
 .babelrc
@@ -9,3 +9,4 @@ test/
 .gitignore
 .npmignore
 .stylintrc
+gulpfile.js

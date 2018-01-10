@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 
 import Header from '../../components/header';
 
+import Dropzone from '../../../lib/dropzone';
+
 import Input from '../../../lib/input';
 import Textarea from '../../../lib/textarea';
 import Select from '../../../lib/select';
@@ -17,6 +19,7 @@ import content from '../../sample_data';
 class Inputs extends PureComponent {
   static handleUpdate(value) { console.info('Got value:', value); }
   static handleSelect(key, value) { console.info('Got key/value:', key, value); }
+  static handleSelectFile(files) { console.info('Selected:', files); }
 
   render() {
     const radios = [
@@ -28,6 +31,17 @@ class Inputs extends PureComponent {
     return (
       <article className="preview-inputs">
         <Header>Inputs</Header>
+        <div className="preview-section">
+          <Dropzone
+            onSelect={this.constructor.handleSelectFile}
+            labelDrag="Drop files here"
+            labelRelease="Release now"
+          >
+            <p><span>Drop files here</span></p>
+            <p><span>Or here</span></p>
+            <p><span>Or even here!</span></p>
+          </Dropzone>
+        </div>
         <div className="preview-section">
           <ul>
             <li>

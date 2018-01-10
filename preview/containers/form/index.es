@@ -36,10 +36,6 @@ const secretValidation = (value) => {
 };
 
 class FormPreview extends PureComponent {
-  static handleSubmit() { console.info('model submitted'); }
-  static handleValidSubmit(model) { console.info('valid model', model); }
-  static handleInvalidSubmit() { console.info('invalid model'); }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -61,6 +57,18 @@ class FormPreview extends PureComponent {
     this.setState({ error: null });
   }
 
+  handleSubmit() {
+    console.info('model submitted');
+  }
+
+  handleValidSubmit(model) {
+    console.info('valid model', model);
+  }
+
+  handleInvalidSubmit() {
+    console.info('invalid model');
+  }
+
   render() {
     const buttonText = 'Submit!';
 
@@ -75,15 +83,15 @@ class FormPreview extends PureComponent {
 
     return (
       <article className="preview-form">
-        <Header>Forms</Header>
+        <Header>Form</Header>
 
         <div className="preview-section">
           <Form
             ref={(el) => { this.form = el; }} formError={this.state.error}
             buttonText={buttonText} alternativeAction={alternativeAction}
-            onSubmit={this.constructor.handleSubmit}
-            onValidSubmit={this.constructor.handleValidSubmit}
-            onInvalidSubmit={this.constructor.handleInvalidSubmit}
+            onSubmit={this.handleSubmit}
+            onValidSubmit={this.handleValidSubmit}
+            onInvalidSubmit={this.handleInvalidSubmit}
           >
             <FormGroup>
               <FancySelect

@@ -18,7 +18,7 @@ class FancySelect extends InputComponent {
 
   getDefaultState(props) {
     const state = super.getDefaultState(props);
-    if (state.value) state.index = props.options.findIndex(({ value }) => value === state.value);
+    state.index = props.options.findIndex(({ value }) => value === state.value);
     if (state.index === -1) state.value = null;
     return state;
   }
@@ -45,6 +45,7 @@ class FancySelect extends InputComponent {
     const className = classNames('c-fancy_select-item', {
       'is-active': index === this.state.index,
     });
+    console.warn(this.props.name, index, this.state.index, index === this.state.index)
 
     const handler = this.handleSelect.bind(this, index);
 
@@ -62,7 +63,7 @@ class FancySelect extends InputComponent {
       'is-error': hasError,
     });
     const cleanProps = omit(this.props,
-      'label', 'error', 'options', 'children', 'defaultValue', 'onUpdate', 'children',
+      'label', 'error', 'options', 'children', 'defaultValue', 'onUpdate', 'children', 'required',
     );
 
     const { label, options, children } = this.props;

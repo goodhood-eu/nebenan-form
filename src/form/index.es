@@ -124,7 +124,10 @@ class Form extends PureComponent {
 
     const args = [this.getModel(), this.setErrors, this.setValues];
 
-    const success = () => invoke(onValidSubmit, ...args);
+    const success = () => {
+      const complete = () => invoke(onValidSubmit, ...args);
+      this.setPristine(complete);
+    };
     const fail = () => invoke(onInvalidSubmit, ...args);
 
     this.validate().then(success).catch(fail);

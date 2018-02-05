@@ -94,10 +94,6 @@ class Radio extends InputComponent {
 }
 
 Radio.propTypes = {
-
-};
-
-Radio.propTypes = {
   ...InputComponent.propTypes,
 
   className: PropTypes.string,

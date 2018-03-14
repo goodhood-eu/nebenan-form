@@ -34,12 +34,15 @@ class Input extends TextInputComponent {
     const inputClassName = classNames('ui-input', { 'ui-input-error': this.isErrorActive() });
     if (onEnterKey || onShiftEnterKey) cleanProps.onKeyDown = this.handleKeyDown;
 
+    let labelNode;
+    if (label) labelNode = <strong className="ui-label">{label}</strong>;
+
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     return (
       <label className={className}>
-        <strong className="ui-label">{label}</strong>
+        {labelNode}
         <div className="c-input-container">
           <input
             {...cleanProps} ref={this.setEl('input')} className={inputClassName}

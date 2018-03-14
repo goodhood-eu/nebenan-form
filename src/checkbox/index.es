@@ -15,6 +15,9 @@ class Checkbox extends CheckboxInputComponent {
       children,
     } = this.props;
 
+    let labelNode;
+    if (label) labelNode = <strong className="ui-label ui-label-primary">{label}</strong>;
+
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
@@ -46,9 +49,9 @@ class Checkbox extends CheckboxInputComponent {
             />
             <i className="c-checkbox-state icon-checkmark" />
           </span>
-          <strong className="ui-label ui-label-primary">{label}</strong>
+          {labelNode}
+          {children}
         </div>
-        {children}
         {error}
       </label>
     );

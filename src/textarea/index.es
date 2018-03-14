@@ -5,9 +5,7 @@ import debounce from 'lodash/debounce';
 import classNames from 'classnames';
 
 import { invoke, bindTo } from '../utils';
-
 import TextInputComponent from '../input/base';
-
 import { RESIZE_RATE } from '../constants';
 
 
@@ -94,31 +92,34 @@ class Textarea extends TextInputComponent {
       'defaultValue',
     );
 
-    const inputClassName = classNames('ui-input', { 'ui-input-error': this.isErrorActive() });
+    const inputClassName = classNames('ui-input', {
+      'ui-input-error': this.isErrorActive(),
+    });
     if (onEnterKey || onShiftEnterKey) cleanProps.onKeyDown = this.handleKeyDown;
+
+    let labelNode;
+    if (label) labelNode = <strong className="ui-label">{label}</strong>;
 
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     // Needs rows="1" for `auto` height to determine height correctly
     return (
-      <article className={className}>
-        <label>
-          <strong className="ui-label">{label}</strong>
-          <div className="c-textarea-container">
-            <textarea
-              {...cleanProps}
-              ref={this.setEl('input')} className={inputClassName} rows="1"
-              onChange={this.actionChange(onChange)}
-              onFocus={this.actionClearError(onFocus)}
-              onBlur={this.actionValidate(onBlur)}
-              value={this.state.value}
-            />
-          </div>
-          {error}
-        </label>
-        {children}
-      </article>
+      <label className={className}>
+        {labelNode}
+        <div className="c-textarea-container">
+          <textarea
+            {...cleanProps}
+            ref={this.setEl('input')} className={inputClassName} rows="1"
+            onChange={this.actionChange(onChange)}
+            onFocus={this.actionClearError(onFocus)}
+            onBlur={this.actionValidate(onBlur)}
+            value={this.state.value}
+          />
+          {children}
+        </div>
+        {error}
+      </label>
     );
   }
 }

@@ -17,6 +17,11 @@ class Toggle extends CheckboxInputComponent {
       children,
     } = this.props;
 
+    let labelNode;
+    if (label) {
+      labelNode = <strong className="ui-label ui-label-primary c-toggle-label">{label}</strong>;
+    }
+
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
@@ -55,9 +60,9 @@ class Toggle extends CheckboxInputComponent {
               </span>
             </span>
           </span>
-          <strong className="ui-label ui-label-primary c-toggle-label">{label}</strong>
+          {labelNode}
+          {children}
         </div>
-        {children}
         {error}
       </label>
     );

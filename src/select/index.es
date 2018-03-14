@@ -52,30 +52,34 @@ class Select extends InputComponent {
   }
 
   render() {
+    const { options, label, onBlur, children } = this.props;
     const className = classNames('c-select', this.props.className);
     const cleanProps = omit(this.props, 'label', 'error', 'options', 'children', 'defaultValue', 'onUpdate');
     const hasError = this.isErrorActive();
 
     const inputClassName = classNames('ui-input', { 'ui-input-error': hasError });
-    const options = this.props.options.map(this.renderOption);
+    const optionsNode = options.map(this.renderOption);
+
+    let labelNode;
+    if (label) labelNode = <strong className="ui-label">{label}</strong>;
 
     let error;
     if (hasError) error = <em className="ui-error">{this.getError()}</em>;
 
     return (
       <label className={className}>
-        <strong className="ui-label">{this.props.label}</strong>
+        {labelNode}
         <div className="c-select-container">
           <select
             {...cleanProps} ref={this.setEl('input')} className={inputClassName}
             onChange={this.handleChange}
-            onBlur={this.actionValidate(this.props.onBlur)}
+            onBlur={this.actionValidate(onBlur)}
             value={this.state.index}
           >
-            {options}
+            {optionsNode}
           </select>
           <i className="c-select-icon icon-arrow_down" />
-          {this.props.children}
+          {children}
         </div>
         {error}
       </label>

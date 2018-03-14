@@ -67,12 +67,15 @@ class FancySelect extends InputComponent {
 
     const { label, options, children } = this.props;
 
+    let labelNode;
+    if (label) labelNode = <strong className="ui-label">{label}</strong>;
+
     let error;
     if (hasError) error = <em className="ui-error">{this.getError()}</em>;
 
     return (
       <article {...cleanProps} className={className}>
-        <strong className="ui-label">{label}</strong>
+        {labelNode}
         <ul className="c-fancy_select-list">{options.map(this.renderOption)}</ul>
         {children}
         {error}

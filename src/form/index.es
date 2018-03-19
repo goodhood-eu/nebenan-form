@@ -71,6 +71,14 @@ class Form extends PureComponent {
     this.setState(this.getDefaultState(), complete);
   }
 
+  setValid(isValid, done) {
+    const complete = () => {
+      invoke(this.props.onValidityChange, isValid);
+      invoke(done);
+    };
+    this.setState({ isValid }, complete);
+  }
+
   addInput(Component) {
     if (!this.inputs.includes(Component)) this.inputs.push(Component);
   }
@@ -92,7 +100,7 @@ class Form extends PureComponent {
   }
 
   updateValidity(done) {
-    this.setState({ isValid: this.isValid() }, done);
+    this.setValid(this.isValid(), done);
   }
 
   reset(done) {
@@ -109,8 +117,8 @@ class Form extends PureComponent {
   validate(done) {
     const promises = this.inputs.map((Component) => Component.validate());
 
-    const success = () => this.setState({ isValid: true }, done);
-    const fail = () => this.setState({ isValid: false }, done);
+    const success = () => this.setValid(true, done);
+    const fail = () => this.setValid(false, done);
 
     const promise = Promise.all(promises);
     promise.then(success).catch(fail);
@@ -147,6 +155,7 @@ class Form extends PureComponent {
     const className = classNames('c-form', this.props.className);
     const cleanProps = omit(this.props,
       'children',
+      'onValidityChange',
       'onValidSubmit',
       'onInvalidSubmit',
       'formError',
@@ -205,6 +214,7 @@ Form.propTypes = {
   buttonText: PropTypes.node,
   alternativeAction: PropTypes.node,
 
+  onValidityChange: PropTypes.func,
   onValidSubmit: PropTypes.func,
   onInvalidSubmit: PropTypes.func,
   onSubmit: PropTypes.func,

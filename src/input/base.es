@@ -29,7 +29,8 @@ class TextInputComponent extends InputComponent {
   }
 
   getValue() {
-    return this.state.value.trim() || null;
+    const value = this.state.value.trim() || null;
+    return this.props.onGetValue ? this.props.onGetValue(value) : value;
   }
 
   setValue(value, ...args) {
@@ -101,6 +102,7 @@ TextInputComponent.propTypes = {
   onShiftEnterKey: PropTypes.func,
   onEnterKey: PropTypes.func,
   onKeyDown: PropTypes.func,
+  onGetValue: PropTypes.func,
 };
 
 export default TextInputComponent;

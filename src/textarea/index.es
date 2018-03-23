@@ -29,11 +29,6 @@ class Textarea extends TextInputComponent {
     super.componentWillUnmount();
   }
 
-  getValue() {
-    const { value } = this.state;
-    return this.props.onGetValue ? this.props.onGetValue(value) : value;
-  }
-
   // https://maximilianhoffmann.com/posts/autoresizing-textareas
   updateHeight() {
     // has to go first, to make scrollHeight recalculate
@@ -125,35 +120,17 @@ class Textarea extends TextInputComponent {
 }
 
 Textarea.propTypes = {
+  ...TextInputComponent.propTypes,
+
   className: PropTypes.string,
   children: PropTypes.node,
+  label: PropTypes.node,
 
   onUpdateHeight: PropTypes.func,
-  onGetValue: PropTypes.func,
 
-  onKeyDown: PropTypes.func,
-  onEnterKey: PropTypes.func,
-  onShiftEnterKey: PropTypes.func,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
-
-  label: PropTypes.node,
   onBlur: PropTypes.func,
-
-  validate: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]),
-
-  required: PropTypes.bool,
-  pattern: PropTypes.string,
-  defaultValue: PropTypes.any,
-
-  error: PropTypes.string,
-  name: PropTypes.string,
-
-  onUpdate: PropTypes.func,
-  onError: PropTypes.func,
 };
 
 export default Textarea;

@@ -27,6 +27,7 @@ class Input extends TextInputComponent {
       'onUpdate',
       'onEnterKey',
       'onShiftEnterKey',
+      'onGetValue',
       'defaultValue',
       'validate',
     );

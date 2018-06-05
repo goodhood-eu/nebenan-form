@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
-  "version": "2.2.2",
+  "version": "2.2.3",
   "engines": {
     "node": "^8.x.x"
   },

@@ -51,7 +51,7 @@
     "lodash": "^4.x.x",
     "mocha": "5.2.0",
     "morgan": "1.9.0",
-    "nebenan-ui-kit": "^2.1.0",
+    "nebenan-ui-kit": "^2.x.x",
     "nib": "^1.1.2",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.x",

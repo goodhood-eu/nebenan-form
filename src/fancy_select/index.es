@@ -89,25 +89,11 @@ FancySelect.defaultProps = {
 };
 
 FancySelect.propTypes = {
+  ...InputComponent.propTypes,
   className: PropTypes.string,
   children: PropTypes.node,
 
   options: PropTypes.array.isRequired,
-
-  validate: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]),
-
-  required: PropTypes.bool,
-  pattern: PropTypes.string,
-  defaultValue: PropTypes.any,
-
-  error: PropTypes.string,
-  name: PropTypes.string,
-
-  onUpdate: PropTypes.func,
-  onError: PropTypes.func,
 };
 
 export default FancySelect;

@@ -88,6 +88,7 @@ class Select extends InputComponent {
 }
 
 Select.propTypes = {
+  ...InputComponent.propTypes,
   className: PropTypes.string,
   children: PropTypes.node,
 
@@ -95,21 +96,6 @@ Select.propTypes = {
 
   label: PropTypes.node,
   onBlur: PropTypes.func,
-
-  validate: PropTypes.oneOfType([
-    PropTypes.func,
-    PropTypes.string,
-  ]),
-
-  required: PropTypes.bool,
-  pattern: PropTypes.string,
-  defaultValue: PropTypes.any,
-
-  error: PropTypes.string,
-  name: PropTypes.string,
-
-  onUpdate: PropTypes.func,
-  onError: PropTypes.func,
 };
 
 export default Select;

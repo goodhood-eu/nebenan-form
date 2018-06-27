@@ -8,7 +8,6 @@ const STYLE_OUTPUT_FOLDER = `${__dirname}/../`;
 const STYLE_FILE = 'style.css';
 
 const stylusOptions = {
-  use: [require('nib')()],
   paths: [
     `${__dirname}/../client`,
     `${__dirname}/../node_modules`,
@@ -31,6 +30,10 @@ gulp.task('compile:babel', () => (
 gulp.task('compile:styles', () => (
   gulp.src(STYLE_SOURCE)
     .pipe(require('gulp-stylus')(stylusOptions))
+    .pipe(require('gulp-postcss')([
+      require('autoprefixer')(),
+      require('postcss-flexbugs-fixes'),
+    ]))
     .pipe(require('gulp-rename')(STYLE_FILE))
     .pipe(gulp.dest(STYLE_OUTPUT_FOLDER))
 ));

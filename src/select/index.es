@@ -54,7 +54,9 @@ class Select extends InputComponent {
   render() {
     const { options, label, onBlur, children } = this.props;
     const className = classNames('c-select', this.props.className);
-    const cleanProps = omit(this.props, 'label', 'error', 'options', 'children', 'defaultValue', 'onUpdate');
+    const cleanProps = omit(
+      this.props, 'label', 'error', 'options', 'validate', 'children', 'defaultValue', 'onUpdate',
+    );
     const hasError = this.isErrorActive();
 
     const inputClassName = classNames('ui-input', { 'ui-input-error': hasError });

@@ -40,6 +40,12 @@ class Select extends InputComponent {
     this.setState(updater, complete);
   }
 
+  setPristine(done) {
+    if (!this.isComponentMounted) return;
+    const updater = (state, props) => omit(this.getDefaultState(props), 'index', 'value');
+    this.setState(updater, done);
+  }
+
   handleChange(event) {
     const index = parseInt(event.target.value, 10);
     const { value } = getOption(this.props.options[index]);

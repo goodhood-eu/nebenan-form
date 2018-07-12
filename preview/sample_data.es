@@ -18,10 +18,19 @@ export default {
 
   optionValues: [
     { imageClass: 'preview-fancy_image', key: 'Eins', value: 1 },
-    { imageClass: 'preview-fancy_image', key: 'Zwei', value: 2 },
+    { imageClass: 'preview-fancy_image', key: 'Zwei', value: false },
     { imageClass: 'preview-fancy_image', key: 'Drei', value: 3 },
-    { imageClass: 'preview-fancy_image', key: 'Vier', value: 4 },
+    { imageClass: 'preview-fancy_image', key: 'Vier', value: null },
     { imageClass: 'preview-fancy_image', key: 'Fünf', value: 5 },
-    { imageClass: 'preview-fancy_image', key: 'Sechs', value: 6 },
+    { imageClass: 'preview-fancy_image', key: 'Sechs', value: true },
+  ],
+
+  optionFancyValues: [
+    { key: 'Eins', value: null, children: 'I is a random content 1' },
+    { key: 'Zwei', value: 2, children: 'I is a random content 2' },
+    { key: 'Drei', value: ['kek!'], children: 'I is a random content triangle' },
+    { key: 'Vier', value: 4, children: 'I is a random content orange' },
+    { key: 'Fünf', value: false, children: 'I is a random content moist' },
+    { key: 'Sechs', value: 6, children: 'I is a random content 17/2' },
   ],
 };

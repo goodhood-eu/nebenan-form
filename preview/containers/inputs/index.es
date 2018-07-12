@@ -57,6 +57,13 @@ class Inputs extends PureComponent {
                 defaultValue={content.optionValues[3].value}
               />
             </li>
+            <li>
+              <FancySelect
+                onUpdate={this.constructor.handleUpdate}
+                options={content.optionFancyValues}
+                deselectable
+              />
+            </li>
           </ul>
           <ul>
             <li>

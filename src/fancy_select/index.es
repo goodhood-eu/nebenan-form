@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 
-import { bindTo } from '../utils';
+import { bindTo, has } from '../utils';
 
 import InputComponent from '../base';
 
@@ -18,8 +18,17 @@ class FancySelect extends InputComponent {
 
   getDefaultState(props) {
     const state = super.getDefaultState(props);
-    state.index = props.options.findIndex(({ value }) => value === state.value);
-    if (state.index === -1) state.value = null;
+    const hasValue = has(state, 'value');
+
+    if (hasValue) {
+      state.index = props.options.findIndex(({ value }) => value === state.value);
+    }
+
+    if ((state.index === -1 || !hasValue) && !props.deselectable) {
+      state.index = 0;
+      state.value = props.options[state.index].value;
+    }
+
     return state;
   }
 
@@ -36,36 +45,42 @@ class FancySelect extends InputComponent {
   }
 
   handleSelect(index) {
-    let { value } = this.props.options[index];
-    if (this.state.value === value) value = null;
+    const { options, deselectable } = this.props;
+    let { value } = options[index];
+
+    if (this.state.value === value) {
+      if (deselectable) value = this.getDefaultState(this.props).value;
+      else return;
+    }
+
     this.setValue(value, this.validate);
   }
 
-  renderOption({ key, imageClass }, index) {
+  renderOption({ key, imageClass, children }, index) {
     const className = classNames('c-fancy_select-item', {
       'is-active': index === this.state.index,
     });
 
     const handler = this.handleSelect.bind(this, index);
+    const content = children || key;
 
-    return (
-      <li key={key} className={className} onClick={handler}>
-        <i className={imageClass} />
-        {key}
-      </li>
-    );
+    let icon;
+    if (imageClass) icon = <i className={imageClass} />;
+
+    return <li key={key} className={className} onClick={handler}>{icon}{content}</li>;
   }
 
   render() {
     const hasError = this.isErrorActive();
+    const { label, options, deselectable, children } = this.props;
+
     const className = classNames('c-fancy_select', this.props.className, {
       'is-error': hasError,
+      'is-not-deselectable': !deselectable,
     });
     const cleanProps = omit(this.props,
       'label', 'error', 'options', 'children', 'defaultValue', 'onUpdate', 'children', 'required',
     );
-
-    const { label, options, children } = this.props;
 
     let labelNode;
     if (label) labelNode = <strong className="ui-label">{label}</strong>;
@@ -86,6 +101,7 @@ class FancySelect extends InputComponent {
 
 FancySelect.defaultProps = {
   options: [],
+  deselectable: false,
 };
 
 FancySelect.propTypes = {
@@ -94,6 +110,7 @@ FancySelect.propTypes = {
   children: PropTypes.node,
 
   options: PropTypes.array.isRequired,
+  deselectable: PropTypes.bool.isRequired,
 };
 
 export default FancySelect;

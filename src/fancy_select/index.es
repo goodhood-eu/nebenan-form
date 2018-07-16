@@ -79,7 +79,8 @@ class FancySelect extends InputComponent {
       'is-not-deselectable': !deselectable,
     });
     const cleanProps = omit(this.props,
-      'label', 'error', 'options', 'children', 'defaultValue', 'onUpdate', 'children', 'required',
+      'label', 'error', 'options', 'deselectable',
+      'children', 'defaultValue', 'onUpdate', 'children', 'required',
     );
 
     let labelNode;

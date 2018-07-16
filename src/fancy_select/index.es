@@ -49,7 +49,7 @@ class FancySelect extends InputComponent {
     let { value } = options[index];
 
     if (this.state.value === value) {
-      if (deselectable) value = this.getDefaultState(this.props).value;
+      if (deselectable) value = undefined;
       else return;
     }
 

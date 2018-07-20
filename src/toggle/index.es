@@ -44,7 +44,7 @@ class Toggle extends CheckboxInputComponent {
 
     return (
       <label className={className}>
-        <div className="c-toggle-container" >
+        <div className="c-toggle-container">
           <span className="c-toggle-control">
             <input
               {...cleanProps} ref={this.setEl('input')}

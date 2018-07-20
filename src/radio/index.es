@@ -53,7 +53,7 @@ class Radio extends InputComponent {
 
     return (
       <label key={option.value} className={className}>
-        <div className="c-radio-item-container" >
+        <div className="c-radio-item-container">
           <span className="c-radio-item-control">
             <input
               {...cleanProps} ref={this.setEl('input')}

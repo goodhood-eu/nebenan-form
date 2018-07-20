@@ -44,6 +44,12 @@ class FancySelect extends InputComponent {
     this.setState(updater, complete);
   }
 
+  setPristine(done) {
+    if (!this.isComponentMounted) return;
+    const updater = (state, props) => omit(this.getDefaultState(props), 'index', 'value');
+    this.setState(updater, done);
+  }
+
   handleSelect(index) {
     const { options, deselectable } = this.props;
     let { value } = options[index];

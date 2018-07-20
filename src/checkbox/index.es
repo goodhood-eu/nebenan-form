@@ -39,7 +39,7 @@ class Checkbox extends CheckboxInputComponent {
 
     return (
       <label className={className}>
-        <div className="c-checkbox-container" >
+        <div className="c-checkbox-container">
           <span className="c-checkbox-control">
             <input
               {...cleanProps} ref={this.setEl('input')}

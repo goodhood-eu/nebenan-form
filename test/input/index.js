@@ -29,19 +29,23 @@ describe('<Input />', () => {
   it('validates on blur', (done) => {
     const props = {
       required: true,
-      error: 'error message',
+      error: 'Error',
     };
 
     const wrapper = mount(React.createElement(Input, props));
+    assert.equal(wrapper.find('.ui-error').length, 0, 'message is hidden');
 
     wrapper.find('input').simulate('blur');
 
-    // Wait for state update
-    process.nextTick(() => {
-      if (wrapper.instance().getError() === 'error message') done();
-      else done('Validation was not triggered');
+    const check = () => {
+      assert.equal(wrapper.instance().getError(), 'Error', 'validation was triggered');
+
+      done();
       wrapper.unmount();
-    });
+    };
+
+    // Wait validation promises
+    process.nextTick(check);
   });
 
   it('clears error on focus', () => {
@@ -52,5 +56,7 @@ describe('<Input />', () => {
 
     wrapper.find('input').simulate('focus');
     assert.equal(wrapper.instance().getError(), null, 'error was cleared');
+
+    wrapper.unmount();
   });
 });

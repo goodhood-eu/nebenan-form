@@ -33,9 +33,6 @@ describe('<Input />', () => {
     };
 
     const wrapper = mount(React.createElement(Input, props));
-    assert.equal(wrapper.find('.ui-error').length, 0, 'message is hidden');
-
-    wrapper.find('input').simulate('blur');
 
     const check = () => {
       assert.equal(wrapper.instance().getError(), 'Error', 'validation was triggered');
@@ -44,6 +41,7 @@ describe('<Input />', () => {
       wrapper.unmount();
     };
 
+    wrapper.find('input').simulate('blur');
     // Wait validation promises
     process.nextTick(check);
   });

@@ -1,5 +1,5 @@
-import { assert } from 'chai';
-import inputUtils from '../../lib/input/utils';
+const { assert } = require('chai');
+const inputUtils = require('../../lib/input/utils');
 
 
 const PILE_OF_POO = '💩';

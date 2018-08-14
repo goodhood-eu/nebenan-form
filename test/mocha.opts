@@ -4,3 +4,5 @@
 --ui bdd
 --reporter nyan
 --timeout 2000
+--file ./test/setup
+--require babel-register

@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import {
   getOption,
   findIndex,
-} from 'nebenan-form/lib/select/utils';
+} from '../../lib/select/utils';
 
 
 describe('ui/select/utils', () => {

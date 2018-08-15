@@ -126,6 +126,24 @@ describe('Base', () => {
     assert.equal(doneFake.callCount, 1, 'callback was called');
   });
 
+  it('setPristine', () => {
+    const instance = shallow(createElement(Child)).instance();
+    instance.setValue('value');
+    instance.setError('Error');
+
+    assert.equal(instance.getValue(), 'value', 'value was updated');
+    assert.isFalse(instance.isPristine(), 'not pristine');
+    assert.isFalse(instance.isValid(), 'not valid');
+    assert.equal(instance.getError(), 'Error', 'with error');
+
+    instance.setPristine();
+
+    assert.equal(instance.getValue(), 'value', 'value is same');
+    assert.isTrue(instance.isPristine(), 'pristine');
+    assert.isTrue(instance.isValid(), 'valid');
+    assert.equal(instance.getError(), null, 'no error');
+  });
+
   it('actionChange', () => {
     const callback = fake();
     const instance = shallow(createElement(Child)).instance();

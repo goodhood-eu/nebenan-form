@@ -1,4 +1,4 @@
-const React = require('react');
+const { createElement } = require('react');
 const { assert } = require('chai');
 const { mount } = require('enzyme');
 
@@ -8,14 +8,14 @@ const Input = require('../../lib/input').default;
 
 describe('<Input />', () => {
   it('renders input tag', () => {
-    const wrapper = mount(React.createElement(Input));
+    const wrapper = mount(createElement(Input));
     assert.equal(wrapper.find('input[type="text"]').length, 1, 'tag was rendered');
 
     wrapper.unmount();
   });
 
   it('updates value on change', () => {
-    const wrapper = mount(React.createElement(Input));
+    const wrapper = mount(createElement(Input));
     const event = { target: { value: 'newValue' } };
 
     wrapper.find('input').simulate('change', event);
@@ -32,7 +32,7 @@ describe('<Input />', () => {
       error: 'Error',
     };
 
-    const wrapper = mount(React.createElement(Input, props));
+    const wrapper = mount(createElement(Input, props));
 
     const check = () => {
       assert.equal(wrapper.instance().getError(), 'Error', 'validation was triggered');
@@ -47,7 +47,7 @@ describe('<Input />', () => {
   });
 
   it('clears error on focus', () => {
-    const wrapper = mount(React.createElement(Input));
+    const wrapper = mount(createElement(Input));
 
     wrapper.instance().setError('Error');
     assert.equal(wrapper.instance().getError(), 'Error', 'error is set');

@@ -1,10 +1,11 @@
-const React = require('react');
+const { createElement } = require('react');
 const { assert } = require('chai');
-const { shallow } = require('enzyme');
+const { shallow, mount } = require('enzyme');
 const { fake } = require('sinon');
 
 
 const Base = require('../../lib/base').default;
+const Form = require('../../lib/form').default;
 
 
 class Child extends Base {
@@ -12,6 +13,40 @@ class Child extends Base {
 }
 
 describe('Base', () => {
+  it('isConnected', () => {
+    const props = { name: 'name' };
+
+    const withForm = mount(
+      createElement(Form, null,
+        createElement(Child, props),
+      ),
+    );
+
+    const noName = mount(
+      createElement(Form, null,
+        createElement(Child),
+      ),
+    );
+
+    const noForm = mount(
+      createElement(Child, props),
+    );
+
+    const noFormNoName = mount(
+      createElement(Child),
+    );
+
+    assert.isTrue(withForm.find(Child).instance().isConnected(), 'connected if with name and in form');
+    assert.isFalse(noName.find(Child).instance().isConnected(), 'not connected if no name but in form');
+    assert.isFalse(noForm.instance().isConnected(), 'not connected if with name but not in form');
+    assert.isFalse(noFormNoName.instance().isConnected(), 'not connected if no name and not in form');
+
+    withForm.unmount();
+    noName.unmount();
+    noForm.unmount();
+    noFormNoName.unmount();
+  });
+
   it('getValidations', () => {
     const noValidation = Base.prototype.getValidations({});
 
@@ -48,7 +83,7 @@ describe('Base', () => {
       validate: (value) => value.length === 5,
     };
 
-    const instance = shallow(React.createElement(Child, props)).instance();
+    const instance = shallow(createElement(Child, props)).instance();
 
     return Promise.all([
       assert.isRejected(instance.getValidation(), null, null, 'no value'),
@@ -64,7 +99,7 @@ describe('Base', () => {
     };
 
     const doneFake = fake();
-    const instance = shallow(React.createElement(Child, props)).instance();
+    const instance = shallow(createElement(Child, props)).instance();
 
     instance.setValue('value', doneFake);
     assert.equal(instance.getValue(), 'value', 'value was updated');
@@ -83,7 +118,7 @@ describe('Base', () => {
     };
 
     const doneFake = fake();
-    const instance = shallow(React.createElement(Child, props)).instance();
+    const instance = shallow(createElement(Child, props)).instance();
 
     instance.setError('Error', doneFake);
     assert.equal(instance.getError(), 'Error', 'error was set');
@@ -93,7 +128,7 @@ describe('Base', () => {
 
   it('actionChange', () => {
     const callback = fake();
-    const instance = shallow(React.createElement(Child)).instance();
+    const instance = shallow(createElement(Child)).instance();
     const action = instance.actionChange(callback);
 
     action({ target: { value: 'value' } });
@@ -104,7 +139,7 @@ describe('Base', () => {
 
   it('actionClearError', () => {
     const callback = fake();
-    const instance = shallow(React.createElement(Child)).instance();
+    const instance = shallow(createElement(Child)).instance();
     const action = instance.actionClearError(callback);
 
     action();
@@ -116,7 +151,7 @@ describe('Base', () => {
   it('actionValidate', (done) => {
     const callback = fake();
     const props = { required: true, error: 'Error' };
-    const instance = shallow(React.createElement(Child, props)).instance();
+    const instance = shallow(createElement(Child, props)).instance();
     const action = instance.actionValidate(callback);
 
 

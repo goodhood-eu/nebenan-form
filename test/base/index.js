@@ -13,6 +13,15 @@ class Child extends Base {
 }
 
 describe('Base', () => {
+  it('prop:defaultValue', () => {
+    const props = { defaultValue: 'captain' };
+    const instance = shallow(createElement(Child, props)).instance();
+    const noDefaultValue = shallow(createElement(Child)).instance();
+
+    assert.equal(noDefaultValue.getValue(), null, 'null by default');
+    assert.equal(instance.getValue(), 'captain', 'default value is set');
+  });
+
   it('isConnected', () => {
     const props = { name: 'name' };
 

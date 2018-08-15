@@ -1,8 +1,11 @@
 const enzyme = require('enzyme');
 const Adapter = require('enzyme-adapter-react-16');
 const { JSDOM } = require('jsdom');
+const chai = require('chai');
+const chaiAsPromised = require('chai-as-promised');
 
 
+chai.use(chaiAsPromised);
 enzyme.configure({ adapter: new Adapter() });
 
 const jsdom = new JSDOM('<!doctype html><html><body></body></html>');

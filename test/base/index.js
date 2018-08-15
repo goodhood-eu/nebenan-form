@@ -154,7 +154,8 @@ describe('Base', () => {
   });
 
   it('reset', () => {
-    const instance = shallow(createElement(Child)).instance();
+    const props = { defaultValue: 'messi' };
+    const instance = shallow(createElement(Child, props)).instance();
     instance.setValue('value');
     instance.setError('Error');
 
@@ -165,7 +166,7 @@ describe('Base', () => {
 
     instance.reset();
 
-    assert.deepEqual(instance.state, instance.getDefaultState({}), 'state is default');
+    assert.deepEqual(instance.state, instance.getDefaultState(props), 'state is default');
   });
 
   it('actionChange', () => {

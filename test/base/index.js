@@ -144,6 +144,21 @@ describe('Base', () => {
     assert.equal(instance.getError(), null, 'no error');
   });
 
+  it('reset', () => {
+    const instance = shallow(createElement(Child)).instance();
+    instance.setValue('value');
+    instance.setError('Error');
+
+    assert.equal(instance.getValue(), 'value', 'value was updated');
+    assert.isFalse(instance.isPristine(), 'not pristine');
+    assert.isFalse(instance.isValid(), 'not valid');
+    assert.equal(instance.getError(), 'Error', 'with error');
+
+    instance.reset();
+
+    assert.deepEqual(instance.state, instance.getDefaultState({}), 'state is default');
+  });
+
   it('actionChange', () => {
     const callback = fake();
     const instance = shallow(createElement(Child)).instance();

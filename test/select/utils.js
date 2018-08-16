@@ -1,9 +1,9 @@
-import { assert } from 'chai';
+const { assert } = require('chai');
 
-import {
+const {
   getOption,
   findIndex,
-} from 'nebenan-form/lib/select/utils';
+} = require('../../lib/select/utils');
 
 
 describe('ui/select/utils', () => {

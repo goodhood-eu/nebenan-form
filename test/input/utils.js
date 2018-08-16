@@ -1,6 +1,7 @@
 const { assert } = require('chai');
 const inputUtils = require('../../lib/input/utils');
 
+
 const PILE_OF_POO = '💩';
 
 const replacable = '[woop]';

@@ -1,24 +1,25 @@
 const { createElement } = require('react');
 const { assert } = require('chai');
-const { shallow, mount } = require('enzyme');
+const { mount } = require('enzyme');
 const { fake } = require('sinon');
 
-const BaseCheckbox = require('../../lib/input/base').default;
+const CheckboxInputComponent = require('../../lib/checkbox/base').default;
 
-class Child extends BaseCheckbox {
+class Child extends CheckboxInputComponent {
   render() {
     return createElement('input', {
       ref: this.setEl('input'),
       type: 'checkbox',
-      value: Boolean(this.state.value),
+      value: this.state.value,
     });
   }
 }
 
-describe('BaseCheckbox', () => {
-  it('getDefaultState', () => {
-    const wrapper = mount(createElement(Child));
-    assert.typeOf(wrapper.instance().state.value, 'boolean', 'default value type is boolean');
+describe('CheckboxInputComponent', () => {
+  it('defaultValue', () => {
+    const props = { defaultChecked: true };
+    const wrapper = mount(createElement(Child, props));
+    assert.isTrue(wrapper.instance().state.value, 'default value is set');
 
     wrapper.unmount();
   });
@@ -26,20 +27,23 @@ describe('BaseCheckbox', () => {
   it('setValue', () => {
     const wrapper = mount(createElement(Child));
     wrapper.instance().setValue(null);
-    assert.equal(wrapper.instance().state.value, false, 'set false if no value');
+    assert.isFalse(wrapper.instance().state.value, 'set false if no value');
 
     wrapper.unmount();
   });
 
   it('actionChange', () => {
     const callback = fake();
-    const func = fake();
-    const instance = shallow(createElement(Child)).instance();
+    const wrapper = mount(createElement(Child));
+    const instance = wrapper.instance();
+
     const action = instance.actionChange(callback);
 
-    action({ target: { checked: 'true' } }, func);
+    action({ target: { checked: true } });
 
-    assert.equal(instance.state.value, 'true', 'checkbox was checked');
+    assert.isTrue(instance.getValue(), 'value was changed');
     assert.equal(callback.callCount, 1, 'callback was called');
+
+    wrapper.unmount();
   });
 });

@@ -5,6 +5,17 @@ const { fake } = require('sinon');
 
 const Radio = require('../../lib/radio').default;
 
+class Child extends Radio {
+  render() {
+    return createElement('input', {
+      ref: this.setEl('input'),
+      type: 'radio',
+      value: this.state.value,
+    });
+  }
+}
+
+
 describe('<Radio />', () => {
   let wrapper;
 
@@ -29,7 +40,7 @@ describe('<Radio />', () => {
           { label: 'Two', value: 2 },
         ],
       };
-      wrapper = shallow(createElement(Radio, props));
+      wrapper = shallow(createElement(Child, props));
       assert.equal(wrapper.instance().state.value, null, 'default value is null');
     });
 
@@ -41,7 +52,7 @@ describe('<Radio />', () => {
         ],
       };
       const callback = fake();
-      wrapper = shallow(createElement(Radio, props));
+      wrapper = shallow(createElement(Child, props));
       const action = wrapper.instance().actionChange(callback);
 
       action({ target: { value: props.options[1].value } });

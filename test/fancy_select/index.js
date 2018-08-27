@@ -4,16 +4,6 @@ const { mount, shallow } = require('enzyme');
 
 const FancySelect = require('../../lib/fancy_select').default;
 
-class Child extends FancySelect {
-  render() {
-    return createElement('input', {
-      ref: this.setEl('input'),
-      type: 'text',
-      value: this.state.value,
-    });
-  }
-}
-
 
 describe('<FancySelect />', () => {
   it('renders FancySelect', () => {
@@ -26,14 +16,24 @@ describe('<FancySelect />', () => {
     };
     const wrapper = mount(createElement(FancySelect, props));
     assert.equal(wrapper.find('ul .c-fancy_select-list').length, 1, 'FancySelect was rendered');
+    assert.equal(wrapper.find('li .c-fancy_select-item').length, 2, 'two options were rendered');
+    assert.equal(wrapper.instance().state.index, 0, 'index is 0');
+
+    wrapper.find('li .c-fancy_select-item').last().simulate('click');
+
+    assert.equal(wrapper.instance().state.value, 2, 'value was changed');
+    assert.equal(wrapper.instance().state.index, 1, 'index was changed');
+    assert.isTrue(
+      wrapper.find('li .c-fancy_select-item').last().hasClass('is-active'),
+      'active option has active class',
+    );
 
     wrapper.unmount();
   });
 });
 
-describe('FancySelect', () => {
-  let wrapper;
 
+describe('FancySelect', () => {
   it('defaultValue', () => {
     const props = {
       defaultValue: 1,
@@ -42,8 +42,9 @@ describe('FancySelect', () => {
         { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 2 },
       ],
     };
-    wrapper = shallow(createElement(Child, props));
+    const wrapper = shallow(createElement(FancySelect, props));
     assert.equal(wrapper.instance().state.value, 555, 'default value is 555');
+    assert.equal(wrapper.instance().state.index, 0, 'index is 0');
   });
 
   it('setValue', () => {
@@ -51,13 +52,14 @@ describe('FancySelect', () => {
       defaultValue: 1,
       options: [
         { imageClass: 'c-sandbox-fancy_image_1', key: 'Eins', value: 1 },
-        { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 2 },
+        { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 222 },
       ],
     };
-    wrapper = shallow(createElement(Child, props));
+    const wrapper = shallow(createElement(FancySelect, props));
 
-    wrapper.instance().setValue('value');
-    assert.equal(wrapper.instance().state.value, 'value', 'set value');
+    wrapper.instance().setValue(props.options[1].value);
+    assert.equal(wrapper.instance().state.value, 222, 'set value');
+    assert.equal(wrapper.instance().state.index, 1, 'index is 1');
   });
 
   it('setPristine', () => {
@@ -68,16 +70,18 @@ describe('FancySelect', () => {
         { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 2 },
       ],
     };
-    wrapper = shallow(createElement(Child, props));
+    const wrapper = shallow(createElement(FancySelect, props));
     const instance = wrapper.instance();
     instance.setValue('value');
 
     assert.equal(instance.getValue(), 'value', 'value was updated');
+    assert.equal(instance.state.index, -1, 'index is -1');
     assert.isFalse(instance.isPristine(), 'not pristine');
 
     instance.setPristine();
 
     assert.equal(instance.getValue(), 'value', 'value is same');
+    assert.equal(instance.state.index, -1, 'index is the same');
     assert.isTrue(instance.isPristine(), 'pristine');
   });
 
@@ -90,7 +94,7 @@ describe('FancySelect', () => {
       ],
       deselectable: true,
     };
-    wrapper = shallow(createElement(Child, props));
+    const wrapper = shallow(createElement(FancySelect, props));
 
     wrapper.instance().handleSelect(1);
     assert.equal(wrapper.instance().state.value, undefined, 'deselectable value is undefined');

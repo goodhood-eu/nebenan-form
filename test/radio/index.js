@@ -5,60 +5,48 @@ const { fake } = require('sinon');
 
 const Radio = require('../../lib/radio').default;
 
-class Child extends Radio {
-  render() {
-    return createElement('input', {
-      ref: this.setEl('input'),
-      type: 'radio',
-      value: this.state.value,
-    });
-  }
-}
-
 
 describe('<Radio />', () => {
-  let wrapper;
-
   it('renders Radio Buttons', () => {
+    const props = {
+      options: [
+        { label: 'One', value: 1 },
+        { label: 'Two', value: 2222 },
+      ],
+    };
+    const wrapper = mount(createElement(Radio, props));
+    assert.equal(wrapper.find('input[type="radio"]').length, 2, '2 radio buttons were rendered');
+
+    wrapper.unmount();
+  });
+});
+
+describe('Radio', () => {
+  it('defaultValue', () => {
     const props = {
       options: [
         { label: 'One', value: 1 },
         { label: 'Two', value: 2 },
       ],
     };
-    wrapper = mount(createElement(Radio, props));
-    assert.equal(wrapper.find('input[type="radio"]').length, 2, '2 radio buttons were rendered');
-
-    wrapper.unmount();
+    const wrapper = shallow(createElement(Radio, props));
+    assert.equal(wrapper.instance().state.value, null, 'default value is null');
   });
 
-  describe('Radio', () => {
-    it('defaultValue', () => {
-      const props = {
-        options: [
-          { label: 'One', value: 1 },
-          { label: 'Two', value: 2 },
-        ],
-      };
-      wrapper = shallow(createElement(Child, props));
-      assert.equal(wrapper.instance().state.value, null, 'default value is null');
-    });
+  it('updates value on change', () => {
+    const props = {
+      options: [
+        { label: 'One', value: 1 },
+        { label: 'Two', value: 2 },
+      ],
+    };
+    const callback = fake();
+    const wrapper = shallow(createElement(Radio, props));
+    const action = wrapper.instance().actionChange(callback);
 
-    it('updates value on change', () => {
-      const props = {
-        options: [
-          { label: 'One', value: 1 },
-          { label: 'Two', value: 2 },
-        ],
-      };
-      const callback = fake();
-      wrapper = shallow(createElement(Child, props));
-      const action = wrapper.instance().actionChange(callback);
+    action({ target: { value: props.options[1].value } });
 
-      action({ target: { value: props.options[1].value } });
-
-      assert.equal(wrapper.instance().getValue(), 2, 'state was updated');
-      assert.equal(callback.callCount, 1, 'callback was called');
-    });
+    assert.equal(wrapper.instance().getValue(), 2, 'state was updated');
+    assert.equal(callback.callCount, 1, 'callback was called');
   });
 });

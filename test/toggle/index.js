@@ -14,7 +14,6 @@ describe('<Toogle />', () => {
     assert.equal(wrapper.find('input[type="checkbox"]').length, 1, 'input was rendered');
     assert.equal(wrapper.find('span .c-toggle-slide').length, 1, 'toggle slide was rendered');
     assert.equal(wrapper.find('strong .c-toggle-label').length, 1, 'toggle label was rendered');
-    assert.isFalse(wrapper.instance().getValue(), 'value is false');
 
     wrapper.unmount();
   });
@@ -23,6 +22,8 @@ describe('<Toogle />', () => {
     const callback = fake();
     const wrapper = mount(createElement(Toogle));
     const instance = wrapper.instance();
+
+    assert.isFalse(wrapper.instance().getValue(), 'value is false');
 
     const action = instance.actionChange(callback);
 

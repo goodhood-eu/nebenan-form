@@ -37,17 +37,17 @@ describe('FancySelect', () => {
   it('defaultValue', () => {
     // default value is set
     const props = {
-      defaultValue: 1,
+      defaultValue: 2,
       options: [
-        { imageClass: 'c-sandbox-fancy_image_1', key: 'Eins', value: 555 },
+        { imageClass: 'c-sandbox-fancy_image_1', key: 'Eins', value: 1 },
         { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 2 },
       ],
     };
     const wrapper = shallow(createElement(FancySelect, props));
     const instance = wrapper.instance();
 
-    assert.equal(instance.state.value, 555, 'default value is correct');
-    assert.equal(instance.state.index, 0, 'index is correct');
+    assert.equal(instance.state.value, 2, 'default value is correct');
+    assert.equal(instance.state.index, 1, 'index is correct');
 
     // default value is not set
     const props_2 = {

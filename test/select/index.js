@@ -29,10 +29,7 @@ describe('<Select />', () => {
 
     wrapper.unmount();
   });
-});
 
-
-describe('Select', () => {
   it('defaultValue', () => {
     const props = {
       defaultValue: false,

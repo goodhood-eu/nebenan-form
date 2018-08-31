@@ -14,9 +14,7 @@ describe('<Textarea />', () => {
 
     wrapper.unmount();
   });
-});
 
-describe('Textarea', () => {
   it('setValue', () => {
     const wrapper = mount(createElement(Textarea));
 

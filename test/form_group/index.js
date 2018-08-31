@@ -19,10 +19,8 @@ describe('FormGroup', () => {
 
     assert.equal(wrapper.find('div .c-form_group-item').length, 3, 'all children were rendered');
     assert.isTrue(
-      wrapper
-        .find('div .c-form_group')
-        .hasClass(`is-multiple is-size-${props.children.length}`,
-        ));
+      wrapper.find('div .c-form_group').hasClass(`is-multiple is-size-${props.children.length}`),
+    );
 
     wrapper.unmount();
   });

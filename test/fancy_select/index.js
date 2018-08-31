@@ -35,6 +35,7 @@ describe('FancySelect', () => {
   });
 
   it('defaultValue', () => {
+    // default value is set
     const props = {
       defaultValue: 1,
       options: [
@@ -47,6 +48,29 @@ describe('FancySelect', () => {
 
     assert.equal(instance.state.value, 555, 'default value is correct');
     assert.equal(instance.state.index, 0, 'index is correct');
+
+    // default value is not set
+    const props_2 = {
+      options: [
+        { imageClass: 'c-sandbox-fancy_image_1', key: 'Eins', value: 222 },
+        { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 2 },
+      ],
+    };
+    const instance_2 = shallow(createElement(FancySelect, props_2)).instance();
+    assert.equal(instance_2.state.value, 222, 'default value is correct');
+    assert.equal(instance_2.state.index, 0, 'index is correct');
+
+    // default value is not from options
+    const props_3 = {
+      defaultValue: 'external',
+      options: [
+        { imageClass: 'c-sandbox-fancy_image_1', key: 'Eins', value: 333 },
+        { imageClass: 'c-sandbox-fancy_image_2', key: 'Zwei', value: 2 },
+      ],
+    };
+    const instance_3 = shallow(createElement(FancySelect, props_3)).instance();
+    assert.equal(instance_3.state.value, 333, 'default value is correct');
+    assert.equal(instance_3.state.index, 0, 'index is correct');
   });
 
   it('setValue', () => {
@@ -60,7 +84,6 @@ describe('FancySelect', () => {
     const wrapper = shallow(createElement(FancySelect, props));
     const instance = wrapper.instance();
 
-    assert.equal(instance.getValue(), 1, 'default value is set');
     assert.equal(instance.state.index, 0, 'index is correct');
 
     instance.setValue(props.options[1].value);
@@ -80,7 +103,6 @@ describe('FancySelect', () => {
     const wrapper = shallow(createElement(FancySelect, props));
     const instance = wrapper.instance();
 
-    assert.equal(instance.getValue(), 1, 'default value is set');
     assert.equal(instance.state.index, 0, 'index is correct');
 
     instance.setValue(2);

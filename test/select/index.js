@@ -19,7 +19,7 @@ describe('<Select />', () => {
     assert.equal(wrapper.find('select').length, 1, 'Select was rendered');
     assert.equal(wrapper.find('option').length, 3, 'all options were rendered');
 
-    assert.equal(wrapper.instance().state.value, 'one', 'value is one');
+    assert.equal(wrapper.instance().state.value, 'one', 'value is correct');
     assert.equal(wrapper.instance().state.index, 0, 'index is correct');
 
     wrapper.find('option').last().simulate('change');

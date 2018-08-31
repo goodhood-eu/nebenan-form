@@ -10,7 +10,7 @@ describe('<Textarea />', () => {
     const wrapper = mount(createElement(Textarea));
 
     assert.equal(wrapper.find('textarea').length, 1, 'Textarea was rendered');
-    assert.equal(wrapper.instance().state.value, '', 'default value is empta string');
+    assert.equal(wrapper.instance().state.value, '', 'default value is empty string');
 
     wrapper.unmount();
   });
@@ -23,7 +23,7 @@ describe('Textarea', () => {
     assert.equal(wrapper.instance().state.value, '', 'set empty string if no value');
 
     wrapper.instance().setValue('new text');
-    assert.equal(wrapper.instance().state.value, 'new text', 'set empty string if no value');
+    assert.equal(wrapper.instance().state.value, 'new text', 'value was changed');
 
     wrapper.unmount();
   });

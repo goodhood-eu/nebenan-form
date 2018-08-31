@@ -6,7 +6,7 @@ const { fake } = require('sinon');
 const Radio = require('../../lib/radio').default;
 
 
-describe('<Radio />', () => {
+describe('Radio', () => {
   it('renders Radio Buttons', () => {
     const props = {
       options: [
@@ -19,9 +19,7 @@ describe('<Radio />', () => {
 
     wrapper.unmount();
   });
-});
 
-describe('Radio', () => {
   it('defaultValue', () => {
     const props = {
       options: [
@@ -44,9 +42,11 @@ describe('Radio', () => {
     const wrapper = shallow(createElement(Radio, props));
     const action = wrapper.instance().actionChange(callback);
 
+    assert.equal(wrapper.instance().state.value, null, 'default value is null');
+
     action({ target: { value: props.options[1].value } });
 
-    assert.equal(wrapper.instance().getValue(), 2, 'state was updated');
+    assert.equal(wrapper.instance().getValue(), 2, 'value was updated');
     assert.equal(callback.callCount, 1, 'callback was called');
   });
 });

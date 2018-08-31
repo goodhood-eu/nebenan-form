@@ -5,7 +5,7 @@ const { mount, shallow } = require('enzyme');
 const FancySelect = require('../../lib/fancy_select').default;
 
 
-describe('<FancySelect />', () => {
+describe('FancySelect', () => {
   it('renders FancySelect', () => {
     const props = {
       defaultValue: 1,
@@ -15,14 +15,17 @@ describe('<FancySelect />', () => {
       ],
     };
     const wrapper = mount(createElement(FancySelect, props));
+    const instance = wrapper.instance();
+
     assert.equal(wrapper.find('ul .c-fancy_select-list').length, 1, 'FancySelect was rendered');
     assert.equal(wrapper.find('li .c-fancy_select-item').length, 2, 'two options were rendered');
-    assert.equal(wrapper.instance().state.index, 0, 'index is 0');
+    assert.equal(instance.state.value, 1, 'value is set');
+    assert.equal(instance.state.index, 0, 'index is set');
 
     wrapper.find('li .c-fancy_select-item').last().simulate('click');
 
-    assert.equal(wrapper.instance().state.value, 2, 'value was changed');
-    assert.equal(wrapper.instance().state.index, 1, 'index was changed');
+    assert.equal(instance.state.value, 2, 'value was changed');
+    assert.equal(instance.state.index, 1, 'index was changed');
     assert.isTrue(
       wrapper.find('li .c-fancy_select-item').last().hasClass('is-active'),
       'active option has active class',
@@ -30,10 +33,7 @@ describe('<FancySelect />', () => {
 
     wrapper.unmount();
   });
-});
 
-
-describe('FancySelect', () => {
   it('defaultValue', () => {
     const props = {
       defaultValue: 1,
@@ -43,8 +43,10 @@ describe('FancySelect', () => {
       ],
     };
     const wrapper = shallow(createElement(FancySelect, props));
-    assert.equal(wrapper.instance().state.value, 555, 'default value is 555');
-    assert.equal(wrapper.instance().state.index, 0, 'index is 0');
+    const instance = wrapper.instance();
+
+    assert.equal(instance.state.value, 555, 'default value is correct');
+    assert.equal(instance.state.index, 0, 'index is correct');
   });
 
   it('setValue', () => {
@@ -56,10 +58,15 @@ describe('FancySelect', () => {
       ],
     };
     const wrapper = shallow(createElement(FancySelect, props));
+    const instance = wrapper.instance();
 
-    wrapper.instance().setValue(props.options[1].value);
-    assert.equal(wrapper.instance().state.value, 222, 'set value');
-    assert.equal(wrapper.instance().state.index, 1, 'index is 1');
+    assert.equal(instance.getValue(), 1, 'default value is set');
+    assert.equal(instance.state.index, 0, 'index is correct');
+
+    instance.setValue(props.options[1].value);
+
+    assert.equal(instance.state.value, 222, 'value was changed');
+    assert.equal(instance.state.index, 1, 'index was changed');
   });
 
   it('setPristine', () => {
@@ -72,16 +79,20 @@ describe('FancySelect', () => {
     };
     const wrapper = shallow(createElement(FancySelect, props));
     const instance = wrapper.instance();
-    instance.setValue('value');
 
-    assert.equal(instance.getValue(), 'value', 'value was updated');
-    assert.equal(instance.state.index, -1, 'index is -1');
+    assert.equal(instance.getValue(), 1, 'default value is set');
+    assert.equal(instance.state.index, 0, 'index is correct');
+
+    instance.setValue(2);
+
+    assert.equal(instance.getValue(), 2, 'value was updated');
+    assert.equal(instance.state.index, 1, 'index was updated');
     assert.isFalse(instance.isPristine(), 'not pristine');
 
     instance.setPristine();
 
-    assert.equal(instance.getValue(), 'value', 'value is same');
-    assert.equal(instance.state.index, -1, 'index is the same');
+    assert.equal(instance.getValue(), 2, 'value is same');
+    assert.equal(instance.state.index, 1, 'index is the same');
     assert.isTrue(instance.isPristine(), 'pristine');
   });
 
@@ -95,12 +106,13 @@ describe('FancySelect', () => {
       deselectable: true,
     };
     const wrapper = shallow(createElement(FancySelect, props));
+    const instance = wrapper.instance();
 
-    wrapper.instance().handleSelect(1);
-    assert.equal(wrapper.instance().state.value, undefined, 'deselectable value is undefined');
+    instance.handleSelect(1);
+    assert.equal(instance.state.value, undefined, 'deselectable value is undefined');
 
     props.deselectable = false;
-    wrapper.instance().handleSelect(1);
-    assert.equal(wrapper.instance().state.value, 2, 'value is selectable and equal 2');
+    instance.handleSelect(1);
+    assert.equal(instance.state.value, 2, 'value is selectable and correct');
   });
 });

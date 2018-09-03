@@ -48,7 +48,6 @@ describe('<Dropzone />', () => {
     const wrapper = mount(createElement(Dropzone));
     const instance = wrapper.instance();
 
-
     instance.reset();
     assert.deepEqual(instance.state, instance.getDefaultState(), 'state is back to default');
 

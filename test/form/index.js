@@ -51,12 +51,19 @@ describe('<Form />', () => {
   });
 
   it('isDisabled', () => {
+    // this.props.locked is true
     const props = { locked: true };
-    const wrapper = mount(createElement(Form, props));
+    const wrapperWithLock = mount(createElement(Form, props));
+    const instanceWithLock = wrapperWithLock.instance();
+    assert.isTrue(instanceWithLock.isDisabled(), 'form is disabled if locked is true');
+    wrapperWithLock.unmount();
+
+    // this.state.isValid is false
+    const wrapper = mount(createElement(Form));
     const instance = wrapper.instance();
 
-    assert.isTrue(instance.isDisabled(), 'form is disabled if locked');
-
+    instance.setValid(false);
+    assert.isTrue(instance.isDisabled(), 'form is disabled if state is not valid');
     wrapper.unmount();
   });
 

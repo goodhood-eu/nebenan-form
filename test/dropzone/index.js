@@ -30,9 +30,7 @@ describe('<Dropzone />', () => {
     const instance = wrapper.instance();
     instance.activate = fake();
 
-    wrapper.update();
     instance.componentDidMount();
-
     assert.equal(instance.activate.callCount, 1, 'activate was called');
   });
 
@@ -42,9 +40,7 @@ describe('<Dropzone />', () => {
     const instance = wrapper.instance();
     instance.deactivate = fake();
 
-    wrapper.update();
     instance.componentWillUnmount();
-
     assert.equal(instance.deactivate.callCount, 1, 'deactivate was called');
   });
 

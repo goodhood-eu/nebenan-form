@@ -1,6 +1,6 @@
 const { createElement } = require('react');
 const { assert } = require('chai');
-const { mount } = require('enzyme');
+const { mount, shallow } = require('enzyme');
 const { fake } = require('sinon');
 
 const Dropzone = require('../../lib/dropzone').default;
@@ -13,19 +13,20 @@ describe('<Dropzone />', () => {
       labelRelease: 'labelRelease',
     };
     const wrapper = mount(createElement(Dropzone, props));
-    assert.equal(wrapper.find('span .c-dropzone').length, 1, 'dropzone was rendered');
+    assert.lengthOf(wrapper.find('span .c-dropzone'), 1, 'dropzone was rendered');
     assert.equal(wrapper.find('span .c-dropzone-overlay-text-active').length, 1, 'drag label was rendered');
     assert.equal(wrapper.find('span .c-dropzone-overlay-text-hover').length, 1, 'release label was rendered');
+
+    // default state
+    assert.isFalse(wrapper.instance().state.isActive, 'default state for isActive is correct');
+    assert.isFalse(wrapper.instance().state.isHover, 'default state for isHover is correct');
 
     wrapper.unmount();
   });
 
-  it('should call activate when componentDidMount', () => {
-    const props = {
-      labelDrag: 'labelDrag',
-      labelRelease: 'labelRelease',
-    };
-    const wrapper = mount(createElement(Dropzone, props));
+  // componentDidMount
+  it('should call activate', () => {
+    const wrapper = shallow(createElement(Dropzone));
     const instance = wrapper.instance();
     instance.activate = fake();
 
@@ -33,7 +34,17 @@ describe('<Dropzone />', () => {
     instance.componentDidMount();
 
     assert.equal(instance.activate.callCount, 1, 'activate was called');
+  });
 
-    wrapper.unmount();
+  // componentWillUnmount
+  it('should call deactivate', () => {
+    const wrapper = shallow(createElement(Dropzone));
+    const instance = wrapper.instance();
+    instance.deactivate = fake();
+
+    wrapper.update();
+    instance.componentWillUnmount();
+
+    assert.equal(instance.deactivate.callCount, 1, 'deactivate was called');
   });
 });

@@ -1,6 +1,6 @@
 const { createElement } = require('react');
 const { assert } = require('chai');
-const { mount } = require('enzyme');
+const { mount, shallow } = require('enzyme');
 const { fake } = require('sinon');
 
 const Form = require('../../lib/form').default;
@@ -14,9 +14,9 @@ describe('<Form />', () => {
     };
     const wrapper = mount(createElement(Form, props));
 
-    assert.equal(wrapper.find('form .c-form').length, 1, 'form was rendered');
-    assert.equal(wrapper.find('div .c-form-footer').length, 1, 'footer was rendered');
-    assert.equal(wrapper.find('strong .c-form-error').length, 1, 'error was rendered');
+    assert.lengthOf(wrapper.find('form .c-form'), 1, 'form was rendered');
+    assert.lengthOf(wrapper.find('div .c-form-footer'), 1, 'footer was rendered');
+    assert.lengthOf(wrapper.find('strong .c-form-error'), 1, 'error was rendered');
 
     wrapper.unmount();
   });
@@ -30,7 +30,7 @@ describe('<Form />', () => {
     assert.isFalse(instance.state.isValid, 'state was changed');
 
     instance.setPristine();
-    assert.isTrue(instance.state.isValid, 'state is back to default');
+    assert.deepEqual(instance.state, instance.getDefaultState(), 'state is back to default');
 
     wrapper.unmount();
   });
@@ -38,10 +38,13 @@ describe('<Form />', () => {
   it('setValid', () => {
     const wrapper = mount(createElement(Form));
     const instance = wrapper.instance();
+    const doneFake = fake();
+
     assert.isTrue(instance.state.isValid, 'default state is valild');
 
-    instance.setValid(false);
+    instance.setValid(false, doneFake);
 
+    assert.equal(doneFake.callCount, 1, 'callback was called');
     assert.isFalse(instance.state.isValid, 'state was changed');
 
     wrapper.unmount();
@@ -66,20 +69,19 @@ describe('<Form />', () => {
     assert.isFalse(instance.state.isValid, 'state was changed');
 
     instance.reset();
-    assert.isTrue(instance.state.isValid, 'state is back to default');
-
+    assert.deepEqual(instance.state, instance.getDefaultState(), 'state is back to default');
     wrapper.unmount();
   });
 
   it('submit', () => {
     const preventDefault = fake();
-    const wrapper = mount(createElement(Form));
+    const wrapper = shallow(createElement(Form));
 
     wrapper.find('form').simulate('submit', { preventDefault });
+    const onSubmit = wrapper.props().onSubmit;
 
     assert.equal(preventDefault.callCount, 1, 'preventDefault was called');
-    assert.isTrue(wrapper.instance().state.isValid, 'state is default');
-
-    wrapper.unmount();
+    assert.exists(onSubmit, 'onSubmit prop exists');
+    assert.typeOf(onSubmit, 'function', 'onSubmit must be a funciton');
   });
 });

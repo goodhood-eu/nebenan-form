@@ -42,7 +42,9 @@ gulp.task('build', gulp.series(
 ));
 
 gulp.task('watch', (done) => {
-  require('gulp-nodemon')(nodemonOptions);
+  const nodemon = require('nodemon')(nodemonOptions);
+  nodemon.on('log', (log) => { console.log(log.colour); });
+
   gulp.watch(scripts, gulp.series('compile:babel', 'preview:babel'));
   gulp.watch(stylesheets, gulp.series('compile:styles', 'preview:styles'));
   done();

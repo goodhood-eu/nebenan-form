@@ -216,7 +216,8 @@ describe('<Dropzone />', () => {
     const instanceWithoutFiles = wrapperWithoutFiles.instance();
 
     instanceWithoutFiles.handleDrop({ preventDefault, dataTransfer: { files: ['file1', 'file2'] } });
+
     assert.isTrue(props.onSelect.calledOnce, 'onSelect was called');
-    assert.isFalse(props.onDrop.calledOnce, 'onDrop was not called');
+    assert.equal(props.onDrop.callCount, 2, 'onDrop was called');
   });
 });

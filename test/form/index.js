@@ -28,7 +28,7 @@ describe('<Form />', () => {
     assert.equal(button.text(), 'button', 'button text  was rendered correct');
   });
 
-  it('setPristine', () => {
+  it('setPristine', (done) => {
     const wrapper = shallow(createElement(Form));
     const instance = wrapper.instance();
     const callback = fake();
@@ -47,6 +47,7 @@ describe('<Form />', () => {
 
     process.nextTick(() => {
       assert.isTrue(callback.calledOnce, 'callback was called');
+      done();
     });
   });
 
@@ -104,7 +105,7 @@ describe('<Form />', () => {
     assert.isTrue(reset.calledOnce, 'reset on component was called');
   });
 
-  it('submit', () => {
+  it('submit was successful', (done) => {
     const props = {
       onValidSubmit: fake(),
       onInvalidSubmit: fake(),
@@ -121,11 +122,37 @@ describe('<Form />', () => {
     assert.isTrue(instance.validate.calledOnce, 'validate was called');
     assert.isTrue(props.onSubmit.calledOnce, 'onSubmit was called');
 
-    setTimeout(() => {
+    const check = () => {
       assert.isTrue(props.onValidSubmit.calledOnce, 'onValidSubmit was called');
-      assert.isTrue(props.onInvalidSubmit.calledOnce, 'onInvalidSubmit was called');
-    }, 100);
+      done();
+    };
+    setTimeout(check, 100);
   });
+
+  it('submit failed', (done) => {
+    const props = {
+      onValidSubmit: fake(),
+      onInvalidSubmit: fake(),
+      onSubmit: fake(),
+    };
+    const preventDefault = fake();
+    const wrapper = shallow(createElement(Form, props));
+    const instance = wrapper.instance();
+    instance.validate = spy(() => Promise.reject());
+
+    wrapper.find('form').simulate('submit', { preventDefault });
+
+    assert.isTrue(preventDefault.calledOnce, 'preventDefault was called');
+    assert.isTrue(instance.validate.calledOnce, 'validate was called');
+    assert.isTrue(props.onSubmit.calledOnce, 'onSubmit was called');
+
+    const check = () => {
+      assert.isTrue(props.onInvalidSubmit.calledOnce, 'onInvalidSubmit was called');
+      done();
+    };
+    setTimeout(check, 100);
+  });
+
 
   it('validate', () => {
     const wrapper = shallow(createElement(Form));
@@ -165,7 +192,7 @@ describe('<Form />', () => {
     instance.removeInput('input3');
 
     assert.equal(instance.inputs.length, 1, 'input were removed');
-    assert.deepEqual(instance.inputs[0], 'input1', 'correct input stayed');
+    assert.deepEqual(instance.inputs, ['input1'], 'correct input stayed');
   });
 
   it('isValid', () => {

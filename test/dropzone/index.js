@@ -29,7 +29,6 @@ describe('<Dropzone />', () => {
     assert.isFalse(instance.state.isHover, 'default state for isHover is correct');
   });
 
-  // componentDidMount
   it('activate on mount', () => {
     const wrapper = shallow(createElement(Dropzone));
     const instance = wrapper.instance();
@@ -39,7 +38,6 @@ describe('<Dropzone />', () => {
     assert.isTrue(instance.activate.calledOnce, 'activate was called');
   });
 
-  // componentWillUnmount
   it('deactivate on unmount', () => {
     const wrapper = shallow(createElement(Dropzone));
     const instance = wrapper.instance();
@@ -68,23 +66,23 @@ describe('<Dropzone />', () => {
     instance.handleDragStart = fake();
     instance.handleDragEnd = fake();
     instance.handleGlobalDrop = fake();
-    const originalListener = document.addEventListener;
+    const originalRegister = document.addEventListener;
 
-    const map = {};
+    const listeners = {};
     document.addEventListener = fake((event, cb) => {
-      map[event] = cb;
+      listeners[event] = cb;
     });
 
     instance.activate();
-    map.dragenter();
-    map.dragleave();
-    map.drop();
+    listeners.dragenter();
+    listeners.dragleave();
+    listeners.drop();
 
     assert.equal(instance.handleDragStart.callCount, 1, 'handleDragStart was called');
     assert.equal(instance.handleDragEnd.callCount, 1, 'handleDragEnd was called');
     assert.equal(instance.handleGlobalDrop.callCount, 1, 'handleGlobalDrop was called');
 
-    document.removeEventListener = originalListener;
+    document.removeEventListener = originalRegister;
   });
 
   it('deactivate', () => {
@@ -93,23 +91,23 @@ describe('<Dropzone />', () => {
     instance.handleDragStart = fake();
     instance.handleDragEnd = fake();
     instance.handleGlobalDrop = fake();
-    const originalListener = document.removeEventListener;
+    const originalRegister = document.removeEventListener;
 
-    const map = {};
+    const listeners = {};
     document.removeEventListener = fake((event, cb) => {
-      map[event] = cb;
+      listeners[event] = cb;
     });
 
     instance.deactivate();
-    map.dragenter();
-    map.dragleave();
-    map.drop();
+    listeners.dragenter();
+    listeners.dragleave();
+    listeners.drop();
 
     assert.isTrue(instance.handleDragStart.calledOnce, 'handleDragStart was called');
     assert.isTrue(instance.handleDragEnd.calledOnce, 'handleDragEnd was called');
     assert.isTrue(instance.handleGlobalDrop.calledOnce, 'handleGlobalDrop was called');
 
-    document.removeEventListener = originalListener;
+    document.removeEventListener = originalRegister;
   });
 
   it('handleDragStart', () => {

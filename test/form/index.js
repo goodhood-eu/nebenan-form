@@ -1,7 +1,7 @@
 const { createElement } = require('react');
 const { assert } = require('chai');
-const { shallow, mount } = require('enzyme');
-const { fake } = require('sinon');
+const { shallow } = require('enzyme');
+const { fake, spy } = require('sinon');
 
 const Form = require('../../lib/form').default;
 
@@ -29,7 +29,7 @@ describe('<Form />', () => {
   });
 
   it('setPristine', () => {
-    const wrapper = mount(createElement(Form));
+    const wrapper = shallow(createElement(Form));
     const instance = wrapper.instance();
     const callback = fake();
     const setPristine = fake();
@@ -45,10 +45,9 @@ describe('<Form />', () => {
     assert.deepEqual(instance.state, instance.getDefaultState(), 'state is back to default');
     assert.isTrue(setPristine.calledOnce, 'setPristine on component was called');
 
-    setTimeout(() => {
+    process.nextTick(() => {
       assert.isTrue(callback.calledOnce, 'callback was called');
-    }, 100);
-    wrapper.unmount();
+    });
   });
 
   it('setValid', () => {
@@ -106,26 +105,38 @@ describe('<Form />', () => {
   });
 
   it('submit', () => {
+    const props = {
+      onValidSubmit: fake(),
+      onInvalidSubmit: fake(),
+      onSubmit: fake(),
+    };
     const preventDefault = fake();
-    const wrapper = shallow(createElement(Form));
+    const wrapper = shallow(createElement(Form, props));
+    const instance = wrapper.instance();
+    instance.validate = spy(() => Promise.resolve());
 
     wrapper.find('form').simulate('submit', { preventDefault });
-    const onSubmit = wrapper.props().onSubmit;
 
     assert.isTrue(preventDefault.calledOnce, 'preventDefault was called');
-    assert.exists(onSubmit, 'onSubmit prop exists');
-    assert.typeOf(onSubmit, 'function', 'onSubmit must be a funciton');
+    assert.isTrue(instance.validate.calledOnce, 'validate was called');
+    assert.isTrue(props.onSubmit.calledOnce, 'onSubmit was called');
+
+    setTimeout(() => {
+      assert.isTrue(props.onValidSubmit.calledOnce, 'onValidSubmit was called');
+      assert.isTrue(props.onInvalidSubmit.calledOnce, 'onInvalidSubmit was called');
+    }, 100);
   });
 
   it('validate', () => {
     const wrapper = shallow(createElement(Form));
-    const instance = wrapper.instance();
-    instance.setValid = fake();
 
-    return Promise.all([
-      assert.isFulfilled(instance.validate(), 'success'),
-      assert.isRejected(instance.validate(), 'fail'),
-    ]);
+    const instance1 = wrapper.instance();
+    instance1.addInput({ validate: spy(() => Promise.resolve()) });
+    assert.isFulfilled(instance1.validate());
+
+    const instance2 = wrapper.instance();
+    instance2.addInput({ validate: spy(() => Promise.reject()) });
+    assert.isRejected(instance2.validate());
   });
 
 
@@ -139,7 +150,7 @@ describe('<Form />', () => {
     instance.addInput('input2');
     instance.addInput('input3');
 
-    assert.equal(instance.inputs.length, 3, 'only not existing input were added');
+    assert.deepEqual(instance.inputs, ['input1', 'input2', 'input3'], 'only not existing input were added');
   });
 
   it('removeInput', () => {
@@ -154,7 +165,7 @@ describe('<Form />', () => {
     instance.removeInput('input3');
 
     assert.equal(instance.inputs.length, 1, 'input were removed');
-    assert.equal(instance.inputs[0], 'input1', 'correct input stayed');
+    assert.deepEqual(instance.inputs[0], 'input1', 'correct input stayed');
   });
 
   it('isValid', () => {

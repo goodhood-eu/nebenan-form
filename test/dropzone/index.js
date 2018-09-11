@@ -200,11 +200,10 @@ describe('<Dropzone />', () => {
   it('handleDrop', () => {
     const props = { onSelect: fake(), onDrop: fake() };
     const preventDefault = fake();
-
-    // without files
     const wrapper = shallow(createElement(Dropzone, props));
     const instance = wrapper.instance();
 
+    // without files
     instance.handleDrop({ preventDefault, dataTransfer: { files: [] } });
 
     assert.isTrue(preventDefault.calledOnce, 'preventDefault was called');
@@ -212,10 +211,7 @@ describe('<Dropzone />', () => {
     assert.isTrue(props.onDrop.calledOnce, 'onDrop was called');
 
     // with files
-    const wrapperWithoutFiles = shallow(createElement(Dropzone, props));
-    const instanceWithoutFiles = wrapperWithoutFiles.instance();
-
-    instanceWithoutFiles.handleDrop({ preventDefault, dataTransfer: { files: ['file1', 'file2'] } });
+    instance.handleDrop({ preventDefault, dataTransfer: { files: ['file1', 'file2'] } });
 
     assert.isTrue(props.onSelect.calledOnce, 'onSelect was called');
     assert.equal(props.onDrop.callCount, 2, 'onDrop was called');

@@ -191,7 +191,6 @@ describe('<Form />', () => {
     instance.removeInput('input2');
     instance.removeInput('input3');
 
-    assert.equal(instance.inputs.length, 1, 'input were removed');
     assert.deepEqual(instance.inputs, ['input1'], 'correct input stayed');
   });
 

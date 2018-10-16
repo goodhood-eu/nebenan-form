@@ -228,7 +228,7 @@ describe('base/help functions', () => {
     assert.deepEqual(parseValidations('isRegex'), [], 'returns empty array if the value is isRegex');
 
     const result = parseValidations('isLength:0,5');
-    assert.lengthOf(parseValidations('isLength:0,5'), 1, 'returns an array with one element');
+    assert.lengthOf(result, 1, 'returns an array with one element');
     assert.isFunction(result[0], 'the only element of the result array of parseValidations is a function');
 
     assert.isTrue(result[0]('123'), 'value is in the interval from 0 to 5');
@@ -245,7 +245,7 @@ describe('base/help functions', () => {
     assert.isFunction(getRegexValidation(null));
 
     const isRegex = getRegexValidation('abc');
-    assert.isTrue(isRegex('abc', 'abc'), 'value match regexp');
-    assert.isFalse(isRegex('abb', 'abc'), 'value doesnt match regexp');
+    assert.isTrue(isRegex('abc'), 'value match regexp');
+    assert.isFalse(isRegex('abb'), 'value doesnt match regexp');
   });
 });

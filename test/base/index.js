@@ -227,13 +227,16 @@ describe('base/help functions', () => {
     assert.deepEqual(parseValidations('isRequired'), [], 'returns empty array if the value is isRequired');
     assert.deepEqual(parseValidations('isRegex'), [], 'returns empty array if the value is isRegex');
 
+    assert.lengthOf(parseValidations('isInt;isRequired;isRegex'), 1, 'returns an array with one element, will ignore isRegex and isRequired');
+    assert.lengthOf(parseValidations('isInt;isLength:0,5'), 2, 'returns an array with two elements');
+
     const result = parseValidations('isLength:0,5');
     assert.lengthOf(result, 1, 'returns an array with one element');
     assert.isFunction(result[0], 'the only element of the result array of parseValidations is a function');
 
-    assert.isTrue(result[0]('123'), 'value is in the interval from 0 to 5');
+    assert.isTrue(result[0]('abc'), 'value is in the interval from 0 to 5');
     assert.isFalse(result[0](null), 'null returns flase');
-    assert.isFalse(result[0]('123456'), 'value is not in the interval from 0 to 5');
+    assert.isFalse(result[0]('abcdefg'), 'value is not in the interval from 0 to 5');
 
     const isNumber = parseValidations('isNumber');
     assert.isTrue(isNumber[0](7), '7 is a number');
@@ -241,8 +244,8 @@ describe('base/help functions', () => {
   });
 
   it('getRegexValidation', () => {
-    assert.isFunction(getRegexValidation(/g\(\)/));
-    assert.isFunction(getRegexValidation(null));
+    assert.isFunction(getRegexValidation(/g\(\)/), 'return a function if the value is regexp');
+    assert.isFunction(getRegexValidation(null), 'returns a function if the value is null');
 
     const isRegex = getRegexValidation('abc');
     assert.isTrue(isRegex('abc'), 'value match regexp');

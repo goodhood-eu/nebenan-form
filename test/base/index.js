@@ -6,6 +6,11 @@ const { fake } = require('sinon');
 const Base = require('../../lib/base').default;
 const Form = require('../../lib/form').default;
 
+const {
+  parseValidations,
+  getRegexValidation,
+} = require('../../lib/base');
+
 
 class Child extends Base {
   render() { return null; }
@@ -206,5 +211,41 @@ describe('Base', () => {
     action();
     // Wait validation promises
     process.nextTick(check);
+  });
+});
+
+describe('base/help functions', () => {
+  it('parseValidations', () => {
+    assert.deepEqual(parseValidations(''), [], 'returns empty array if value is empty string');
+    assert.deepEqual(parseValidations(null), [], 'returns empty array if value is null');
+    assert.deepEqual(parseValidations(undefined), [], 'returns empty array if value is undefined');
+
+    assert.throws(() => parseValidations(5), 'Validation must be a string');
+    assert.throws(() => parseValidations([5, 7, 9]), 'Validation must be a string');
+    assert.throws(() => parseValidations({ 1: 'one', 2: 'two' }), 'Validation must be a string');
+
+    assert.deepEqual(parseValidations('isRequired'), [], 'returns empty array if the value is isRequired');
+    assert.deepEqual(parseValidations('isRegex'), [], 'returns empty array if the value is isRegex');
+
+    const result = parseValidations('isLength:0,5');
+    assert.lengthOf(parseValidations('isLength:0,5'), 1, 'returns an array with one element');
+    assert.isFunction(result[0], 'the only element of the result array of parseValidations is a function');
+
+    assert.isTrue(result[0]('123'), 'value is in the interval from 0 to 5');
+    assert.isFalse(result[0](null), 'null returns flase');
+    assert.isFalse(result[0]('123456'), 'value is not in the interval from 0 to 5');
+
+    const isNumber = parseValidations('isNumber');
+    assert.isTrue(isNumber[0](7), '7 is a number');
+    assert.isFalse(isNumber[0]('string'), 'string is not a number');
+  });
+
+  it('getRegexValidation', () => {
+    assert.isFunction(getRegexValidation(/g\(\)/));
+    assert.isFunction(getRegexValidation(null));
+
+    const isRegex = getRegexValidation('abc');
+    assert.isTrue(isRegex('abc', 'abc'), 'value match regexp');
+    assert.isFalse(isRegex('abb', 'abc'), 'value doesnt match regexp');
   });
 });

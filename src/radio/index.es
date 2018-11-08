@@ -33,6 +33,7 @@ class Radio extends InputComponent {
     const isChecked = this.state.value === option.value;
     const className = classNames('c-radio-item', {
       'is-checked': isChecked,
+      'is-disabled': option.disabled,
     });
     const cleanProps = omit(this.props,
       'error',
@@ -57,6 +58,7 @@ class Radio extends InputComponent {
           <span className="c-radio-item-control">
             <input
               {...cleanProps} ref={this.setEl('input')}
+              disabled={option.disabled}
               type="radio"
               value={index}
               checked={isChecked}

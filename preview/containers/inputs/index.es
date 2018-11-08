@@ -196,6 +196,7 @@ class Inputs extends PureComponent {
                   { label: 'Default radio label 1', value: 1 },
                   { value: 2 },
                   { label: 'String', value: 'awesome' },
+                  { label: 'Disabled', value: 'Disabled', disabled: true },
                 ]}
               />
             </li>

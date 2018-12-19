@@ -13,7 +13,7 @@
   },
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install",
-    "check": "npm retest && npm run lint && echo \"\\033[0;32mReady to publish\\033[0m\"",
+    "check": "npm run retest && npm run lint && echo \"\\033[0;32mReady to publish\\033[0m\"",
     "gulp": "gulp",
     "prepublishOnly": "npm run check && NODE_ENV=production npm run gulp compile",
     "lint": "stylint ./ && eslint --ext .es,.js ./",

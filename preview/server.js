@@ -1,4 +1,4 @@
-require('babel-register')({ extensions: ['.es'] });
+require('@babel/register')({ extensions: ['.es'] });
 const app = require('express')();
 
 const React = require('react');

@@ -1,12 +1,14 @@
 {
   "presets": [
-    ["env", { "useBuiltIns": true }],
-    "stage-3",
-    "react"
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
-    ["transform-runtime", { "polyfill": false, "regenerator": true, "helpers": true }],
+    ["add-module-exports", { "addDefaultProperty": true }],
     "transform-node-env-inline",
-    "transform-react-remove-prop-types"
+    "transform-react-remove-prop-types",
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-transform-strict-mode",
+    "@babel/plugin-proposal-json-strings"
   ]
 }

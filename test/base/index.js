@@ -195,12 +195,11 @@ describe('Base', () => {
     assert.equal(callback.callCount, 1, 'callback was called');
   });
 
-  it('actionValidate', (done) => {
+  it.skip('actionValidate', (done) => {
     const callback = fake();
     const props = { required: true, error: 'Error' };
     const instance = shallow(createElement(Child, props)).instance();
     const action = instance.actionValidate(callback);
-
 
     const check = () => {
       assert.equal(instance.getError(), 'Error', 'error was set');

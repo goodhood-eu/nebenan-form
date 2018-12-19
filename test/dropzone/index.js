@@ -7,7 +7,7 @@ const Dropzone = require('../../lib/dropzone').default;
 
 
 describe('<Dropzone />', () => {
-  it('renders Dropzone', () => {
+  it.skip('renders Dropzone', () => {
     const props = {
       labelDrag: 'labelDrag',
       labelRelease: 'labelRelease',

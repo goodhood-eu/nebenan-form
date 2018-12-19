@@ -14,6 +14,7 @@ class Child extends BaseInput {
       ref: this.setEl('input'),
       type: 'text',
       value: this.state.value,
+      onChange() {},
     });
   }
 }

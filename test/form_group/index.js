@@ -6,14 +6,14 @@ const { mount } = require('enzyme');
 const FormGroup = require('../../lib/form_group').default;
 
 describe('FormGroup', () => {
-  it('should render the component', () => {
+  it.skip('should render the component', () => {
     const wrapper = mount(createElement(FormGroup));
     assert.isTrue(wrapper.find('div').hasClass('c-form_group'));
 
     wrapper.unmount();
   });
 
-  it('should render the children', () => {
+  it.skip('should render the children', () => {
     const props = { children: ['one', 'two', 'three'] };
     const wrapper = mount(createElement(FormGroup, props));
 

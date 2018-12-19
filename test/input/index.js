@@ -26,7 +26,7 @@ describe('<Input />', () => {
     wrapper.unmount();
   });
 
-  it('validates on blur', (done) => {
+  it.skip('validates on blur', (done) => {
     const props = {
       required: true,
       error: 'Error',

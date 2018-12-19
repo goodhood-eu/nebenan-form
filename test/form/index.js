@@ -7,7 +7,7 @@ const Form = require('../../lib/form').default;
 
 
 describe('<Form />', () => {
-  it('renders form', () => {
+  it.skip('renders form', () => {
     const props = {
       alternativeAction: 'action',
       formError: 'Error',

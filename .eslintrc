@@ -24,7 +24,7 @@
     "consistent-return": "off",
     "no-mixed-operators": ["error", { "allowSamePrecedence": true }],
     "no-param-reassign": ["error", { "props": false }],
-    "class-methods-use-this": "off", // can be enabled after coffee->es6 migration is complete
+    "class-methods-use-this": "off",
     "no-underscore-dangle": "off",
     "object-curly-newline": "off", // forces to write illegible code
     "function-paren-newline": "off", // forces to write illegible code
@@ -32,6 +32,7 @@
     "no-control-regex": "off",
     "operator-linebreak": ["error", "after"], // better readability
     "lines-between-class-members": ["error", "always", { exceptAfterSingleLine: true }],
+    "prefer-promise-reject-errors": "off",
 
     "import/no-unresolved": "off",
     "import/no-dynamic-require": "off",
@@ -69,6 +70,7 @@
     "jsx-a11y/media-has-caption": "off",
     "jsx-a11y/no-noninteractive-element-interactions": "off",
     "jsx-a11y/label-has-for": "off",
+    "jsx-a11y/label-has-associated-control": "off",
     "jsx-a11y/click-events-have-key-events": "off",
     "jsx-a11y/anchor-is-valid": "off", // bugged
   }

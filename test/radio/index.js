@@ -3,7 +3,7 @@ const { assert } = require('chai');
 const { mount, shallow } = require('enzyme');
 const { fake } = require('sinon');
 
-const Radio = require('../../lib/radio').default;
+const Radio = require('../../lib/radio');
 
 
 describe('Radio', () => {

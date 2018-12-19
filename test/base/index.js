@@ -4,7 +4,7 @@ const { shallow, mount } = require('enzyme');
 const { fake } = require('sinon');
 
 const Base = require('../../lib/base').default;
-const Form = require('../../lib/form').default;
+const Form = require('../../lib/form');
 
 const {
   parseValidations,

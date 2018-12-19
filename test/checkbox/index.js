@@ -2,7 +2,7 @@ const { createElement } = require('react');
 const { assert } = require('chai');
 const { mount } = require('enzyme');
 
-const Checkbox = require('../../lib/checkbox/').default;
+const Checkbox = require('../../lib/checkbox/');
 
 
 describe('<Checkbox />', () => {

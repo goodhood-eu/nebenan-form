@@ -2,11 +2,11 @@ const { createElement } = require('react');
 const { assert } = require('chai');
 const { mount, shallow } = require('enzyme');
 
-const FancySelect = require('../../lib/fancy_select').default;
+const FancySelect = require('../../lib/fancy_select');
 
 
 describe('FancySelect', () => {
-  it.skip('renders FancySelect', () => {
+  it('renders FancySelect', () => {
     const props = {
       defaultValue: 1,
       options: [
@@ -17,17 +17,17 @@ describe('FancySelect', () => {
     const wrapper = mount(createElement(FancySelect, props));
     const instance = wrapper.instance();
 
-    assert.equal(wrapper.find('ul .c-fancy_select-list').length, 1, 'FancySelect was rendered');
-    assert.equal(wrapper.find('li .c-fancy_select-item').length, 2, 'two options were rendered');
+    assert.equal(wrapper.find('.c-fancy_select-list').length, 1, 'FancySelect was rendered');
+    assert.equal(wrapper.find('.c-fancy_select-item').length, 2, 'two options were rendered');
     assert.equal(instance.state.value, 1, 'value is set');
     assert.equal(instance.state.index, 0, 'index is set');
 
-    wrapper.find('li .c-fancy_select-item').last().simulate('click');
+    wrapper.find('.c-fancy_select-item').last().simulate('click');
 
     assert.equal(instance.state.value, 2, 'value was changed');
     assert.equal(instance.state.index, 1, 'index was changed');
     assert.isTrue(
-      wrapper.find('li .c-fancy_select-item').last().hasClass('is-active'),
+      wrapper.find('.c-fancy_select-item').last().hasClass('is-active'),
       'active option has active class',
     );
 

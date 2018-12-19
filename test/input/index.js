@@ -3,7 +3,7 @@ const { assert } = require('chai');
 const { mount } = require('enzyme');
 
 
-const Input = require('../../lib/input').default;
+const Input = require('../../lib/input');
 
 
 describe('<Input />', () => {

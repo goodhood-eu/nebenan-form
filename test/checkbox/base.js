@@ -3,7 +3,7 @@ const { assert } = require('chai');
 const { shallow } = require('enzyme');
 const { fake } = require('sinon');
 
-const CheckboxInputComponent = require('../../lib/checkbox/base').default;
+const CheckboxInputComponent = require('../../lib/checkbox/base');
 
 class Child extends CheckboxInputComponent {
   render() {

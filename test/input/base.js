@@ -3,7 +3,7 @@ const { assert } = require('chai');
 const { mount } = require('enzyme');
 const { spy, fake } = require('sinon');
 
-const BaseInput = require('../../lib/input/base').default;
+const BaseInput = require('../../lib/input/base');
 
 const ENTER_CHAR_CODE = 13;
 

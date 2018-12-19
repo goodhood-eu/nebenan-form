@@ -2,7 +2,7 @@ const { createElement } = require('react');
 const { assert } = require('chai');
 const { mount } = require('enzyme');
 
-const Textarea = require('../../lib/textarea').default;
+const Textarea = require('../../lib/textarea');
 
 
 describe('<Textarea />', () => {

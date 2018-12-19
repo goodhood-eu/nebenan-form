@@ -3,7 +3,7 @@ const { assert } = require('chai');
 const { shallow } = require('enzyme');
 const { fake } = require('sinon');
 
-const Dropzone = require('../../lib/dropzone').default;
+const Dropzone = require('../../lib/dropzone');
 
 
 describe('<Dropzone />', () => {

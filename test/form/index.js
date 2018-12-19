@@ -3,11 +3,11 @@ const { assert } = require('chai');
 const { shallow } = require('enzyme');
 const { fake, spy } = require('sinon');
 
-const Form = require('../../lib/form').default;
+const Form = require('../../lib/form');
 
 
 describe('<Form />', () => {
-  it.skip('renders form', () => {
+  it('renders form', () => {
     const props = {
       alternativeAction: 'action',
       formError: 'Error',
@@ -15,11 +15,11 @@ describe('<Form />', () => {
       buttonClass: 'buttonClass',
     };
     const wrapper = shallow(createElement(Form, props));
-    const error = wrapper.find('strong .c-form-error');
-    const button = wrapper.find('button .buttonClass');
+    const error = wrapper.find('.c-form-error');
+    const button = wrapper.find('.buttonClass');
 
-    assert.lengthOf(wrapper.find('form .c-form'), 1, 'form was rendered');
-    assert.lengthOf(wrapper.find('div .c-form-footer'), 1, 'footer was rendered');
+    assert.lengthOf(wrapper.find('.c-form'), 1, 'form was rendered');
+    assert.lengthOf(wrapper.find('.c-form-footer'), 1, 'footer was rendered');
 
     assert.lengthOf(error, 1, 'error was rendered');
     assert.equal(error.text(), 'Error', 'formError text was rendered correct');

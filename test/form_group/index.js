@@ -3,23 +3,23 @@ const { assert } = require('chai');
 const { mount } = require('enzyme');
 
 
-const FormGroup = require('../../lib/form_group').default;
+const FormGroup = require('../../lib/form_group');
 
 describe('FormGroup', () => {
-  it.skip('should render the component', () => {
+  it('should render the component', () => {
     const wrapper = mount(createElement(FormGroup));
-    assert.isTrue(wrapper.find('div').hasClass('c-form_group'));
+    assert.equal(wrapper.find('.c-form_group').length, 1, 'FormGroup was rendered');
 
     wrapper.unmount();
   });
 
-  it.skip('should render the children', () => {
+  it('should render the children', () => {
     const props = { children: ['one', 'two', 'three'] };
     const wrapper = mount(createElement(FormGroup, props));
 
-    assert.equal(wrapper.find('div .c-form_group-item').length, 3, 'all children were rendered');
+    assert.equal(wrapper.find('.c-form_group-item').length, 3, 'all children were rendered');
     assert.isTrue(
-      wrapper.find('div .c-form_group').hasClass(`is-multiple is-size-${props.children.length}`),
+      wrapper.find('.c-form_group').hasClass(`is-multiple is-size-${props.children.length}`),
     );
 
     wrapper.unmount();

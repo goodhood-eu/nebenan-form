@@ -2,7 +2,7 @@ const { createElement } = require('react');
 const { assert } = require('chai');
 const { mount, shallow } = require('enzyme');
 
-const Select = require('../../lib/select').default;
+const Select = require('../../lib/select');
 
 
 describe('<Select />', () => {

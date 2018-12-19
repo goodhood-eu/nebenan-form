@@ -7,17 +7,17 @@ const Dropzone = require('../../lib/dropzone').default;
 
 
 describe('<Dropzone />', () => {
-  it.skip('renders Dropzone', () => {
+  it('renders Dropzone', () => {
     const props = {
       labelDrag: 'labelDrag',
       labelRelease: 'labelRelease',
     };
     const wrapper = shallow(createElement(Dropzone, props));
     const instance = wrapper.instance();
-    const labelDrag = wrapper.find('span .c-dropzone-overlay-text-active');
-    const labelRelease = wrapper.find('span .c-dropzone-overlay-text-hover');
+    const labelDrag = wrapper.find('span.c-dropzone-overlay-text-active');
+    const labelRelease = wrapper.find('span.c-dropzone-overlay-text-hover');
 
-    assert.lengthOf(wrapper.find('span .c-dropzone'), 1, 'dropzone was rendered');
+    assert.lengthOf(wrapper.find('.c-dropzone'), 1, 'dropzone was rendered');
     assert.lengthOf(labelDrag, 1, 'drag label was rendered');
     assert.lengthOf(labelRelease, 1, 'release label was rendered');
 

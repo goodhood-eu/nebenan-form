@@ -26,7 +26,7 @@ describe('<Input />', () => {
     wrapper.unmount();
   });
 
-  it.skip('validates on blur', (done) => {
+  it('validates on blur', (done) => {
     const props = {
       required: true,
       error: 'Error',
@@ -43,7 +43,7 @@ describe('<Input />', () => {
 
     wrapper.find('input').simulate('blur');
     // Wait validation promises
-    process.nextTick(check);
+    setTimeout(check, 300);
   });
 
   it('clears error on focus', () => {

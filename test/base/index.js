@@ -195,7 +195,7 @@ describe('Base', () => {
     assert.equal(callback.callCount, 1, 'callback was called');
   });
 
-  it.skip('actionValidate', (done) => {
+  it('actionValidate', (done) => {
     const callback = fake();
     const props = { required: true, error: 'Error' };
     const instance = shallow(createElement(Child, props)).instance();
@@ -209,7 +209,7 @@ describe('Base', () => {
 
     action();
     // Wait validation promises
-    process.nextTick(check);
+    setTimeout(check, 300);
   });
 });
 

@@ -91,20 +91,15 @@ describe('ui/input/utils', () => {
     assert.equal(position, expected.length, 'calculated cursor position correctly');
   });
 
-  it('getID', () => {
+  it('getUniqueID', () => {
     const segmentRegex = /^[a-f0-9]+$/;
 
-    const id1 = inputUtils.getID();
-    const id2 = inputUtils.getID();
+    const id1 = inputUtils.getUniqueID();
+    const id2 = inputUtils.getUniqueID();
 
     assert.isString(id1, 'returns a string');
     assert.lengthOf(id1, 4, 'returns proper length');
     assert.notEqual(id1, id2, 'ids don\'t match');
     assert.match(id1, segmentRegex, 'correct pattern format');
-  });
-
-  it('getDummyName', () => {
-    assert.include(inputUtils.getDummyName('testName'), 'testName', 'should include name if it is passed');
-    assert.isString(inputUtils.getDummyName(), 'should work without arguments');
   });
 });

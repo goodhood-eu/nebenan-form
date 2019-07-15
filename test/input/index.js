@@ -70,13 +70,5 @@ describe('<Input />', () => {
 
     assert.equal(inputWithAutoComplete.find('input').prop('name'), 'testName', 'name is inserted in dom');
     assert.notEqual(inputWithoutAutoComplete.find('input').prop('name'), 'testName', 'name is not inserted in dom');
-
-    inputWithAutoComplete.setProps({ disableAutoComplete: true });
-    inputWithAutoComplete.update();
-    assert.notEqual(inputWithAutoComplete.find('input').prop('name'), 'testName', 'name is not inserted in dom if disableAutoComplete has changed to true');
-
-    inputWithAutoComplete.setProps({ disableAutoComplete: false });
-    inputWithAutoComplete.update();
-    assert.equal(inputWithAutoComplete.find('input').prop('name'), 'testName', 'put name back in DOM if disableAutoComplete is false');
   });
 });

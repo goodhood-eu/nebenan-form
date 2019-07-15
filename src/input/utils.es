@@ -38,10 +38,6 @@ export const replaceString = (string, pattern, replacement, insertAt) => {
   return { result, position };
 };
 
-export const getID = () => (
+export const getUniqueID = () => (
   Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-);
-
-export const getDummyName = (name) => (
-  name ? `${getID()}_${name}` : getID()
 );

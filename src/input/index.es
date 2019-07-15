@@ -3,31 +3,15 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import classNames from 'classnames';
 
-import { getDummyName } from './utils';
+import { getUniqueID } from './utils';
 import TextInputComponent from './base';
 
 
 class Input extends TextInputComponent {
-  componentDidMount() {
-    super.componentDidMount();
-    this.generateDummyName();
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.disableAutoComplete !== this.props.disableAutoComplete) {
-      this.generateDummyName();
-    }
-  }
-
-  generateDummyName() {
-    const { disableAutoComplete, name } = this.props;
-    const dummyName = disableAutoComplete ? getDummyName(name) : null;
-
-    this.setState({ dummyName });
-  }
-
   render() {
+    const { value } = this.state;
     const {
+      disableAutoComplete,
       onEnterKey,
       onShiftEnterKey,
       label,
@@ -38,8 +22,6 @@ class Input extends TextInputComponent {
       onBlur,
       children,
     } = this.props;
-
-    const { dummyName, value } = this.state;
 
     const className = classNames('c-input', this.props.className);
     const cleanProps = omit(this.props,
@@ -65,13 +47,23 @@ class Input extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
+    if (disableAutoComplete && !this._id) {
+      this._id = getUniqueID();
+    }
+
+    const nameAttribute = disableAutoComplete ? `${this._id}_${name}` : name;
+
+    let autoComplete;
+    if (this._id) autoComplete = nameAttribute;
+
     return (
       <label className={className}>
         {labelNode}
         <div className="c-input-container">
           <input
             {...cleanProps}
-            name={dummyName || name}
+            name={nameAttribute}
+            autoComplete={autoComplete}
             ref={this.setEl('input')}
             className={inputClassName}
             type={type || 'text'}

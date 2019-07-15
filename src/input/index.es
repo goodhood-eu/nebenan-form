@@ -11,11 +11,11 @@ class Input extends TextInputComponent {
   render() {
     const { value } = this.state;
     const {
+      name: originalName,
       disableAutoComplete,
       onEnterKey,
       onShiftEnterKey,
       label,
-      name,
       type,
       onChange,
       onFocus,
@@ -48,10 +48,13 @@ class Input extends TextInputComponent {
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     if (disableAutoComplete && !this._id) this._id = getUniqueID();
-    const nameAttribute = disableAutoComplete ? `${this._id}_${name}` : name;
 
+    let name = originalName;
     let autoComplete;
-    if (disableAutoComplete) autoComplete = nameAttribute;
+    if (disableAutoComplete) {
+      name = `${this._id}_${originalName}`;
+      autoComplete = name;
+    }
 
     return (
       <label className={className}>
@@ -59,15 +62,13 @@ class Input extends TextInputComponent {
         <div className="c-input-container">
           <input
             {...cleanProps}
-            name={nameAttribute}
-            autoComplete={autoComplete}
+            {...{ autoComplete, value, name }}
             ref={this.setEl('input')}
             className={inputClassName}
             type={type || 'text'}
             onChange={this.actionChange(onChange)}
             onFocus={this.actionClearError(onFocus)}
             onBlur={this.actionValidate(onBlur)}
-            value={value}
           />
           {children}
         </div>

@@ -102,4 +102,9 @@ describe('ui/input/utils', () => {
     assert.notEqual(id1, id2, 'ids don\'t match');
     assert.match(id1, segmentRegex, 'correct pattern format');
   });
+
+  it('getDummyName', () => {
+    assert.include(inputUtils.getDummyName('testName'), 'testName', 'should include name if it is passed');
+    assert.isString(inputUtils.getDummyName(), 'should work without arguments');
+  });
 });

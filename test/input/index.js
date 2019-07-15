@@ -57,4 +57,22 @@ describe('<Input />', () => {
 
     wrapper.unmount();
   });
+
+  it('random input name on disableAutoComplete', () => {
+    const inputWithAutoComplete = mount(createElement(Input, {
+      name: 'testName',
+    }));
+
+    const inputWithoutAutoComplete = mount(createElement(Input, {
+      name: 'testName',
+      disableAutoComplete: true,
+    }));
+
+    assert.equal(inputWithAutoComplete.find('input').prop('name'), 'testName', 'name is inserted in dom');
+    assert.notEqual(inputWithoutAutoComplete.find('input').prop('name'), 'testName', 'name is not inserted in dom');
+
+    inputWithAutoComplete.setProps({ disableAutoComplete: true });
+    inputWithAutoComplete.update();
+    assert.notEqual(inputWithAutoComplete.find('input').prop('name'), 'testName', 'name is not inserted in dom if prop has changed');
+  });
 });

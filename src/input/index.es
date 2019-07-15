@@ -51,7 +51,7 @@ class Input extends TextInputComponent {
     const nameAttribute = disableAutoComplete ? `${this._id}_${name}` : name;
 
     let autoComplete;
-    if (this._id) autoComplete = nameAttribute;
+    if (disableAutoComplete) autoComplete = nameAttribute;
 
     return (
       <label className={className}>

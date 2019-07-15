@@ -47,10 +47,7 @@ class Input extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
-    if (disableAutoComplete && !this._id) {
-      this._id = getUniqueID();
-    }
-
+    if (disableAutoComplete && !this._id) this._id = getUniqueID();
     const nameAttribute = disableAutoComplete ? `${this._id}_${name}` : name;
 
     let autoComplete;

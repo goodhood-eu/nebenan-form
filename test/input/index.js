@@ -4,6 +4,7 @@ const { mount } = require('enzyme');
 
 
 const Input = require('../../lib/input');
+const Form = require('../../lib/form');
 
 
 describe('<Input />', () => {
@@ -69,10 +70,24 @@ describe('<Input />', () => {
     }));
 
     assert.equal(inputWithAutoComplete.find('input').prop('name'), 'testName', 'name is inserted in dom');
+    assert.notEqual(inputWithoutAutoComplete.find('input').prop('name'), 'testName', 'name is not inserted in dom');
+    assert.equal(inputWithoutAutoComplete.find('input').prop('autoComplete'), 'new-password', 'autocomplete attribute has value that is inappropriate for a control');
+  });
 
-    const inputWithoutAutoCompleteName = inputWithoutAutoComplete.find('input').prop('name');
+  it('disableAutoComplete: input in form', () => {
+    const input = createElement(Input, {
+      name: 'testName',
+      disableAutoComplete: true,
+    });
 
-    assert.notEqual(inputWithoutAutoCompleteName, 'testName', 'name is not inserted in dom');
-    assert.notEqual(inputWithoutAutoComplete.find('input').prop('autocomplete'), inputWithoutAutoCompleteName, 'autocomplete attribute is equals name');
+    const form = createElement(Form, null, input);
+
+    const wrapper = mount(form);
+    const instance = wrapper.instance();
+
+    wrapper.find(Input).instance().setValue('testValue');
+    assert.include(instance.getModel(), { testName: 'testValue' });
+
+    wrapper.unmount();
   });
 });

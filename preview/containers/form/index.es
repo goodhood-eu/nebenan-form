@@ -148,6 +148,14 @@ class FormPreview extends PureComponent {
             </FormGroup>
 
             <FormGroup>
+              <Input
+                label="Input with disabled autocomplete"
+                name="city"
+                disableAutoComplete
+              />
+            </FormGroup>
+
+            <FormGroup>
               <Select
                 label="Required validation" name="select"
                 options={content.listOptions} error="Required!" required

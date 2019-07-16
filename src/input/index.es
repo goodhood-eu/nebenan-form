@@ -8,8 +8,16 @@ import TextInputComponent from './base';
 
 
 class Input extends TextInputComponent {
+  componentDidMount() {
+    super.componentDidMount();
+
+    if (this.props.disableAutoComplete) {
+      this.setState({ uniqueId: getUniqueID() });
+    }
+  }
+
   render() {
-    const { value } = this.state;
+    const { value, uniqueId } = this.state;
     const {
       name: originalName,
       disableAutoComplete,
@@ -47,13 +55,12 @@ class Input extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
-    if (disableAutoComplete && !this._id) this._id = getUniqueID();
-
     let name = originalName;
     let autoComplete;
     if (disableAutoComplete) {
-      name = `${this._id}_${originalName}`;
-      autoComplete = name;
+      // tell browser the input is inappropriate for a control
+      autoComplete = 'new-password';
+      name += uniqueId;
     }
 
     return (

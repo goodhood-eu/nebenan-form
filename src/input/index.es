@@ -3,21 +3,12 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import classNames from 'classnames';
 
-import { getUniqueID } from './utils';
 import TextInputComponent from './base';
 
 
 class Input extends TextInputComponent {
-  componentDidMount() {
-    super.componentDidMount();
-
-    if (this.props.disableAutoComplete) {
-      this.setState({ uniqueId: getUniqueID() });
-    }
-  }
-
   render() {
-    const { value, uniqueId } = this.state;
+    const { value } = this.state;
     const {
       name: originalName,
       disableAutoComplete,
@@ -60,7 +51,7 @@ class Input extends TextInputComponent {
     if (disableAutoComplete) {
       // tell browser the input is inappropriate for a control
       autoComplete = 'new-password';
-      name += uniqueId;
+      name += '_autocomplete_disabled';
     }
 
     return (

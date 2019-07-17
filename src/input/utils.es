@@ -37,7 +37,3 @@ export const replaceString = (string, pattern, replacement, insertAt) => {
 
   return { result, position };
 };
-
-export const getUniqueID = () => (
-  Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1)
-);

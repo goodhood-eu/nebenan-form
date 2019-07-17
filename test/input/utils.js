@@ -90,16 +90,4 @@ describe('ui/input/utils', () => {
     assert.equal(result, expected, 'inserted content correctly');
     assert.equal(position, expected.length, 'calculated cursor position correctly');
   });
-
-  it('getUniqueID', () => {
-    const segmentRegex = /^[a-f0-9]+$/;
-
-    const id1 = inputUtils.getUniqueID();
-    const id2 = inputUtils.getUniqueID();
-
-    assert.isString(id1, 'returns a string');
-    assert.lengthOf(id1, 4, 'returns proper length');
-    assert.notEqual(id1, id2, 'ids don\'t match');
-    assert.match(id1, segmentRegex, 'correct pattern format');
-  });
 });

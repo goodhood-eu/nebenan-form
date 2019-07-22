@@ -45,7 +45,7 @@ class InputComponent extends PureComponent {
 
   componentDidMount() {
     this.isComponentMounted = true;
-    if (this.isConnected()) this.context.addInput(this);
+    if (this.isConnected()) this.getFormContext().addInput(this);
     const { syncValidations, customValidation } = this.getValidations(this.props);
     this.syncValidations = syncValidations;
     this.customValidation = customValidation;
@@ -58,7 +58,7 @@ class InputComponent extends PureComponent {
   }
 
   componentWillUnmount() {
-    if (this.isConnected()) this.context.removeInput(this);
+    if (this.isConnected()) this.getFormContext().removeInput(this);
     this.isComponentMounted = false;
   }
 
@@ -73,6 +73,10 @@ class InputComponent extends PureComponent {
       error: null,
       value: props.defaultValue,
     };
+  }
+
+  getFormContext() {
+    return this.context;
   }
 
   getValidations(props) {
@@ -152,7 +156,7 @@ class InputComponent extends PureComponent {
 
       if (this.getError()) {
         if (!silent) invoke(onError, this.getError());
-        if (this.isConnected()) this.context.updateValidity();
+        if (this.isConnected()) this.getFormContext().updateValidity();
       }
 
       invoke(done);
@@ -168,7 +172,7 @@ class InputComponent extends PureComponent {
 
     const complete = () => {
       invoke(this.props.onError, this.getError());
-      if (this.isConnected()) this.context.updateValidity();
+      if (this.isConnected()) this.getFormContext().updateValidity();
       invoke(done);
     };
 
@@ -182,7 +186,7 @@ class InputComponent extends PureComponent {
   }
 
   isConnected() {
-    return Boolean(this.context && this.getName());
+    return Boolean(this.getFormContext() && this.getName());
   }
 
   isValid() {

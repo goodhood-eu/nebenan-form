@@ -200,10 +200,6 @@ class Form extends PureComponent {
   }
 }
 
-Form.childContextTypes = {
-  form: PropTypes.object,
-};
-
 Form.propTypes = {
   className: PropTypes.string,
   formError: PropTypes.node,

@@ -266,3 +266,4 @@ InputComponent.propTypes = {
 };
 
 export default InputComponent;
+export { FormContext };

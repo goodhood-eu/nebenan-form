@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import * as validations from 'string-validate';
 import { bindTo, invoke } from '../utils';
+import FormContext from '../form/context';
 
 
 export const parseValidations = (validationsString) => {
@@ -44,7 +45,7 @@ class InputComponent extends PureComponent {
 
   componentDidMount() {
     this.isComponentMounted = true;
-    if (this.isConnected()) this.context.form.addInput(this);
+    if (this.isConnected()) this.context.addInput(this);
     const { syncValidations, customValidation } = this.getValidations(this.props);
     this.syncValidations = syncValidations;
     this.customValidation = customValidation;
@@ -57,7 +58,7 @@ class InputComponent extends PureComponent {
   }
 
   componentWillUnmount() {
-    if (this.isConnected()) this.context.form.removeInput(this);
+    if (this.isConnected()) this.context.removeInput(this);
     this.isComponentMounted = false;
   }
 
@@ -151,7 +152,7 @@ class InputComponent extends PureComponent {
 
       if (this.getError()) {
         if (!silent) invoke(onError, this.getError());
-        if (this.isConnected()) this.context.form.updateValidity();
+        if (this.isConnected()) this.context.updateValidity();
       }
 
       invoke(done);
@@ -167,7 +168,7 @@ class InputComponent extends PureComponent {
 
     const complete = () => {
       invoke(this.props.onError, this.getError());
-      if (this.isConnected()) this.context.form.updateValidity();
+      if (this.isConnected()) this.context.updateValidity();
       invoke(done);
     };
 
@@ -181,7 +182,7 @@ class InputComponent extends PureComponent {
   }
 
   isConnected() {
-    return Boolean(this.context.form && this.getName());
+    return Boolean(this.context && this.getName());
   }
 
   isValid() {
@@ -238,9 +239,7 @@ class InputComponent extends PureComponent {
   }
 }
 
-InputComponent.contextTypes = {
-  form: PropTypes.object,
-};
+InputComponent.contextType = FormContext;
 
 InputComponent.propTypes = {
   validate: PropTypes.oneOfType([

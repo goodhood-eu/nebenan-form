@@ -3,42 +3,37 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import classNames from 'classnames';
 import { bindTo, invoke, has } from '../utils';
+import { Provider } from './context';
 
 
 class Form extends PureComponent {
   constructor(props) {
     super(props);
-    // Fixes weird iteration over object bugs
-    this.inputs = [];
-    this.state = this.getDefaultState();
-
     bindTo(this,
       'addInput',
       'removeInput',
+      'updateValidity',
       'setValues',
       'setErrors',
       'setPristine',
-      'updateValidity',
       'reset',
       'validate',
       'submit',
     );
+
+    // Fixes weird iteration over object bugs
+    this.inputs = [];
+    this.state = this.getDefaultState();
+    this.staticContext = this.getDefaultContext();
   }
 
-  getChildContext() {
-    return {
-      form: {
-        addInput: this.addInput,
-        removeInput: this.removeInput,
-        updateValidity: this.updateValidity,
-      },
-    };
+  getDefaultContext() {
+    const { addInput, removeInput, updateValidity } = this;
+    return { addInput, removeInput, updateValidity };
   }
 
   getDefaultState() {
-    return {
-      isValid: true,
-    };
+    return { isValid: true };
   }
 
   getModel() {
@@ -191,21 +186,19 @@ class Form extends PureComponent {
     }
 
     return (
-      <form
-        {...cleanProps} className={className}
-        method="post" onSubmit={this.submit} noValidate
-      >
-        {children}
-        {error}
-        {footer}
-      </form>
+      <Provider value={this.staticContext}>
+        <form
+          {...cleanProps} className={className}
+          method="post" onSubmit={this.submit} noValidate
+        >
+          {children}
+          {error}
+          {footer}
+        </form>
+      </Provider>
     );
   }
 }
-
-Form.childContextTypes = {
-  form: PropTypes.object,
-};
 
 Form.propTypes = {
   className: PropTypes.string,

@@ -132,6 +132,13 @@ class Inputs extends PureComponent {
                 placeholder="Input placeholder"
               />
             </li>
+            <li>
+              <Input
+                name="city"
+                disableAutoComplete
+                label="Input with disabled autocomplete"
+              />
+            </li>
           </ul>
 
           <ul className="preview-checkboxes">

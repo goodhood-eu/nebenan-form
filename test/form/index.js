@@ -217,4 +217,19 @@ describe('<Form />', () => {
 
     assert.isTrue(isPristine.calledOnce, 'isPristine was called');
   });
+
+  it('getModel', () => {
+    const wrapper = shallow(createElement(Form));
+    const instance = wrapper.instance();
+
+    instance.addInput({ getName: () => 'testNameA', getValue: () => 'testValueA' });
+    instance.addInput({ getName: () => 'testNameB', getValue: () => 'testValueB' });
+    instance.addInput({ getName: () => 'testNameC', getValue: () => 'testValueC' });
+
+    assert.deepEqual(instance.getModel(), {
+      testNameA: 'testValueA',
+      testNameB: 'testValueB',
+      testNameC: 'testValueC',
+    }, 'collect input values');
+  });
 });

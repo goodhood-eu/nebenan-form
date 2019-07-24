@@ -8,7 +8,10 @@ import TextInputComponent from './base';
 
 class Input extends TextInputComponent {
   render() {
+    const { value } = this.state;
     const {
+      name: originalName,
+      disableAutoComplete,
       onEnterKey,
       onShiftEnterKey,
       label,
@@ -21,7 +24,9 @@ class Input extends TextInputComponent {
 
     const className = classNames('c-input', this.props.className);
     const cleanProps = omit(this.props,
+      'disableAutoComplete',
       'label',
+      'name',
       'error',
       'children',
       'onUpdate',
@@ -41,17 +46,27 @@ class Input extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
+    let name = originalName;
+    let autoComplete;
+    if (disableAutoComplete) {
+      // tell browser the input is inappropriate for a control
+      autoComplete = 'new-password';
+      name += '_autocomplete_disabled';
+    }
+
     return (
       <label className={className}>
         {labelNode}
         <div className="c-input-container">
           <input
-            {...cleanProps} ref={this.setEl('input')} className={inputClassName}
+            {...cleanProps}
+            {...{ autoComplete, value, name }}
+            ref={this.setEl('input')}
+            className={inputClassName}
             type={type || 'text'}
             onChange={this.actionChange(onChange)}
             onFocus={this.actionClearError(onFocus)}
             onBlur={this.actionValidate(onBlur)}
-            value={this.state.value}
           />
           {children}
         </div>
@@ -61,12 +76,19 @@ class Input extends TextInputComponent {
   }
 }
 
+Input.defaultProps = {
+  disableAutoComplete: false,
+};
+
 Input.propTypes = {
   ...TextInputComponent.propTypes,
+
+  disableAutoComplete: PropTypes.bool.isRequired,
 
   className: PropTypes.string,
   children: PropTypes.node,
   label: PropTypes.node,
+  name: PropTypes.string,
 
   type: PropTypes.string,
   onChange: PropTypes.func,

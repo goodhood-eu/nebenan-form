@@ -1,4 +1,5 @@
 {
+  "parser": "babel-eslint",
   "extends": ["airbnb"],
   "env": {
     "browser": true
@@ -45,6 +46,7 @@
     "react/prop-types": ["error", { "skipUndeclared": true }], // TODO: remove this check
     "react/forbid-prop-types": "off",
     "react/no-did-mount-set-state": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/no-danger": "off",
     "react/require-default-props": "off",
     "react/jsx-max-props-per-line": ["error", { "maximum": 3, "when": "multiline" }],

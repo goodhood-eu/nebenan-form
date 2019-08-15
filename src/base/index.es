@@ -5,7 +5,7 @@ import { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import * as validations from 'string-validate';
-import { bindTo, invoke } from '../utils';
+import { bindTo, invoke, objectPropsMatch } from '../utils';
 import FormContext from '../form/context';
 
 
@@ -26,6 +26,8 @@ export const getRegexValidation = (pattern) => {
   const regex = new RegExp(`^${pattern}$`);
   return (value) => validations.isRegex(value, regex);
 };
+
+const VALIDATION_PROPS = ['validate', 'required', 'pattern'];
 
 
 class InputComponent extends PureComponent {
@@ -51,8 +53,9 @@ class InputComponent extends PureComponent {
     this.customValidation = customValidation;
   }
 
-  componentWillReceiveProps(nextProps) {
-    const { syncValidations, customValidation } = this.getValidations(nextProps);
+  componentDidUpdate(prevProps) {
+    if (objectPropsMatch(prevProps, this.props, VALIDATION_PROPS)) return;
+    const { syncValidations, customValidation } = this.getValidations(this.props);
     this.syncValidations = syncValidations;
     this.customValidation = customValidation;
   }

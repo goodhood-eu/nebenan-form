@@ -1,13 +1,13 @@
 require('@babel/register')({ extensions: ['.es'] });
 const app = require('express')();
+const serveStatic = require('serve-static');
+const morgan = require('morgan');
 
 const React = require('react');
 const { renderToString } = require('react-dom/server');
 
-const match = require('react-router/lib/match');
-const RouterContext = require('react-router/lib/RouterContext');
-const createRouter = require('./router');
-const Error404 = require('./containers/error404');
+const { StaticRouter } = require('react-router');
+const AppRoutes = require('./router');
 
 const port = parseInt(process.env.PORT, 10) || 3000;
 
@@ -31,38 +31,21 @@ const getHTML = (content) => (`<!DOCTYPE html>
 </html>
 `);
 
-const renderApp = (req, res, next) => {
-  const renderPage = (props) => {
-    const statusCode = props.components.includes(Error404) ? 404 : 200;
+const renderApp = (req, res) => {
+  const context = {};
+  const routes = React.createElement(AppRoutes);
+  const Component = React.createElement(StaticRouter, { context, location: req.url }, routes);
+  const content = renderToString(Component);
 
-    const Component = React.createElement(RouterContext, props);
-    const content = renderToString(Component);
+  if (context.url) return res.redirect(302, context.url);
 
-    res.status(statusCode).send(getHTML(content));
-  };
-
-  const matchPage = (error, redirect, props) => {
-    if (error) {
-      console.log(`Request ${req.url} failed to route:`, error.message);
-      return next();
-    }
-
-    if (redirect) return res.redirect(302, `${redirect.pathname}${redirect.search}`);
-
-    // if there was no props, this request isn't handled by FE explicitly
-    if (!props) return next();
-
-    renderPage(props);
-  };
-
-  const routes = createRouter();
-  match({ routes, location: req.url }, matchPage);
+  res.send(getHTML(content));
 };
 
 app.set('port', port);
 
-app.use(require('morgan')('dev'));
-app.use(require('serve-static')(`${__dirname}/public`, { redirect: false }));
+app.use(morgan('dev'));
+app.use(serveStatic(`${__dirname}/public`, { redirect: false }));
 
 app.use(renderApp);
 app.get('*', (req, res) => res.send('Unhandled request'));

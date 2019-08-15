@@ -1,5 +1,5 @@
 import React from 'react';
-import { Switch, Route } from 'react-router';
+import { Switch, Route } from 'react-router-dom';
 
 import Error404 from './containers/error404';
 import Form from './containers/form';

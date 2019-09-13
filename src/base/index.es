@@ -110,6 +110,8 @@ class InputComponent extends PureComponent {
     }
 
     // Prevent custom validation triggering if default validations are invalid
+    // eslint counts func as unused variable
+    /* eslint-disable-next-line */
     for (const func of this.syncValidations) {
       if (!func(value)) return Promise.reject();
     }

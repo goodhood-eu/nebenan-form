@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
-  "version": "6.0.2",
+  "version": "6.1.1",
   "engines": {
     "node": "^10.x.x"
   },
@@ -16,12 +16,14 @@
     "check": "npm run test && npm run lint && echo \"\\033[0;32mReady to publish\\033[0m\"",
     "gulp": "gulp",
     "compile": "NODE_ENV=production npm run gulp compile",
-    "prepublishOnly": "npm run check && npm run compile",
+    "minify": "find ./lib -name '*.js' -exec terser {} -o {} --config-file terser.json \\;",
+    "build": "npm run compile && npm run minify",
+    "prepublishOnly": "npm run check && npm run build",
     "lint": "stylint ./ && eslint --ext .es,.js ./",
     "lint:tofile": "eslint --ext .es,.js --no-color -o ./eslint-report.log ./",
     "test": "npm run compile && TZ='GMT' mocha \"test/**/*.js\"",
     "test:tofile": "NODE_ENV=production npm run gulp compile && TZ='GMT' mocha --no-colors -R spec \"test/**/*.js\" 2>&1 | tee test-report.log",
-    "start": "NODE_ENV=production npm run gulp"
+    "start": "npm run gulp"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.2",
@@ -78,6 +80,7 @@
     "string-validate": "^3.0.0",
     "stylint": "^1.5.9",
     "stylint-json-reporter": "^0.3.1",
+    "terser": "^4.2.1",
     "vinyl-source-stream": "^2.0.0"
   },
   "peerDependencies": {

@@ -1,0 +1,43 @@
+.c-fancy_select-item {
+  margin-top: 3px;
+  padding: 5px;
+  border: $border-dark;
+  border-radius: $border-radius-m;
+  font-weight: $font-weight-l;
+  color: $color-gray-00;
+
+  user-select: none;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-touch-callout: none;
+  pointer-events: auto;
+
+  @media ($media-m) {
+    &:hover {
+      border-color: $color-green-04;
+      background-color: $color-green-05;
+    }
+  }
+
+  &.is-active {
+    border-color: $color-green-04;
+    background-color: $color-green-04;
+  }
+
+  i {
+    @include background-fill;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.c-fancy_select.is-error .c-fancy_select-item {
+  border-color: $color-orange-01;
+}
+
+.c-fancy_select.is-not-deselectable .c-fancy_select-item.is-active {
+  cursor: default;
+}

@@ -39,7 +39,6 @@ gulp.task('build', gulp.series(
   'preview:clean',
   gulp.parallel('compile:babel', 'compile:styles'),
   gulp.parallel('preview:babel', 'preview:styles'),
-  'preview:linkify',
 ));
 
 gulp.task('watch', (done) => {

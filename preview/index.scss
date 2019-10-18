@@ -20,7 +20,7 @@ main {
 }
 
 .preview-fancy_image {
-  background: hotpink; /* stylelint-disable-line color-named */
+  background: $color-purple-00;
 }
 
 [class^='icon-']::before,
@@ -29,5 +29,5 @@ main {
   height: 1em;
   content: '';
   display: inline-block;
-  background: red; /* stylelint-disable-line color-named */
+  background: $color-red-00;
 }

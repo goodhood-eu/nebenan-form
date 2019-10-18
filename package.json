@@ -12,7 +12,8 @@
     "node": "^10.x.x"
   },
   "scripts": {
-    "reinstall": "rm -rf node_modules package-lock.json && npm install",
+    "reinstall": "rm -rf node_modules package-lock.json && npm install && npm run decache",
+    "decache": "find ./build -type f -name '.browserify-cache.json' -delete || echo \"\\033[0;32mAlready decached!\\033[0m\"",
     "check": "npm run test && npm run lint && echo \"\\033[0;32mReady to publish\\033[0m\"",
     "gulp": "gulp",
     "compile": "NODE_ENV=production npm run gulp compile",
@@ -43,6 +44,7 @@
     "babelify": "^10.0.0",
     "browserify": "^16.2.3",
     "browserify-incremental": "^3.1.1",
+    "canvas": "^2.6.0",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "classnames": "^2.2.6",
@@ -96,7 +98,9 @@
     "prop-types": "^15.7.2",
     "react": "^16.10.2",
     "string-validate": "^3.0.0",
-    "sass-functions": "^1.2.0"
+    "sass-functions": "^1.2.0",
+    "nebenan-ui-kit": "^3.0.0-beta.3",
+    "node-sass-glob-importer": "^5.3.2"
   },
   "dependencies": {}
 }

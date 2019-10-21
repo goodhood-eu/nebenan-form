@@ -22,12 +22,3 @@ main {
 .preview-fancy_image {
   background: $color-purple-00;
 }
-
-[class^='icon-']::before,
-[class*=' icon-']::before {
-  width: 1em;
-  height: 1em;
-  content: '';
-  display: inline-block;
-  background: $color-red-00;
-}

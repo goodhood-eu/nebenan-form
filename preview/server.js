@@ -44,10 +44,11 @@ const renderApp = (req, res) => {
 
 app.set('port', port);
 
+app.use(morgan('dev'));
+
 const fonts = serveStatic(`${__dirname}/../node_modules/nebenan-ui-kit/fonts/`, { redirect: false });
 app.use('/fonts/nebenan-ui-kit', fonts);
 
-app.use(morgan('dev'));
 app.use(serveStatic(`${__dirname}/public`, { redirect: false }));
 
 app.use(renderApp);

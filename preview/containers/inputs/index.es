@@ -210,7 +210,7 @@ class Inputs extends PureComponent {
                   { label: 'Disabled', value: 'Disabled', disabled: true },
                   { label: 'Disabled and checked', value: 'Disabled and checked', disabled: true },
                 ]}
-                defaultValue={'Disabled and checked'}
+                defaultValue="Disabled and checked"
               />
             </li>
 

@@ -24,7 +24,7 @@
     border-radius: $border-radius-s;
   }
 
-  &.is-checked .c-checkbox-control{
+  &.is-checked .c-checkbox-control {
     border-color: $color-green-02;
     background: $color-green-02;
 
@@ -36,7 +36,7 @@
     }
   }
 
-  &.is-checked.is-disabled .c-checkbox-control{
+  &.is-checked.is-disabled .c-checkbox-control {
     border-color: $color-gray-05;
     background: $color-gray-08;
 

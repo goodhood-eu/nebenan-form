@@ -16,7 +16,7 @@ class Checkbox extends CheckboxInputComponent {
     } = this.props;
 
     let labelNode;
-    if (label) labelNode = <strong className="ui-label ui-label-primary">{label}</strong>;
+    if (label) labelNode = <span className="ui-label ui-label-primary">{label}</span>;
 
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;

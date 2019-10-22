@@ -60,6 +60,10 @@
     background: $color-gray-05;
   }
 
+  & .is-checked .c-radio-item-label {
+    font-weight: 600;
+  }
+
   &.is-error .c-radio-item-control {
     border-color: $color-orange-01;
     background: $color-orange-03;

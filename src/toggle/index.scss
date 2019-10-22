@@ -8,8 +8,6 @@
   $color-on: $color-green-02;
   $color-off: $color-gray-03;
 
-  $border-darkgray: 1px solid $color-gray-02;
-
   display: block;
   text-align: left;
 
@@ -32,7 +30,7 @@
 
     overflow: hidden;
     background: $color-off;
-    border: $border-darkgray;
+    border: 1px solid $color-gray-02;
     border-radius: (($width + 2) / 2);
 
     transition: background $transition;

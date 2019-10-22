@@ -2,11 +2,11 @@
   $size: 22px;
   $padding: 8px;
 
+  display: block;
+
   &.is-disabled {
     opacity: .4;
   }
-
-  display: block;
 
   .c-checkbox-container {
     overflow: hidden;

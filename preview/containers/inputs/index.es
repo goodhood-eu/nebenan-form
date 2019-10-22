@@ -162,7 +162,7 @@ class Inputs extends PureComponent {
               </div>
               <div className="preview-checkboxblock">
                 <Checkbox
-                  onUpdate={this.constructor.handleUpdate} defaultChecked disabled
+                  onUpdate={this.constructor.handleUpdate} defaultChecked disabled label="Checked and disabled"
                 />
               </div>
             </li>

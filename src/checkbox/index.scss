@@ -3,7 +3,7 @@
   $padding: 8px;
 
   &.is-disabled {
-    opacity: .5;
+    opacity: .4;
   }
 
   display: block;
@@ -38,16 +38,6 @@
     .c-checkbox-state {
       display: block;
       color: $color-gray-09;
-    }
-  }
-
-  &.is-checked.is-disabled .c-checkbox-control {
-    border-color: inherit;
-    background: inherit;
-
-    .c-checkbox-state {
-      display: block;
-      color: $color-gray-02;
     }
   }
 

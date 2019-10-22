@@ -2,6 +2,10 @@
   $size: 22px;
   $padding: 8px;
 
+  &.is-disabled {
+    opacity: .5;
+  }
+
   display: block;
 
   .c-checkbox-container {
@@ -24,7 +28,7 @@
   }
 
   &.is-checked .ui-label {
-    font-weight: 600;
+    color: $color-gray-00;
   }
 
   &.is-checked .c-checkbox-control {
@@ -38,24 +42,18 @@
   }
 
   &.is-checked.is-disabled .c-checkbox-control {
-    border-color: $color-gray-05;
-    background: $color-gray-08;
+    border-color: inherit;
+    background: inherit;
 
     .c-checkbox-state {
       display: block;
-      color: $color-gray-05;
+      color: $color-gray-02;
     }
   }
 
   &.is-error .c-checkbox-control {
     border-color: $color-orange-01;
     background-color: $color-orange-03;
-  }
-
-  &.is-disabled {
-    .c-checkbox-state {
-      color: $color-gray-05;
-    }
   }
 
   .c-checkbox-state {

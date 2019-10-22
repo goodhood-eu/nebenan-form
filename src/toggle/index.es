@@ -19,7 +19,7 @@ class Toggle extends CheckboxInputComponent {
 
     let labelNode;
     if (label) {
-      labelNode = <strong className="ui-label ui-label-primary c-toggle-label">{label}</strong>;
+      labelNode = <span className="ui-label ui-label-primary c-toggle-label">{label}</span>;
     }
 
     let error;
@@ -28,6 +28,7 @@ class Toggle extends CheckboxInputComponent {
     const className = classNames('c-toggle', this.props.className, {
       'is-error': error,
       'is-disabled': disabled,
+      'is-checked': this.state.value,
       'has-label': label,
     });
     const cleanProps = omit(this.props,

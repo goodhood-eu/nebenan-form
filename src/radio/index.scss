@@ -50,6 +50,7 @@
 
   & .is-checked .c-radio-item-control {
     background: $color-green-02;
+    border-color: $color-green-02;
   }
 
   & .is-checked.is-disabled .c-radio-item-control {
@@ -61,7 +62,7 @@
   }
 
   & .is-checked .c-radio-item-label {
-    font-weight: 600;
+    color: $color-gray-00;
   }
 
   &.is-error .c-radio-item-control {

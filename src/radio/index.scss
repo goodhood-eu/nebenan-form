@@ -1,0 +1,63 @@
+.c-radio {
+  $size: 22px;
+  $padding: 8px;
+
+  .c-radio-item {
+    margin-top: 8px;
+    display: block;
+
+    &.is-disabled {
+      opacity: .5;
+    }
+
+    .c-radio-item-label {
+      margin-left: $size + $padding;
+      display: block;
+      line-height: $size;
+    }
+  }
+
+  .c-radio-item-container {
+    overflow: hidden;
+  }
+
+  .c-radio-item-control {
+    @include block-round($size);
+
+    display: block;
+    float: left;
+
+    position: relative;
+
+    background: $color-gray-08;
+    border: $border-dark;
+  }
+
+  .c-radio-item-state {
+    @include block-round(10px);
+    @include block-center;
+    background: $color-gray-00;
+    display: none;
+  }
+
+  input[type='radio'] {
+    @include block-invisible;
+
+    &:checked + .c-radio-item-state {
+      display: block;
+    }
+  }
+
+  &.is-error .c-radio-item-control {
+    border-color: $color-orange-01;
+  }
+
+  &.is-type-small .ui-label-primary {
+    font-size: $font-size-s;
+  }
+
+  .ui-error {
+    margin-top: 8px;
+    margin-left: $size + $padding;
+  }
+}

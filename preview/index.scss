@@ -1,0 +1,24 @@
+@import 'nebenan-ui-kit/styles';
+@import '../src/**/*.scss';
+@import './components/**/*.scss';
+@import './containers/**/*.scss';
+
+html {
+  background: $color-gray-07;
+}
+
+main {
+  margin: 10px;
+
+  @media ($media-m) {
+    margin: 30px 100px;
+  }
+}
+
+.preview-section {
+  margin-top: 30px;
+}
+
+.preview-fancy_image {
+  background: $color-purple-00;
+}

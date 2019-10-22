@@ -1,21 +1,26 @@
 const gulp = require('gulp');
+const sass = require('sass');
+const gulpSass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
 
 const PUBLIC_FOLDER = `${__dirname}/../preview/public`;
 
 const SCRIPT_SOURCE = `${__dirname}/../preview/app.es`;
 const SCRIPT_FILE = 'script.js';
 
-const STYLE_SOURCE = `${__dirname}/../preview/index.styl`;
+const STYLE_SOURCE = `${__dirname}/../preview/index.scss`;
 const STYLE_FILE = 'style.css';
 
-const stylusOptions = {
-  paths: [
+const sassOptions = {
+  fiber: require('fibers'),
+  includePaths: [
     `${__dirname}/../client`,
     `${__dirname}/../node_modules`,
   ],
-  'include css': true,
-  urlfunc: 'embedurl',
-  errors: true,
+  functions: require('sass-functions')({ sass }),
+  importer: require('node-sass-glob-importer')(),
+  outputStyle: 'expanded',
+  sourceComments: true,
 };
 
 const browserifyOptions = {
@@ -48,12 +53,14 @@ gulp.task('preview:babel', () => {
 
 gulp.task('preview:styles', () => (
   gulp.src(STYLE_SOURCE)
-    .pipe(require('gulp-stylus')(stylusOptions))
+    .pipe(sourcemaps.init())
+    .pipe(gulpSass(sassOptions).on('error', gulpSass.logError))
     .pipe(require('gulp-postcss')([
       require('autoprefixer')(),
       require('postcss-flexbugs-fixes'),
     ]))
     .pipe(require('gulp-rename')(STYLE_FILE))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(PUBLIC_FOLDER))
 ));
 

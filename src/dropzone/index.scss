@@ -1,0 +1,40 @@
+.c-dropzone {
+  display: block;
+  position: relative;
+}
+
+.c-dropzone-overlay {
+  @include block-fill;
+  @include text-center;
+
+  display: none;
+  z-index: 1;
+
+  background: $color-gray-09;
+  color: $color-green-02;
+  border: 2px solid $color-green-02;
+
+  > span {
+    display: none;
+  }
+}
+
+.c-dropzone.is-active {
+  .c-dropzone-overlay {
+    display: block;
+  }
+
+  .c-dropzone-overlay-text-active {
+    display: inline-block;
+  }
+}
+
+.c-dropzone.is-hover {
+  .c-dropzone-overlay-text-active {
+    display: none;
+  }
+
+  .c-dropzone-overlay-text-hover {
+    display: inline-block;
+  }
+}

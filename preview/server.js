@@ -22,7 +22,7 @@ const getHTML = (content) => (`<!DOCTYPE html>
     <meta name="MobileOptimized" content="320" />
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="cleartype" content="on" />
-    <link rel="stylesheet", href="/style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <main id="main">${content}</main>
@@ -45,6 +45,10 @@ const renderApp = (req, res) => {
 app.set('port', port);
 
 app.use(morgan('dev'));
+
+const fonts = serveStatic(`${__dirname}/../node_modules/nebenan-ui-kit/fonts/`, { redirect: false });
+
+app.use('/fonts/nebenan-ui-kit', fonts);
 app.use(serveStatic(`${__dirname}/public`, { redirect: false }));
 
 app.use(renderApp);

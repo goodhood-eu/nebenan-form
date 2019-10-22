@@ -8,6 +8,8 @@
   $color-on: $color-green-02;
   $color-off: $color-gray-03;
 
+  $border-darkgray: 1px solid $color-gray-02;
+
   display: block;
   text-align: left;
 
@@ -22,14 +24,15 @@
 
   .c-toggle-slide {
     // [(___O)]
-    width: $width + 2;
-    height: $size + 2;
+    width: $width + 4;
+    height: $size + 4;
     padding: 1px;
 
     display: block;
 
     overflow: hidden;
     background: $color-off;
+    border: $border-darkgray;
     border-radius: (($width + 2) / 2);
 
     transition: background $transition;
@@ -86,6 +89,7 @@
 
     &:checked + .c-toggle-slide {
       background: $color-on;
+      border-color: $color-green-00;
 
       .c-toggle-state {
         transform: translateX(0);
@@ -96,6 +100,7 @@
   &.is-error .c-toggle-container .c-toggle-control .c-toggle-slide {
     transition: none;
     background: $color-orange-01;
+    border-color: $color-orange-00;
   }
 
   .c-toggle-label {

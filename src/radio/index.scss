@@ -29,14 +29,14 @@
 
     position: relative;
 
-    background: $color-gray-08;
+    background: $color-gray-09;
     border: $border-dark;
   }
 
   .c-radio-item-state {
     @include block-round(10px);
     @include block-center;
-    background: $color-gray-00;
+    background: $color-gray-09;
     display: none;
   }
 
@@ -48,8 +48,19 @@
     }
   }
 
+  & .is-checked .c-radio-item-control {
+    background: $color-green-02;
+  }
+  & .is-checked.is-disabled .c-radio-item-control {
+    background: $color-gray-09;
+  }
+  & .is-checked.is-disabled .c-radio-item-state {
+    background: $color-gray-05;
+  }
+
   &.is-error .c-radio-item-control {
     border-color: $color-orange-01;
+    background: $color-orange-03;
   }
 
   &.is-type-small .ui-label-primary {

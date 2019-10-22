@@ -1,6 +1,7 @@
 .c-checkbox {
   $size: 22px;
   $padding: 8px;
+  $border-darkgray: 1px solid $color-gray-03;
 
   display: block;
 
@@ -19,21 +20,42 @@
 
     background: $color-gray-08;
 
-    border: $border-dark;
+    border: $border-darkgray;
     border-radius: $border-radius-s;
+  }
+
+  &.is-checked .c-checkbox-control{
+    border-color: $color-green-02;
+    background: $color-green-02;
+
+    input[type='checkbox'] {
+      &:checked + .c-checkbox-state {
+        display: block;
+        color: $color-gray-09;
+      }
+    }
+  }
+
+  &.is-checked.is-disabled .c-checkbox-control{
+    border-color: $color-gray-05;
+    background: $color-gray-08;
+
+    input[type='checkbox'] {
+      &:checked + .c-checkbox-state {
+        display: block;
+        color: $color-gray-05;
+      }
+    }
   }
 
   &.is-error .c-checkbox-control {
     border-color: $color-orange-01;
+    background-color: $color-orange-03;
   }
 
   &.is-disabled {
-    .c-checkbox-control {
-      border-style: dashed;
-    }
-
     .c-checkbox-state {
-      color: $color-gray-03;
+      color: $color-gray-05;
     }
   }
 
@@ -45,10 +67,6 @@
 
   input[type='checkbox'] {
     @include block-invisible;
-
-    &:checked + .c-checkbox-state {
-      display: block;
-    }
   }
 
   .ui-label-primary {

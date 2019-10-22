@@ -194,10 +194,12 @@ class FormPreview extends PureComponent {
 
             <FormGroup>
               <Toggle
+                labelOn="Ja" labelOff="Nein"
                 label="Form toggle label" name="toggle_1"
                 error="Required!" required
               />
               <Toggle
+                labelOn="Ja" labelOff="Nein"
                 label={content.tooltip} name="toggle_2"
                 defaultChecked
               />

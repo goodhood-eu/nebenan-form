@@ -24,6 +24,7 @@ class Checkbox extends CheckboxInputComponent {
     const className = classNames('c-checkbox', this.props.className, {
       'is-error': error,
       'is-disabled': disabled,
+      'is-checked': this.state.value,
       'has-label': label,
     });
 

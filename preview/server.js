@@ -22,7 +22,7 @@ const getHTML = (content) => (`<!DOCTYPE html>
     <meta name="MobileOptimized" content="320" />
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="cleartype" content="on" />
-    <link rel="stylesheet", href="/style.css" />
+    <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
     <main id="main">${content}</main>

@@ -14,13 +14,13 @@
 
   @media ($media-m) {
     &:hover {
-      border-color: $color-green-04;
+      border-color: $color-green-03;
       background-color: $color-green-05;
     }
   }
 
   &.is-active {
-    border-color: $color-green-04;
+    border-color: $color-green-03;
     background-color: $color-green-04;
   }
 

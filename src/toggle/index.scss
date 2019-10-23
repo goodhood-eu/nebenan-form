@@ -22,14 +22,15 @@
 
   .c-toggle-slide {
     // [(___O)]
-    width: $width + 2;
-    height: $size + 2;
+    width: $width + 4;
+    height: $size + 4;
     padding: 1px;
 
     display: block;
 
     overflow: hidden;
     background: $color-off;
+    border: 1px solid $color-gray-02;
     border-radius: (($width + 2) / 2);
 
     transition: background $transition;
@@ -86,6 +87,7 @@
 
     &:checked + .c-toggle-slide {
       background: $color-on;
+      border-color: $color-green-00;
 
       .c-toggle-state {
         transform: translateX(0);
@@ -96,6 +98,7 @@
   &.is-error .c-toggle-container .c-toggle-control .c-toggle-slide {
     transition: none;
     background: $color-orange-01;
+    border-color: $color-orange-00;
   }
 
   .c-toggle-label {
@@ -104,11 +107,15 @@
     line-height: $size + 2;
   }
 
+  &.is-checked .c-toggle-label {
+    color: $color-gray-00;
+  }
+
   &.has-label .ui-error {
     margin-left: $width + 2 + $padding;
   }
 
-  &.is-disabled .c-toggle-control {
-    opacity: .5;
+  &.is-disabled .c-toggle-container {
+    opacity: .4;
   }
 }

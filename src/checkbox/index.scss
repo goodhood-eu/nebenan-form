@@ -4,6 +4,10 @@
 
   display: block;
 
+  &.is-disabled {
+    opacity: .4;
+  }
+
   .c-checkbox-container {
     overflow: hidden;
   }
@@ -19,22 +23,27 @@
 
     background: $color-gray-08;
 
-    border: $border-dark;
+    border: 1px solid $color-gray-03;
     border-radius: $border-radius-s;
+  }
+
+  &.is-checked .ui-label {
+    color: $color-gray-00;
+  }
+
+  &.is-checked .c-checkbox-control {
+    border-color: $color-green-02;
+    background: $color-green-02;
+
+    .c-checkbox-state {
+      display: block;
+      color: $color-gray-09;
+    }
   }
 
   &.is-error .c-checkbox-control {
     border-color: $color-orange-01;
-  }
-
-  &.is-disabled {
-    .c-checkbox-control {
-      border-style: dashed;
-    }
-
-    .c-checkbox-state {
-      color: $color-gray-03;
-    }
+    background-color: $color-orange-03;
   }
 
   .c-checkbox-state {
@@ -45,10 +54,6 @@
 
   input[type='checkbox'] {
     @include block-invisible;
-
-    &:checked + .c-checkbox-state {
-      display: block;
-    }
   }
 
   .ui-label-primary {

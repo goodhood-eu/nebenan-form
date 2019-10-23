@@ -163,6 +163,7 @@ class Inputs extends PureComponent {
               <div className="preview-checkboxblock">
                 <Checkbox
                   onUpdate={this.constructor.handleUpdate} defaultChecked disabled
+                  label="Checked and disabled"
                 />
               </div>
             </li>
@@ -172,11 +173,13 @@ class Inputs extends PureComponent {
             <li>
               <div className="preview-checkboxblock">
                 <Toggle
+                  labelOn="Ja" labelOff="Nein"
                   onUpdate={this.constructor.handleUpdate} label="Default toggle label"
                 />
               </div>
               <div className="preview-checkboxblock">
                 <Toggle
+                  labelOn="Ja" labelOff="Nein"
                   onUpdate={this.constructor.handleUpdate} defaultChecked
                 />
               </div>
@@ -184,12 +187,15 @@ class Inputs extends PureComponent {
             <li>
               <div className="preview-checkboxblock">
                 <Toggle
+                  labelOn="Ja" labelOff="Nein"
                   onUpdate={this.constructor.handleUpdate} label="Default toggle label" disabled
                 />
               </div>
               <div className="preview-checkboxblock">
                 <Toggle
+                  labelOn="Ja" labelOff="Nein"
                   onUpdate={this.constructor.handleUpdate} defaultChecked disabled
+                  label="Checked and disabled"
                 />
               </div>
             </li>
@@ -204,7 +210,9 @@ class Inputs extends PureComponent {
                   { value: 2 },
                   { label: 'String', value: 'awesome' },
                   { label: 'Disabled', value: 'Disabled', disabled: true },
+                  { label: 'Disabled and checked', value: 'Disabled and checked', disabled: true },
                 ]}
+                defaultValue="Disabled and checked"
               />
             </li>
 

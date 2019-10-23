@@ -48,7 +48,7 @@ class Radio extends InputComponent {
     let label;
     if (option.label) {
       label = (
-        <strong className="c-radio-item-label ui-label ui-label-primary">{option.label}</strong>
+        <span className="c-radio-item-label ui-label ui-label-primary">{option.label}</span>
       );
     }
 

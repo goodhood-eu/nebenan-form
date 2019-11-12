@@ -31,6 +31,9 @@ class Textarea extends TextInputComponent {
 
   // https://maximilianhoffmann.com/posts/autoresizing-textareas
   updateHeight() {
+    // ref can be null in delayed function
+    if (!this.els.input) return;
+
     // has to go first, to make scrollHeight recalculate
     this.els.input.style.height = 'auto';
 

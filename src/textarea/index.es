@@ -69,13 +69,16 @@ class Textarea extends TextInputComponent {
       onEnterKey,
       onShiftEnterKey,
       label,
+      disabled,
       onChange,
       onFocus,
       onBlur,
       children,
     } = this.props;
 
-    const className = classNames('c-textarea', this.props.className);
+    const className = classNames('c-textarea', this.props.className, {
+      'is-disabled': disabled,
+    });
 
     const cleanProps = omit(this.props,
       'label',

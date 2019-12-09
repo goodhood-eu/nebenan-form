@@ -10,6 +10,7 @@ class Input extends TextInputComponent {
   render() {
     const { value } = this.state;
     const {
+      disabled,
       name: originalName,
       disableAutoComplete,
       onEnterKey,
@@ -22,7 +23,10 @@ class Input extends TextInputComponent {
       children,
     } = this.props;
 
-    const className = classNames('c-input', this.props.className);
+    const className = classNames('c-input', this.props.className, {
+      'is-disabled': disabled,
+    });
+
     const cleanProps = omit(this.props,
       'disableAutoComplete',
       'label',

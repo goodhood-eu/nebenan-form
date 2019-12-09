@@ -63,11 +63,13 @@ class FancySelect extends InputComponent {
   }
 
   renderOption({ key, imageClass, children }, index) {
+    const { disabled } = this.props;
+
     const className = classNames('c-fancy_select-item', {
       'is-active': index === this.state.index,
     });
 
-    const handler = this.handleSelect.bind(this, index);
+    const handler = !disabled && this.handleSelect.bind(this, index);
     const content = children || key;
 
     let icon;
@@ -78,15 +80,16 @@ class FancySelect extends InputComponent {
 
   render() {
     const hasError = this.isErrorActive();
-    const { label, options, deselectable, children } = this.props;
+    const { disabled, label, options, deselectable, children } = this.props;
 
     const className = classNames('c-fancy_select', this.props.className, {
+      'is-disabled': disabled,
       'is-error': hasError,
       'is-not-deselectable': !deselectable,
     });
     const cleanProps = omit(this.props,
       'label', 'error', 'options', 'deselectable',
-      'children', 'defaultValue', 'onUpdate', 'children', 'required',
+      'children', 'defaultValue', 'onUpdate', 'children', 'required', 'disabled',
     );
 
     let labelNode;

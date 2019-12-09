@@ -256,6 +256,7 @@ InputComponent.propTypes = {
     PropTypes.string,
   ]),
 
+  disabled: PropTypes.bool,
   required: PropTypes.bool,
   pattern: PropTypes.string,
   defaultValue: PropTypes.any,

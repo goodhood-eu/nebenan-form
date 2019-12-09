@@ -76,7 +76,6 @@ Toggle.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
 
-  disabled: PropTypes.bool,
   label: PropTypes.node,
   labelOn: PropTypes.node,
   labelOff: PropTypes.node,

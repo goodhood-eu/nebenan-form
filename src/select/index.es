@@ -58,8 +58,10 @@ class Select extends InputComponent {
   }
 
   render() {
-    const { options, label, onBlur, children } = this.props;
-    const className = classNames('c-select', this.props.className);
+    const { disabled, options, label, onBlur, children } = this.props;
+    const className = classNames('c-select', this.props.className, {
+      'is-disabled': disabled,
+    });
     const cleanProps = omit(
       this.props, 'label', 'error', 'options', 'validate', 'children', 'defaultValue', 'onUpdate',
     );

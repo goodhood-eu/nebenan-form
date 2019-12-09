@@ -64,6 +64,12 @@ class Inputs extends PureComponent {
                 deselectable
               />
             </li>
+            <li>
+              <FancySelect
+                onUpdate={this.constructor.handleUpdate}
+                label="Disabled" options={content.optionValues} disabled
+              />
+            </li>
           </ul>
           <ul>
             <li>
@@ -89,6 +95,12 @@ class Inputs extends PureComponent {
                 ]} defaultValue={false}
               />
             </li>
+            <li>
+              <Select
+                onUpdate={this.constructor.handleUpdate}
+                label="Disabled" options={[1, 2, 3]} disabled
+              />
+            </li>
           </ul>
 
           <ul>
@@ -109,6 +121,12 @@ class Inputs extends PureComponent {
               <Textarea
                 onUpdate={this.constructor.handleUpdate}
                 placeholder="Textarea placeholder"
+              />
+            </li>
+            <li>
+              <Textarea
+                onUpdate={this.constructor.handleUpdate}
+                label="Disabled" disabled
               />
             </li>
           </ul>
@@ -137,6 +155,12 @@ class Inputs extends PureComponent {
                 name="city"
                 disableAutoComplete
                 label="Input with disabled autocomplete"
+              />
+            </li>
+            <li>
+              <Input
+                onUpdate={this.constructor.handleUpdate}
+                label="Disabled" disabled
               />
             </li>
           </ul>
@@ -220,6 +244,14 @@ class Inputs extends PureComponent {
               <Radio
                 onUpdate={this.constructor.handleUpdate}
                 type="small" options={radios} defaultValue={radios[2].value}
+              />
+            </li>
+
+            <li>
+              <Radio
+                onUpdate={this.constructor.handleUpdate}
+                type="small" options={radios} defaultValue={radios[2].value}
+                disabled
               />
             </li>
           </ul>

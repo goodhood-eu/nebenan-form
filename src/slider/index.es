@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import omit from 'lodash/omit';
 
-import eventproxy from '../utils/eventproxy';
-import { documentOffset, size, getPrefixed, eventCoordinates } from '../utils/dom';
+import eventproxy from 'nebenan-helpers/lib/eventproxy';
+import { documentOffset, size, getPrefixed, eventCoordinates } from 'nebenan-helpers/lib/dom';
 import { bindTo, invoke } from '../utils';
 
 import InputComponent from '../base';

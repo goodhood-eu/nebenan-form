@@ -256,15 +256,6 @@ class Inputs extends PureComponent {
               />
             </li>
           </ul>
-
-          <ul className="preview-slider">
-            <li>
-              <Slider />
-            </li>
-            <li>
-              <Slider label="Slider with label" min={1} max={20} step={1} />
-            </li>
-          </ul>
         </div>
       </article>
     );

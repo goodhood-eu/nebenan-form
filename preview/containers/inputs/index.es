@@ -12,7 +12,6 @@ import FancySelect from '../../../lib/fancy_select';
 import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
-import Slider from '../../../lib/slider';
 
 import content from '../../sample_data';
 

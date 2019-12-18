@@ -28,6 +28,26 @@ describe('<Form />', () => {
     assert.equal(button.text(), 'button', 'button text  was rendered correct');
   });
 
+  it('setErrors', () => {
+    const wrapper = shallow(createElement(Form));
+    const instance = wrapper.instance();
+
+    const errorSetA = fake();
+    const errorSetB = fake();
+
+    instance.addInput({ getName: () => 'a', setError: errorSetA });
+    instance.addInput({ getName: () => 'b', setError: errorSetB });
+
+    const resultA = instance.setErrors({ a: 'Error A', b: 'Error B', c: 'Error C' });
+    const resultB = instance.setErrors({ c: 'Error C' });
+
+    assert.isTrue(errorSetA.calledOnce, 'Input A set error');
+    assert.isTrue(errorSetB.calledOnce, 'Input B set error');
+
+    assert.isTrue(resultA, 'Return true if at least one error was set');
+    assert.isFalse(resultB, 'Return false if none error was set');
+  });
+
   it('setPristine', (done) => {
     const wrapper = shallow(createElement(Form));
     const instance = wrapper.instance();

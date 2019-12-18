@@ -69,7 +69,7 @@ class FancySelect extends InputComponent {
       'is-active': index === this.state.index,
     });
 
-    const handler = !disabled && this.handleSelect.bind(this, index);
+    const handler = !disabled ? this.handleSelect.bind(this, index) : null;
     const content = children || key;
 
     let icon;

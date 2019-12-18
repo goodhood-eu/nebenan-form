@@ -12,6 +12,7 @@ import FancySelect from '../../../lib/fancy_select';
 import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
+import Slider from '../../../lib/slider';
 
 import content from '../../sample_data';
 
@@ -253,6 +254,15 @@ class Inputs extends PureComponent {
                 type="small" options={radios} defaultValue={radios[2].value}
                 disabled
               />
+            </li>
+          </ul>
+
+          <ul className="preview-slider">
+            <li>
+              <Slider />
+            </li>
+            <li>
+              <Slider label="Slider with label" min={1} max={2} step={0.01} />
             </li>
           </ul>
         </div>

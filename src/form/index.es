@@ -53,13 +53,15 @@ class Form extends PureComponent {
   setErrors(data = {}) {
     const collect = (acc, Component) => {
       const name = Component.getName();
-      if (!has(data, name)) return acc;
+      if (has(data, name)) {
+        Component.setError(data[name]);
+        acc.push(name);
+      }
 
-      Component.setError(data[name]);
-      return true;
+      return acc;
     };
 
-    return this.inputs.reduce(collect, false);
+    return this.inputs.reduce(collect, []);
   }
 
   setPristine(done) {

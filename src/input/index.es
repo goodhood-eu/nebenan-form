@@ -50,12 +50,9 @@ class Input extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
-    let name = originalName;
-    let autoComplete;
-    if (disableAutoComplete) {
-      // tell browser the input is inappropriate for a control
-      autoComplete = 'new-password';
-      name += '_autocomplete_disabled';
+    let name;
+    if (!disableAutoComplete) {
+      name = originalName;
     }
 
     return (
@@ -64,7 +61,7 @@ class Input extends TextInputComponent {
         <div className="c-input-container">
           <input
             {...cleanProps}
-            {...{ autoComplete, value, name }}
+            {...{ value, name }}
             ref={this.setEl('input')}
             className={inputClassName}
             type={type || 'text'}

@@ -44,8 +44,8 @@ describe('<Form />', () => {
     assert.isTrue(errorSetA.calledOnce, 'Input A set error');
     assert.isTrue(errorSetB.calledOnce, 'Input B set error');
 
-    assert.isTrue(resultA, 'Return true if at least one error was set');
-    assert.isFalse(resultB, 'Return false if none error was set');
+    assert.deepEqual(resultA, ['a', 'b'], 'Return list of input keys that had erros');
+    assert.deepEqual(resultB, [], 'Return empty list if none errors were set');
   });
 
   it('setPristine', (done) => {

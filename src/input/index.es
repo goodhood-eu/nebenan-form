@@ -51,7 +51,7 @@ class Input extends TextInputComponent {
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     let name;
-    if (disableAutoComplete) {
+    if (!disableAutoComplete) {
       name = originalName;
     }
 

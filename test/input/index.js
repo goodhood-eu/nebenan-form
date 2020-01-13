@@ -71,10 +71,8 @@ describe('<Input />', () => {
 
     assert.equal(inputWithAutoComplete.find('input').prop('name'), 'testName', 'name is inserted in dom');
 
-
-    assert.notEqual(inputWithoutAutoComplete.find('input').prop('name'), 'testName', 'name is not inserted in dom');
+    assert.isUndefined(inputWithoutAutoComplete.find('input').prop('name'), 'name is not inserted in dom');
     assert.equal(inputWithoutAutoComplete.instance().getName(), 'testName', 'getName returns original name');
-    assert.equal(inputWithoutAutoComplete.find('input').prop('autoComplete'), 'new-password', 'autocomplete attribute has value that is inappropriate for a control');
   });
 
   it('disableAutoComplete: input in form', () => {

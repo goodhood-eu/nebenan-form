@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
-  "version": "8.2.1",
+  "version": "8.2.2",
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install && npm run decache",
     "decache": "find ./build -type f -name '.browserify-cache.json' -delete || echo \"\\033[0;32mAlready decached!\\033[0m\"",

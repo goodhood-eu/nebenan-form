@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import throttle from 'lodash/throttle';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { invoke, bindTo } from '../utils';
 
 import InputComponent from '../base';
@@ -32,7 +32,7 @@ class Radio extends InputComponent {
   renderRadio(option, index) {
     const isChecked = this.state.value === option.value;
     const isDisabled = option.disabled || this.props.disabled;
-    const className = classNames('c-radio-item', {
+    const className = clsx('c-radio-item', {
       'is-checked': isChecked,
       'is-disabled': isDisabled,
     });
@@ -76,7 +76,7 @@ class Radio extends InputComponent {
 
   render() {
     const { type, options, children } = this.props;
-    const className = classNames('c-radio', this.props.className, {
+    const className = clsx('c-radio', this.props.className, {
       [`is-type-${type}`]: type,
       'is-error': this.isErrorActive(),
     });

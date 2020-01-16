@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { bindTo, invoke } from '../utils';
 
 
@@ -111,7 +111,7 @@ class Dropzone extends PureComponent {
   render() {
     const { isActive, isHover } = this.state;
     const { children, labelDrag, labelRelease } = this.props;
-    const className = classNames('c-dropzone', this.props.className, {
+    const className = clsx('c-dropzone', this.props.className, {
       'is-active': isActive,
       'is-hover': isHover,
     });

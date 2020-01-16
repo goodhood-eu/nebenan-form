@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import TextInputComponent from './base';
 
@@ -23,7 +23,7 @@ class Input extends TextInputComponent {
       children,
     } = this.props;
 
-    const className = classNames('c-input', this.props.className, {
+    const className = clsx('c-input', this.props.className, {
       'is-disabled': disabled,
     });
 
@@ -41,7 +41,7 @@ class Input extends TextInputComponent {
       'validate',
     );
 
-    const inputClassName = classNames('ui-input', { 'ui-input-error': this.isErrorActive() });
+    const inputClassName = clsx('ui-input', { 'ui-input-error': this.isErrorActive() });
     if (onEnterKey || onShiftEnterKey) cleanProps.onKeyDown = this.handleKeyDown;
 
     let labelNode;

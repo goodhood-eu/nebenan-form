@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import CheckboxInputComponent from './base';
 
@@ -21,7 +21,7 @@ class Checkbox extends CheckboxInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
-    const className = classNames('c-checkbox', this.props.className, {
+    const className = clsx('c-checkbox', this.props.className, {
       'is-error': error,
       'is-disabled': disabled,
       'is-checked': this.state.value,

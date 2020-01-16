@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import omit from 'lodash/omit';
 
 import { bindTo, has } from '../utils';
@@ -65,7 +65,7 @@ class FancySelect extends InputComponent {
   renderOption({ key, imageClass, children }, index) {
     const { disabled } = this.props;
 
-    const className = classNames('c-fancy_select-item', {
+    const className = clsx('c-fancy_select-item', {
       'is-active': index === this.state.index,
     });
 
@@ -82,7 +82,7 @@ class FancySelect extends InputComponent {
     const hasError = this.isErrorActive();
     const { disabled, label, options, deselectable, children } = this.props;
 
-    const className = classNames('c-fancy_select', this.props.className, {
+    const className = clsx('c-fancy_select', this.props.className, {
       'is-disabled': disabled,
       'is-error': hasError,
       'is-not-deselectable': !deselectable,

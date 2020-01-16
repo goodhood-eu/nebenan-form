@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import debounce from 'lodash/debounce';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { invoke, bindTo } from '../utils';
 import TextInputComponent from '../input/base';
@@ -76,7 +76,7 @@ class Textarea extends TextInputComponent {
       children,
     } = this.props;
 
-    const className = classNames('c-textarea', this.props.className, {
+    const className = clsx('c-textarea', this.props.className, {
       'is-disabled': disabled,
     });
 
@@ -93,7 +93,7 @@ class Textarea extends TextInputComponent {
       'defaultValue',
     );
 
-    const inputClassName = classNames('ui-input', {
+    const inputClassName = clsx('ui-input', {
       'ui-input-error': this.isErrorActive(),
     });
     if (onEnterKey || onShiftEnterKey) cleanProps.onKeyDown = this.handleKeyDown;

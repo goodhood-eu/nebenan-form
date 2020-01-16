@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import classNames from 'classnames';
+import clsx from 'clsx';
 
 import { bindTo, has } from '../utils';
 import { getOption, findIndex } from './utils';
@@ -59,7 +59,7 @@ class Select extends InputComponent {
 
   render() {
     const { disabled, options, label, onBlur, children } = this.props;
-    const className = classNames('c-select', this.props.className, {
+    const className = clsx('c-select', this.props.className, {
       'is-disabled': disabled,
     });
     const cleanProps = omit(
@@ -67,7 +67,7 @@ class Select extends InputComponent {
     );
     const hasError = this.isErrorActive();
 
-    const inputClassName = classNames('ui-input', { 'ui-input-error': hasError });
+    const inputClassName = clsx('ui-input', { 'ui-input-error': hasError });
     const optionsNode = options.map(this.renderOption);
 
     let labelNode;

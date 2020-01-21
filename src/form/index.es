@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
-import classNames from 'classnames';
+import clsx from 'clsx';
 import { bindTo, invoke, has } from '../utils';
 import { Provider } from './context';
 
@@ -154,7 +154,7 @@ class Form extends PureComponent {
       children,
     } = this.props;
 
-    const className = classNames('c-form', this.props.className);
+    const className = clsx('c-form', this.props.className);
     const cleanProps = omit(this.props,
       'children',
       'onValidityChange',

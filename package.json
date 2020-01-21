@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
-  "version": "8.2.3",
+  "version": "8.2.4",
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install && npm run decache",
     "decache": "find ./build -type f -name '.browserify-cache.json' -delete || echo \"\\033[0;32mAlready decached!\\033[0m\"",
@@ -43,7 +43,7 @@
     "browserify-incremental": "^3.1.1",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "classnames": "^2.2.6",
+    "clsx": "^1.0.4",
     "del": "^5.1.0",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",
@@ -86,7 +86,7 @@
   },
   "peerDependencies": {
     "@babel/runtime": "^7.7.6",
-    "classnames": "^2.2.6",
+    "clsx": "^1.0.4",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.12.0",

@@ -11,10 +11,11 @@ import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
 
-import Form from '../../../lib/form';
+import Form from '../../../src/form';
 import FormGroup from '../../../lib/form_group';
 
 import content from '../../sample_data';
+import TimePicker from '../../../src/time_picker';
 
 
 const secretValidation = (value) => {
@@ -160,6 +161,10 @@ class FormPreview extends PureComponent {
                 label="Required validation" name="select"
                 options={content.listOptions} error="Required!" required
               />
+            </FormGroup>
+
+            <FormGroup>
+              <TimePicker label="Time Picker" error="Required" required />
             </FormGroup>
 
             <FormGroup>

@@ -2,7 +2,8 @@ import React from 'react';
 import cn from 'clsx';
 import { TimePickerInput } from './time-picker-input';
 
-export const TimePickerFormFiled = React.forwardRef(
+
+export const TimePickerFormField = React.forwardRef(
   ({ className, label, error, onChange, value, name, required, disabled }, ref) => (
 
     <label className={cn(className, 'c-input', {

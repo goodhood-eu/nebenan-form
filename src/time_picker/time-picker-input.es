@@ -2,6 +2,8 @@ import React from 'react';
 import propTypes from 'prop-types';
 import TimeField from 'react-simple-timefield';
 
+const style = { width: undefined }; // hack for reset react-simple-timefield style
+
 export const TimePickerInput = React.forwardRef(
   ({ className, onChange, value, name, required, disabled }, ref) => (
     <TimeField
@@ -12,7 +14,7 @@ export const TimePickerInput = React.forwardRef(
       disabled={disabled}
       className={className}
       onChange={onChange}
-      style={{ width: 'iv' }} // iv - invalid value hack for reset react-simple-timefield style
+      style={style}
     />
   ),
 );
@@ -20,7 +22,7 @@ export const TimePickerInput = React.forwardRef(
 TimePickerInput.propTypes = {
   className: propTypes.string,
   name: propTypes.string,
-  value: propTypes.func,
+  value: propTypes.string,
   required: propTypes.bool,
   disabled: propTypes.bool,
   onChange: propTypes.func,

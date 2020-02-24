@@ -1,6 +1,7 @@
 import React from 'react';
 import InputComponent from '../base/index';
-import { TimePickerFormFiled } from './time-picker-form-filed';
+import { TimePickerFormField } from './time-picker-form-filed';
+
 
 export default class TimePicker extends InputComponent {
   render() {
@@ -8,16 +9,16 @@ export default class TimePicker extends InputComponent {
     const error = this.isErrorActive() && this.getError();
 
     return (
-      <TimePickerFormFiled
+      <TimePickerFormField
         ref={this.setEl('input')}
         name={name}
+        value={this.state.value}
         label={label}
         error={error}
         required={required}
         disabled={disabled}
         onChange={this.actionChange(onChange)}
         className={className}
-
       />
     );
   }

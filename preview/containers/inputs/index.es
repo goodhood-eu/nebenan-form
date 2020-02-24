@@ -14,6 +14,7 @@ import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
 
 import content from '../../sample_data';
+import TimePicker from '../../../src/time_picker';
 
 
 class Inputs extends PureComponent {
@@ -100,6 +101,9 @@ class Inputs extends PureComponent {
                 onUpdate={this.constructor.handleUpdate}
                 label="Disabled" options={[1, 2, 3]} disabled
               />
+            </li>
+            <li>
+              <TimePicker label="Time Picker" error="Required" required />
             </li>
           </ul>
 

@@ -20,7 +20,7 @@ class Radio extends InputComponent {
 
   getDefaultState(props) {
     const state = super.getDefaultState(props);
-    if (!state.value) state.value = null;
+    if (!state.value && typeof state.value !== 'number') state.value = null;
     return state;
   }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import omit from 'lodash/omit';
 import throttle from 'lodash/throttle';
 import clsx from 'clsx';
-import { invoke, bindTo } from '../utils';
+import { invoke, bindTo, has } from '../utils';
 
 import InputComponent from '../base';
 
@@ -20,7 +20,8 @@ class Radio extends InputComponent {
 
   getDefaultState(props) {
     const state = super.getDefaultState(props);
-    if (!state.value && typeof state.value !== 'number') state.value = null;
+    const hasValue = has(state, 'value');
+    if (!hasValue) state.value = null;
     return state;
   }
 

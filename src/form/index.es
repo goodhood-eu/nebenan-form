@@ -23,7 +23,7 @@ class Form extends PureComponent {
 
     // Fixes weird iteration over object bugs
     this.inputs = [];
-    this.state = this.getDefaultState();
+    this.state = this.getDefaultState(props);
     this.staticContext = this.getDefaultContext();
   }
 
@@ -32,8 +32,8 @@ class Form extends PureComponent {
     return { addInput, removeInput, updateValidity };
   }
 
-  getDefaultState() {
-    return { isValid: true };
+  getDefaultState(props) {
+    return { isValid: !props.defaultLocked };
   }
 
   getModel() {
@@ -165,6 +165,7 @@ class Form extends PureComponent {
       'buttonClass',
       'alternativeAction',
       'locked',
+      'defaultLocked',
     );
 
     let error;
@@ -207,6 +208,11 @@ class Form extends PureComponent {
   }
 }
 
+Form.defaultProps = {
+  locked: false,
+  defaultLocked: false,
+};
+
 Form.propTypes = {
   className: PropTypes.string,
   formError: PropTypes.node,
@@ -219,7 +225,8 @@ Form.propTypes = {
   onInvalidSubmit: PropTypes.func,
   onSubmit: PropTypes.func,
 
-  locked: PropTypes.bool,
+  locked: PropTypes.bool.isRequired,
+  defaultLocked: PropTypes.bool.isRequired,
 
   children: PropTypes.node,
 };

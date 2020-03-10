@@ -147,6 +147,7 @@ class Form extends PureComponent {
 
   render() {
     const {
+      as,
       formError,
       buttonClass,
       buttonText,
@@ -154,8 +155,11 @@ class Form extends PureComponent {
       children,
     } = this.props;
 
+    const isDisabled = this.isDisabled();
+
     const className = clsx('c-form', this.props.className);
     const cleanProps = omit(this.props,
+      'as',
       'children',
       'onValidityChange',
       'onValidSubmit',
@@ -168,6 +172,20 @@ class Form extends PureComponent {
       'defaultLocked',
     );
 
+    const Component = as || 'form';
+
+    const isNativeForm = Component === 'form';
+
+    let formProps = { className };
+    if (isNativeForm) {
+      formProps = {
+        ...formProps,
+        method: 'post',
+        onSubmit: this.submit,
+        noValidate: true,
+      };
+    }
+
     let error;
     if (formError) {
       error = <strong className="c-form-error ui-error">{formError}</strong>;
@@ -175,12 +193,20 @@ class Form extends PureComponent {
 
     let button;
     if (buttonText) {
-      const buttonClassName = buttonClass || 'ui-button ui-button-primary';
-      button = (
-        <button className={buttonClassName} type="submit" disabled={this.isDisabled()}>
-          {buttonText}
-        </button>
-      );
+      const ButtonComponent = isNativeForm ? 'button' : 'span';
+
+      const buttonProps = {
+        className: clsx(buttonClass || 'ui-button ui-button-primary', { 'is-disabled': isDisabled }),
+        disabled: isDisabled,
+      };
+
+      if (isNativeForm) {
+        buttonProps.type = 'submit';
+      } else {
+        buttonProps.onClick = this.submit;
+      }
+
+      button = <ButtonComponent {...buttonProps}>{buttonText}</ButtonComponent>;
     }
 
     let footer;
@@ -195,14 +221,11 @@ class Form extends PureComponent {
 
     return (
       <Provider value={this.staticContext}>
-        <form
-          {...cleanProps} className={className}
-          method="post" onSubmit={this.submit} noValidate
-        >
+        <Component {...cleanProps} {...formProps}>
           {children}
           {error}
           {footer}
-        </form>
+        </Component>
       </Provider>
     );
   }
@@ -215,6 +238,9 @@ Form.defaultProps = {
 
 Form.propTypes = {
   className: PropTypes.string,
+
+  as: PropTypes.elementType,
+
   formError: PropTypes.node,
   buttonClass: PropTypes.string,
   buttonText: PropTypes.node,

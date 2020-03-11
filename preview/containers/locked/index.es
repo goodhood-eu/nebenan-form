@@ -7,7 +7,7 @@ import Form from '../../../lib/form';
 import FormGroup from '../../../lib/form_group';
 
 
-class FormPreview extends PureComponent {
+class LockedPreview extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -85,4 +85,4 @@ class FormPreview extends PureComponent {
   }
 }
 
-export default FormPreview;
+export default LockedPreview;

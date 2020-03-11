@@ -70,7 +70,7 @@ class Form extends PureComponent {
     let complete;
     if (done) complete = () => process.nextTick(done);
 
-    this.setState(this.getDefaultState(), complete);
+    this.setState(this.getDefaultState(this.props), complete);
   }
 
   setValid(isValid, done) {
@@ -97,12 +97,17 @@ class Form extends PureComponent {
     return this.inputs.every((Component) => Component.isValid());
   }
 
+  isValidatedAndValid() {
+    return this.inputs.every((Component) => !Component.isPristine() && Component.isValid());
+  }
+
   isPristine() {
     return this.inputs.every((Component) => Component.isPristine());
   }
 
   updateValidity(done) {
-    this.setValid(this.isValid(), done);
+    const isValid = this.props.defaultLocked ? this.isValidatedAndValid() : this.isValid();
+    this.setValid(isValid, done);
   }
 
   reset(done) {
@@ -113,7 +118,7 @@ class Form extends PureComponent {
     let complete;
     if (done) complete = () => process.nextTick(done);
 
-    this.setState(this.getDefaultState(), complete);
+    this.setState(this.getDefaultState(this.props), complete);
   }
 
   validate(done) {
@@ -173,7 +178,6 @@ class Form extends PureComponent {
     );
 
     const Component = as || 'form';
-
     const isNativeForm = Component === 'form';
 
     let formProps = { className };

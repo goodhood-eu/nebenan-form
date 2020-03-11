@@ -11,7 +11,7 @@ import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
 
-import Form from '../../../src/form';
+import Form from '../../../lib/form';
 import FormGroup from '../../../lib/form_group';
 
 import content from '../../sample_data';

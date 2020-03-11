@@ -182,10 +182,11 @@ class FormPreview extends PureComponent {
               <Radio
                 name="radio"
                 options={[
+                  { label: 'Required radio 0', value: 0 },
                   { label: 'Required radio 1', value: 1 },
                   { label: 'Required radio 2', value: 2 },
                 ]}
-                error="Required!" required
+                defaultValue={0} error="Required!" required
               />
             </FormGroup>
 

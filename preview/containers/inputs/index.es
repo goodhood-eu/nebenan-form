@@ -239,6 +239,7 @@ class Inputs extends PureComponent {
                 options={[
                   { label: 'Default radio label 1', value: 1 },
                   { value: 2 },
+                  { label: 'zero test', value: 0 },
                   { label: 'String', value: 'awesome' },
                   { label: 'Disabled', value: 'Disabled', disabled: true },
                   { label: 'Disabled and checked', value: 'Disabled and checked', disabled: true },

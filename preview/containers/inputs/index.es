@@ -103,7 +103,10 @@ class Inputs extends PureComponent {
               />
             </li>
             <li>
-              <TimePicker label="Time Picker" error="Required" required />
+              <TimePicker
+                onUpdate={this.constructor.handleUpdate}
+                label="Time Picker"
+              />
             </li>
           </ul>
 

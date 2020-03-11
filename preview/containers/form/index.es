@@ -164,7 +164,10 @@ class FormPreview extends PureComponent {
             </FormGroup>
 
             <FormGroup>
-              <TimePicker label="Time Picker" error="Required" required />
+              <TimePicker
+                name="time" label="Time Picker"
+                error="Required" required
+              />
             </FormGroup>
 
             <FormGroup>

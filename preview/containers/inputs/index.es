@@ -102,10 +102,20 @@ class Inputs extends PureComponent {
                 label="Disabled" options={[1, 2, 3]} disabled
               />
             </li>
+          </ul>
+
+          <ul>
             <li>
               <TimePicker
                 onUpdate={this.constructor.handleUpdate}
                 label="Time Picker"
+              />
+            </li>
+
+            <li>
+              <TimePicker
+                onUpdate={this.constructor.handleUpdate}
+                label="Time Picker with default value" defaultValue="22:15"
               />
             </li>
           </ul>

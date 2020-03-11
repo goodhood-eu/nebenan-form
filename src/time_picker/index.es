@@ -39,15 +39,18 @@ export default class TimePicker extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
+    // workaround to get input node ref
+    const input = <input type="text" ref={this.setEl('input')} />;
+
     return (
       <label className={className}>
         {labelNode}
         <div className="c-input-container">
           <TimeField
             {...cleanProps}
-            ref={this.setEl('input')}
             className={inputClassName}
             style={style}
+            input={input}
             name={name}
             disabled={disabled}
             value={this.state.value}

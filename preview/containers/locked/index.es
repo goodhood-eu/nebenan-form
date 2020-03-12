@@ -80,6 +80,24 @@ class LockedPreview extends PureComponent {
             </FormGroup>
           </Form>
         </div>
+
+
+        <div className="preview-section">
+          <Form
+            buttonText={buttonText}
+            onSubmit={this.handleSubmit}
+            onValidSubmit={this.handleValidSubmit}
+            onInvalidSubmit={this.handleInvalidSubmit}
+            defaultLocked
+          >
+            <FormGroup>
+              <Input
+                type="text" label="Pattern validation - '\d{5}'" name="pattern_numeric"
+                error="Value incorrect!" pattern="\d{5}" required
+              />
+            </FormGroup>
+          </Form>
+        </div>
       </article>
     );
   }

@@ -4,13 +4,14 @@ import clsx from 'clsx';
 import omit from 'lodash/omit';
 
 import { invoke } from '../utils';
-import TimeInput from './time_input';
+import AdaptiveTimeInput from './adaptive_time_input';
 import TextInputComponent from '../input/base';
 
 
 class Time extends TextInputComponent {
   actionChange(action) {
-    return (value) => {
+    return (event) => {
+      const value = event.target ? event.target.value : event;
       this.setValue(value, this.validate);
       invoke(action, value);
     };
@@ -49,7 +50,7 @@ class Time extends TextInputComponent {
       'validate',
     );
 
-    const className = clsx(this.props.className, 'c-input', { 'is-disabled': disabled });
+    const className = clsx(this.props.className, 'c-time', { 'is-disabled': disabled });
     const inputClassName = clsx('ui-input', className, { 'ui-input-error': this.isErrorActive() });
 
     let labelNode;
@@ -62,7 +63,7 @@ class Time extends TextInputComponent {
       <label className={className}>
         {labelNode}
         <div className="c-input-container">
-          <TimeInput
+          <AdaptiveTimeInput
             {...cleanProps}
             ref={this.setEl('input')}
             className={inputClassName}

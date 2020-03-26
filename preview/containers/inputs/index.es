@@ -258,7 +258,7 @@ class Inputs extends PureComponent {
             </li>
           </ul>
 
-          <ul className="preview-radios">
+          <ul className="preview-times">
             <li>
               <Time
                 label="Time input"

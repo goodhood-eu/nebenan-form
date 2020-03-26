@@ -260,7 +260,18 @@ class Inputs extends PureComponent {
 
           <ul className="preview-radios">
             <li>
-              <Time />
+              <Time
+                label="Time input"
+                onUpdate={this.constructor.handleUpdate}
+              />
+            </li>
+
+            <li>
+              <Time
+                label="Time input with defaultValue"
+                defaultValue="23:45"
+                onUpdate={this.constructor.handleUpdate}
+              />
             </li>
           </ul>
         </div>

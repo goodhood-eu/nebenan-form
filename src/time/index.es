@@ -16,6 +16,18 @@ class Time extends TextInputComponent {
     };
   }
 
+  getValue() {
+    let { value } = this.state;
+    const [hours, minutes] = value.split(':');
+
+    if (!hours || !minutes) value = null;
+
+    return this.props.onGetValue ? this.props.onGetValue(value) : value;
+  }
+
+  // Disable reading value from DOM
+  readDomValue() {}
+
   render() {
     const {
       disabled,

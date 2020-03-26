@@ -11,12 +11,13 @@ const LEFT = 37;
 
 const formatValue = (value) => value.toString().padStart(2, '0');
 
-const PartInput = (props, ref) => {
+const SegmentInput = (props, ref) => {
   const {
-    value,
     min,
     max,
-    onBackspace,
+    value,
+    triggerRightValue,
+
     onChange,
     onRight,
     onLeft,
@@ -24,20 +25,14 @@ const PartInput = (props, ref) => {
   } = props;
 
   const handleChange = (event) => {
-    let { value: newValue } = event.target;
-    const { selectionEnd } = event.target;
+    const { selectionEnd, value: newValue } = event.target;
+    const trimmedValue = selectionEnd === 1 ? newValue[0] : newValue.substring(newValue.length - 2);
+    const intValue = parseInt(trimmedValue, 10);
 
-    if (selectionEnd === 1) newValue = newValue[0];
-    else newValue = newValue.substring(newValue.length - 2);
+    if (Number.isNaN(intValue) || intValue > max || intValue < min) return;
 
-    const intValue = parseInt(newValue, 10);
-
-    if (Number.isNaN(intValue)) return;
-    if (intValue > max) return;
-    if (intValue < min) return;
-
-    onChange(formatValue(newValue));
-    if (intValue > 2) invoke(onRight);
+    onChange(formatValue(intValue));
+    if (intValue > triggerRightValue) invoke(onRight);
   };
 
   const handleKeyDown = (event) => {
@@ -72,15 +67,19 @@ const PartInput = (props, ref) => {
   return <input {...cleanProps} value={value} ref={ref} type="text" onKeyDown={handleKeyDown} onChange={handleChange} />;
 };
 
-PartInput.propTypes = {
+SegmentInput.defaultProps = {
+  triggerRightValue: 0,
+};
+
+SegmentInput.propTypes = {
   min: PropTypes.number.isRequired,
   max: PropTypes.number.isRequired,
-
   value: PropTypes.string.isRequired,
+  triggerRightValue: PropTypes.number.isRequired,
+
   onChange: PropTypes.func.isRequired,
-  onBackspace: PropTypes.func,
   onRight: PropTypes.func,
   onLeft: PropTypes.func,
 };
 
-export default forwardRef(PartInput);
+export default forwardRef(SegmentInput);

@@ -9,7 +9,7 @@ const AdaptiveTimeInput = (props, ref) => {
   const [isMobile, setMobile] = useState(false);
 
   useEffect(() => {
-    const mobile = mobileDeviceRegex.test(global.navigator.userAgent) && !global.MSStream;
+    const mobile = mobileDeviceRegex.test(global.navigator.userAgent);
     setMobile(mobile);
   }, []);
 

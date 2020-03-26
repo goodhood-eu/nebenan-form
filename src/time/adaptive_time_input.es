@@ -13,7 +13,7 @@ const AdaptiveTimeInput = (props, ref) => {
     setMobile(mobile);
   }, []);
 
-  if (isMobile) return <input ref={ref} type="time" {...props} />;
+  if (isMobile) return <input {...props} ref={ref} type="time" />;
   return <TimeInput {...props} ref={ref} />;
 };
 

@@ -1,82 +1,40 @@
-import React, { useImperativeHandle, forwardRef, useRef } from 'react';
+import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
+import { invoke } from '../utils';
+import { cleanValue, formatValue, isPositiveInteger, restoreCaret } from './utils';
 
-import SegmentInput from './segment_input';
-
-
-const focusInputAtStart = (input) => {
-  input.focus();
-  input.setSelectionRange(0, 0);
-};
 
 const TimeInput = (props, ref) => {
-  const {
-    value,
-    onBlur,
-    onFocus,
-    onChange,
-    ...rest
-  } = props;
+  const { onChange, ...cleanProps } = props;
 
-  const hoursInput = useRef();
-  const minutesInput = useRef();
-  useImperativeHandle(ref, () => ({
-    focus() {
-      hoursInput.current.focus();
-    },
+  const inputRef = useRef();
+  useImperativeHandle(ref, () => inputRef.current);
 
-    blur() {
-      hoursInput.current.blur();
-      minutesInput.current.blur();
-    },
-  }));
+  const handleChange = (event) => {
+    const { value, selectionEnd } = event.target;
+    const cleanedValue = cleanValue(value);
 
-  const [hoursValue = '', minutesValue = ''] = value.split(':');
+    if (!value) return invoke(onChange, event);
+    if (!isPositiveInteger(cleanedValue)) return;
 
-  const handleHoursChange = (newValue) => onChange(`${newValue}:${minutesValue}`);
-  const handleMinutesChange = (newValue) => onChange(`${hoursValue}:${newValue}`);
+    event.target.value = formatValue(cleanedValue);
 
-  const focusHours = () => focusInputAtStart(hoursInput.current);
-  const focusMinutes = () => focusInputAtStart(minutesInput.current);
-
-  const className = clsx('c-time-time_input', props.className);
-  const commonProps = { onBlur, onFocus };
+    if (event.target.value !== value) restoreCaret(inputRef.current, selectionEnd);
+    invoke(onChange, event);
+  };
 
   return (
-    <div {...rest} className={className}>
-      <SegmentInput
-        {...commonProps}
-        ref={hoursInput}
-        value={hoursValue}
-        min={0}
-        max={24}
-        triggerRightValue={2}
-        placeholder="--"
-        onChange={handleHoursChange}
-        onRight={focusMinutes}
-      />
-      <em>:</em>
-      <SegmentInput
-        {...commonProps}
-        ref={minutesInput}
-        value={minutesValue}
-        min={0}
-        max={60}
-        placeholder="--"
-        onChange={handleMinutesChange}
-        onLeft={focusHours}
-      />
-    </div>
+    <input
+      {...cleanProps}
+      ref={inputRef}
+      type="text"
+      onChange={handleChange}
+      maxLength={5}
+    />
   );
 };
 
 TimeInput.propTypes = {
-  className: PropTypes.string,
-  value: PropTypes.string.isRequired,
-
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func,
   onChange: PropTypes.func,
 };
 

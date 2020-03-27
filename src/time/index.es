@@ -3,32 +3,11 @@ import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import omit from 'lodash/omit';
 
-import { invoke } from '../utils';
 import AdaptiveTimeInput from './adaptive_time_input';
 import TextInputComponent from '../input/base';
 
 
 class Time extends TextInputComponent {
-  actionChange(action) {
-    return (event) => {
-      const value = event.target ? event.target.value : event;
-      this.setValue(value, this.validate);
-      invoke(action, value);
-    };
-  }
-
-  getValue() {
-    let { value } = this.state;
-    const [hours, minutes] = value.split(':');
-
-    if (!hours || !minutes) value = null;
-
-    return this.props.onGetValue ? this.props.onGetValue(value) : value;
-  }
-
-  // Disable reading value from DOM
-  readDomValue() {}
-
   render() {
     const {
       disabled,

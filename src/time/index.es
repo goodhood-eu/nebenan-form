@@ -14,7 +14,7 @@ const AdaptiveTimeInput = (props, ref) => {
     setMobile(mobile);
   }, []);
 
-  if (isMobile) return <Input {...props} ref={ref} type="time" />;
+  if (isMobile) return <Input {...props} className="c-time-native" ref={ref} type="time" />;
   return <Time {...props} ref={ref} />;
 };
 

@@ -1,26 +1,56 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
+import { isInt } from 'string-validate';
 import { invoke } from '../utils';
-import { cleanValue, formatValue, isPositiveInteger, restoreCaret } from './utils';
+import {
+  cleanValue,
+  formatValue,
+  restoreCaret,
+  increaseValue,
+  decreaseValue,
+  getCaretPosition,
+} from './utils';
 
+
+const DOWN = 40;
+const UP = 38;
 
 const TimeInput = (props, ref) => {
-  const { onChange, ...cleanProps } = props;
+  const { onChange, onKeyDown, ...cleanProps } = props;
 
   const inputRef = useRef();
   useImperativeHandle(ref, () => inputRef.current);
 
-  const handleChange = (event) => {
-    const { value, selectionEnd } = event.target;
+  const changeValue = (value) => {
     const cleanedValue = cleanValue(value);
 
-    if (!value) return invoke(onChange, event);
-    if (!isPositiveInteger(cleanedValue)) return;
+    if (!value) return invoke(onChange, value);
+    if (!isInt(cleanedValue)) return;
 
-    event.target.value = formatValue(cleanedValue);
+    const { selectionEnd } = inputRef.current;
+    const formattedValue = formatValue(cleanedValue);
 
-    if (event.target.value !== value) restoreCaret(inputRef.current, selectionEnd);
-    invoke(onChange, event);
+    // Change value in DOM to restore caret position
+    inputRef.current.value = formattedValue;
+    restoreCaret(inputRef.current, getCaretPosition(selectionEnd, value, formattedValue));
+
+    invoke(onChange, formattedValue);
+  };
+
+  const handleChange = (event) => changeValue(event.target.value);
+
+  const handleKeyDown = (event) => {
+    const { value, selectionEnd } = event.target;
+
+    if (event.keyCode === UP) {
+      event.preventDefault();
+      changeValue(increaseValue(value, selectionEnd));
+    }
+
+    if (event.keyCode === DOWN) {
+      event.preventDefault();
+      changeValue(decreaseValue(value, selectionEnd));
+    }
   };
 
   return (
@@ -28,14 +58,18 @@ const TimeInput = (props, ref) => {
       {...cleanProps}
       ref={inputRef}
       type="text"
-      onChange={handleChange}
       maxLength={5}
+      onChange={handleChange}
+      onKeyDown={handleKeyDown}
     />
   );
 };
 
-TimeInput.propTypes = {
+const WrappedTimeInput = forwardRef(TimeInput);
+
+WrappedTimeInput.propTypes = {
   onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
 };
 
-export default forwardRef(TimeInput);
+export default WrappedTimeInput;

@@ -8,9 +8,7 @@ import { bindTo } from '../utils';
 import InputComponent from '../base';
 // import SimpleDatepicker from '../../../nebenan-react-datepicker/lib/';
 import theme from './theme';
-
-const getValue = (_, v) => v || '';
-
+import { getValue } from './utils';
 
 class Datepicker extends InputComponent {
   constructor(props) {
@@ -88,10 +86,10 @@ class Datepicker extends InputComponent {
 
   render() {
     const className = clsx('c-datepicker', this.props.className);
-    const { label, placeholder, children, t } = this.props;
+    const { label, placeholder, children, dateFormat } = this.props;
     const { value } = this.state;
 
-    const localizedValue = getValue(t, value);
+    const localizedValue = getValue(value, dateFormat);
     const inputClassName = clsx('ui-input', { 'ui-input-error': this.isErrorActive() });
 
     let labelNode;
@@ -145,6 +143,7 @@ Datepicker.propTypes = {
   firstDay: PropTypes.number.isRequired,
   weekdaysShortLabels: PropTypes.arrayOf(PropTypes.string),
   monthLabels: PropTypes.arrayOf(PropTypes.string),
+  dateFormat: PropTypes.string.isRequired,
 };
 
 export default Datepicker;

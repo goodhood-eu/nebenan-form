@@ -266,6 +266,7 @@ class Inputs extends PureComponent {
                 firstDay={1}
                 weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
                 monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
+                dateFormat="dd.MM.yyyy"
               />
             </li>
             <li>
@@ -276,6 +277,7 @@ class Inputs extends PureComponent {
                 weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
                 monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
                 minDate="2020-01"
+                dateFormat="dd.MM.yyyy"
               />
             </li>
             <li>
@@ -287,6 +289,7 @@ class Inputs extends PureComponent {
                 weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
                 monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
                 maxDate="2020-04"
+                dateFormat="dd.MM.yyyy"
               />
             </li>
           </ul>

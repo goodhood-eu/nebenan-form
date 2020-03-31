@@ -1,7 +1,7 @@
 export default {
   controls: 'c-picker-controls',
-  controlsPrevious: 'c-picker-controls-previous',
-  controlsNext: 'c-picker-controls-next',
+  controlsPrevious: 'c-picker-controls-previous icon-arrow_left',
+  controlsNext: 'c-picker-controls-next icon-arrow_right',
   controlsLabel: 'c-picker-controls-label',
   root: 'c-picker',
   table: 'c-picker-table',

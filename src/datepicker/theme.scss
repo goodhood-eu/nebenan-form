@@ -1,0 +1,81 @@
+.c-picker {
+  user-select: none;
+
+  width: 300px;
+
+  margin-top: 5px;
+  padding: 10px;
+
+  position: absolute;
+  top: auto;
+  left: auto;
+  background: #fff;
+
+  font-family: $font-family;
+  border: $border-dark;
+  border-radius: $border-radius-m;
+  color: $color-gray-02;
+}
+
+.c-picker-cell {
+  &.is-selected,
+  &.is-interactive:hover {
+    border-radius: 3px;
+    color: $color-gray-09;
+  }
+
+  &.is-disabled {
+    color: #cfcfcf;
+  }
+
+  &.is-interactive {
+    background: $color-gray-08;
+    cursor: pointer;
+
+    &:hover {
+      background: $color-base-01;
+      font-weight: $font-weight-m;
+    }
+  }
+
+  &.is-selected {
+    font-weight: $font-weight-m;
+    background: $color-green-02;
+  }
+}
+
+.c-picker-controls-previous,
+.c-picker-controls-next {
+  cursor: pointer;
+}
+
+.c-picker-date {
+  padding: 10px 5px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.c-picker-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 0;
+}
+
+.c-picker-controls {
+  display: flex;
+  justify-content: space-between;
+}
+
+.c-picker-controls-label {
+  padding: 5px 3px;
+  font-size: $font-size-m;
+  line-height: $line-height-m;
+  font-weight: 700;
+}
+
+.c-picker-label {
+  text-align: center;
+}

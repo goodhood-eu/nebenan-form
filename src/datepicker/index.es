@@ -5,6 +5,9 @@ import clsx from 'clsx';
 import SimpleDatepicker from './calendar';
 import { bindTo } from '../utils';
 
+import keymanager from 'nebenan-helpers/lib/keymanager';
+import eventproxy from 'nebenan-helpers/lib/eventproxy';
+
 import InputComponent from '../base';
 // import SimpleDatepicker from '../../../nebenan-react-datepicker/lib/';
 import theme from './theme';
@@ -42,8 +45,10 @@ class Datepicker extends InputComponent {
   activate() {
     if (this.isActive) return;
 
+    this.stopListeningToKeys = keymanager('esc', this.hide);
+    this.stopListeningToClicks = eventproxy('click', this.handleGlobalClick);
+
     this.isActive = true;
-    this.setState({ isVisible: true });
   }
 
   deactivate() {
@@ -56,20 +61,14 @@ class Datepicker extends InputComponent {
   }
 
   show() {
-    // if (this.picker.isVisible()) return;
-    // this.picker.show();
-
     this.setState({ isVisible: true });
   }
 
   hide() {
-    // if (!this.picker.isVisible()) return;
-    // this.picker.hide();
     this.setState({ isVisible: false }, this.validate);
   }
 
   handleSelect(value) {
-    // const value = this.picker.toString();
     this.setValue(value, this.validate);
     this.hide();
   }
@@ -103,7 +102,6 @@ class Datepicker extends InputComponent {
       const { firstDay, weekdaysShortLabels, monthLabels } = this.props;
 
       picker = (
-
         <SimpleDatepicker
           rel={this.setEl('picker')}
           firstDay={firstDay}
@@ -116,10 +114,9 @@ class Datepicker extends InputComponent {
       );
     }
 
-
     return (
-      <>
-        <label ref={this.setEl('container')} className={className} onClick={this.handleClick}>
+      <div ref={this.setEl('container')}>
+        <label className={className} onClick={this.handleClick}>
           {labelNode}
           <div className="c-input-container">
             <input
@@ -132,7 +129,7 @@ class Datepicker extends InputComponent {
           {error}
         </label>
         {picker}
-      </>
+      </div>
     );
   }
 }

@@ -15,7 +15,7 @@ import Radio from '../../../lib/radio';
 import Datepicker from '../../../lib/datepicker';
 
 import content from '../../sample_data';
-
+import datepickerLocale from './datepicker_locale';
 
 class Inputs extends PureComponent {
   static handleUpdate(value) { console.info('Got value:', value); }
@@ -261,43 +261,25 @@ class Inputs extends PureComponent {
           <ul className="preview-pickers">
             <li>
               <Datepicker
+                {...datepickerLocale}
                 onUpdate={this.constructor.handleUpdate}
-
                 placeholder="Datepicker placeholder"
-
-                firstDay={1}
-                weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
-                monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
-                dateFormat="dd.MM.yyyy"
               />
             </li>
             <li>
               <Datepicker
+                {...datepickerLocale}
                 onUpdate={this.constructor.handleUpdate}
-
                 placeholder="Datepicker placeholder"
-
-                firstDay={1}
-                weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
-                monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
-                minDate="2020-01"
-                dateFormat="dd.MM.yyyy"
               />
             </li>
             <li>
               <Datepicker
+                {...datepickerLocale}
                 onUpdate={this.constructor.handleUpdate}
                 minDate="2020-01"
-
                 defaultValue="1988-05-27"
-
                 placeholder="Datepicker placeholder"
-
-                firstDay={1}
-                weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
-                monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
-                maxDate="2020-04"
-                dateFormat="dd.MM.yyyy"
               />
             </li>
           </ul>

@@ -2,14 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import SimpleDatepicker from './calendar';
-import { bindTo } from '../utils';
-
 import keymanager from 'nebenan-helpers/lib/keymanager';
 import eventproxy from 'nebenan-helpers/lib/eventproxy';
 
+import Picker from './calendar';
+import { bindTo } from '../utils';
+
 import InputComponent from '../base';
-// import SimpleDatepicker from '../../../nebenan-react-datepicker/lib/';
 import theme from './theme';
 import { getValue } from './utils';
 
@@ -18,7 +17,7 @@ class Datepicker extends InputComponent {
     super(props);
     bindTo(this,
       'handleGlobalClick',
-      'hide',
+      'deactivate',
       'handleSelect',
       'handleClick',
     );
@@ -39,44 +38,35 @@ class Datepicker extends InputComponent {
   handleGlobalClick(event) {
     if (!this.isComponentMounted) return;
     const isOutside = !this.els.container.contains(event.target);
-    if (isOutside) this.hide();
+    if (isOutside) this.deactivate();
   }
 
   activate() {
-    if (this.isActive) return;
+    if (this.isVisible()) return;
 
-    this.stopListeningToKeys = keymanager('esc', this.hide);
+    this.stopListeningToKeys = keymanager('esc', this.deactivate);
     this.stopListeningToClicks = eventproxy('click', this.handleGlobalClick);
 
-    this.isActive = true;
+    this.setState({ isVisible: true });
   }
 
   deactivate() {
-    if (!this.isActive) return;
+    if (!this.isVisible()) return;
 
     this.stopListeningToKeys();
     this.stopListeningToClicks();
 
-    this.isActive = false;
-  }
-
-  show() {
-    this.setState({ isVisible: true });
-  }
-
-  hide() {
     this.setState({ isVisible: false }, this.validate);
   }
 
   handleSelect(value) {
     this.setValue(value, this.validate);
-    this.hide();
+    this.deactivate();
   }
 
   handleClick() {
-    this.activate();
-    if (this.isVisible()) this.hide();
-    else this.show();
+    if (!this.isVisible()) this.activate();
+    else this.deactivate();
   }
 
   isVisible() {
@@ -85,8 +75,16 @@ class Datepicker extends InputComponent {
 
   render() {
     const className = clsx('c-datepicker', this.props.className);
-    const { label, placeholder, children, dateFormat } = this.props;
     const { value } = this.state;
+    const {
+      label,
+      placeholder,
+      children,
+      dateFormat,
+      firstDay,
+      weekdayShortLabels,
+      monthLabels,
+    } = this.props;
 
     const localizedValue = getValue(value, dateFormat);
     const inputClassName = clsx('ui-input', { 'ui-input-error': this.isErrorActive() });
@@ -98,14 +96,11 @@ class Datepicker extends InputComponent {
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     let picker;
-    if (this.state.isVisible) {
-      const { firstDay, weekdaysShortLabels, monthLabels } = this.props;
-
+    if (this.isVisible()) {
       picker = (
-        <SimpleDatepicker
-          rel={this.setEl('picker')}
+        <Picker
           firstDay={firstDay}
-          weekdayShortLabels={weekdaysShortLabels}
+          weekdayShortLabels={weekdayShortLabels}
           monthLabels={monthLabels}
           theme={theme}
           onChange={this.handleSelect}
@@ -138,7 +133,7 @@ Datepicker.propTypes = {
   ...InputComponent.propTypes,
 
   firstDay: PropTypes.number.isRequired,
-  weekdaysShortLabels: PropTypes.arrayOf(PropTypes.string),
+  weekdayShortLabels: PropTypes.arrayOf(PropTypes.string),
   monthLabels: PropTypes.arrayOf(PropTypes.string),
   dateFormat: PropTypes.string.isRequired,
 };

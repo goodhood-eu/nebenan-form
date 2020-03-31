@@ -263,6 +263,8 @@ class Inputs extends PureComponent {
               <Datepicker
                 onUpdate={this.constructor.handleUpdate}
 
+                placeholder="Datepicker placeholder"
+
                 firstDay={1}
                 weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
                 monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
@@ -272,6 +274,8 @@ class Inputs extends PureComponent {
             <li>
               <Datepicker
                 onUpdate={this.constructor.handleUpdate}
+
+                placeholder="Datepicker placeholder"
 
                 firstDay={1}
                 weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
@@ -284,6 +288,10 @@ class Inputs extends PureComponent {
               <Datepicker
                 onUpdate={this.constructor.handleUpdate}
                 minDate="2020-01"
+
+                defaultValue="1988-05-27"
+
+                placeholder="Datepicker placeholder"
 
                 firstDay={1}
                 weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}

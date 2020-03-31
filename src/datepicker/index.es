@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
-import SimpleDatepicker from 'nebenan-react-datepicker/lib';
+import SimpleDatepicker from './calendar';
 import { bindTo } from '../utils';
 
 import InputComponent from '../base';

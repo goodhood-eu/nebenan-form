@@ -65,7 +65,6 @@
     "mocha": "^7.1.1",
     "morgan": "^1.10.0",
     "nebenan-helpers": "^4.1.1",
-    "nebenan-react-datepicker": "file:../nebenan-react-datepicker/nebenan-react-datepicker-0.0.1-alpha.0.tgz",
     "nebenan-ui-kit": "^4.4.1",
     "node-sass-glob-importer": "^5.3.2",
     "nodemon": "^2.0.1",

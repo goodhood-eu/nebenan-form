@@ -2,14 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+import SimpleDatepicker from 'nebenan-react-datepicker/lib';
 import { bindTo } from '../utils';
 
 import InputComponent from '../base';
-import SimpleDatepicker from 'nebenan-react-datepicker/lib';
 // import SimpleDatepicker from '../../../nebenan-react-datepicker/lib/';
 import theme from './theme';
 
-const getValue = v => v;
+const getValue = (v) => v;
 
 
 class Datepicker extends InputComponent {
@@ -76,11 +76,7 @@ class Datepicker extends InputComponent {
     this.hide();
   }
 
-  handleClick(event) {
-    // TODO: solve this another way
-    // console.log(this.els.picker && this.els.picker.contains(event.target), event.target, this.els.picker)
-    if (this.els.picker && this.els.picker.contains(event.target)) return;
-    console.log('click handled', event.target);
+  handleClick() {
     this.activate();
     if (this.isVisible()) this.hide();
     else this.show();
@@ -124,20 +120,21 @@ class Datepicker extends InputComponent {
 
 
     return (
-      <label ref={this.setEl('container')} className={className}>
-        {labelNode}
-        <div className="c-input-container">
-          <input
-            className={inputClassName}
-            placeholder={placeholder} value={localizedValue} readOnly
-            onClick={this.handleClick}
-          />
-          <input ref={this.setEl('input')} type="hidden" value={value || ''} />
-          {picker}
-          {children}
-        </div>
-        {error}
-      </label>
+      <>
+        <label ref={this.setEl('container')} className={className} onClick={this.handleClick}>
+          {labelNode}
+          <div className="c-input-container">
+            <input
+              className={inputClassName}
+              placeholder={placeholder} value={localizedValue} readOnly
+            />
+            <input ref={this.setEl('input')} type="hidden" value={value || ''} />
+            {children}
+          </div>
+          {error}
+        </label>
+        {picker}
+      </>
     );
   }
 }

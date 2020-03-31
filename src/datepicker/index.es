@@ -9,7 +9,7 @@ import InputComponent from '../base';
 // import SimpleDatepicker from '../../../nebenan-react-datepicker/lib/';
 import theme from './theme';
 
-const getValue = (v) => v;
+const getValue = (_, v) => v || '';
 
 
 class Datepicker extends InputComponent {

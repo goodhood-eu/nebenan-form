@@ -18,8 +18,12 @@
 }
 
 .c-picker-cell {
+  &.is-interactive:hover {
+    border-radius: 3px;
+  }
 
   &.is-selected {
+    border-radius: 3px;
     font-weight: 400;
     background: #b2ca06;
     color: #fff;
@@ -49,6 +53,11 @@
 
   padding: 10px;
   margin-top: 5px;
+
+  font-family: $font-family;
+  border: $border-dark;
+  border-radius: $border-radius-m;
+  color: $color-gray-02;
 }
 
 .c-picker-table {

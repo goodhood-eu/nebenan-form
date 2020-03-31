@@ -12,6 +12,7 @@ import FancySelect from '../../../lib/fancy_select';
 import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
+import Datepicker from '../../../lib/datepicker';
 
 import content from '../../sample_data';
 
@@ -253,6 +254,39 @@ class Inputs extends PureComponent {
                 onUpdate={this.constructor.handleUpdate}
                 type="small" options={radios} defaultValue={radios[2].value}
                 disabled
+              />
+            </li>
+          </ul>
+
+          <ul className="preview-pickers">
+            <li>
+              <Datepicker
+                onUpdate={this.constructor.handleUpdate}
+
+                firstDay={1}
+                weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
+                monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
+              />
+            </li>
+            <li>
+              <Datepicker
+                onUpdate={this.constructor.handleUpdate}
+
+                firstDay={1}
+                weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
+                monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
+                minDate="2020-01"
+              />
+            </li>
+            <li>
+              <Datepicker
+                onUpdate={this.constructor.handleUpdate}
+                minDate="2020-01"
+
+                firstDay={1}
+                weekdaysShortLabels={['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa']}
+                monthLabels={['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']}
+                maxDate="2020-04"
               />
             </li>
           </ul>

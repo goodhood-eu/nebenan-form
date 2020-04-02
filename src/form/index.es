@@ -67,10 +67,12 @@ class Form extends PureComponent {
   setPristine(done) {
     this.inputs.forEach((Component) => Component.setPristine());
 
+    const updater = (state, props) => this.getDefaultState(props);
+
     let complete;
     if (done) complete = () => process.nextTick(done);
 
-    this.setState(this.getDefaultState(this.props), complete);
+    this.setState(updater, complete);
   }
 
   setValid(isValid, done) {
@@ -115,10 +117,12 @@ class Form extends PureComponent {
     // and then checking when each was called
     this.inputs.forEach((Component) => Component.reset());
 
+    const updater = (state, props) => this.getDefaultState(props);
+
     let complete;
     if (done) complete = () => process.nextTick(done);
 
-    this.setState(this.getDefaultState(this.props), complete);
+    this.setState(updater, complete);
   }
 
   validate(done) {
@@ -180,14 +184,11 @@ class Form extends PureComponent {
     const Component = as || 'form';
     const isNativeForm = Component === 'form';
 
-    let formProps = { className };
+    const formProps = { className };
     if (isNativeForm) {
-      formProps = {
-        ...formProps,
-        method: 'post',
-        onSubmit: this.submit,
-        noValidate: true,
-      };
+      formProps.method = 'post';
+      formProps.onSubmit = this.submit;
+      formProps.noValidate = true;
     }
 
     let error;
@@ -200,12 +201,14 @@ class Form extends PureComponent {
       const ButtonComponent = isNativeForm ? 'button' : 'span';
 
       const buttonProps = {
-        className: clsx(buttonClass || 'ui-button ui-button-primary', { 'is-disabled': isDisabled }),
-        disabled: isDisabled,
+        className: clsx(buttonClass || 'ui-button ui-button-primary', {
+          'is-disabled': isDisabled,
+        }),
       };
 
       if (isNativeForm) {
         buttonProps.type = 'submit';
+        buttonProps.disabled = isDisabled;
       } else {
         buttonProps.onClick = this.submit;
       }

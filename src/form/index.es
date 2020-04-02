@@ -33,7 +33,10 @@ class Form extends PureComponent {
   }
 
   getDefaultState(props) {
-    return { isValid: !props.defaultLocked };
+    return {
+      isValid: true,
+      isLocked: props.defaultLocked,
+    };
   }
 
   getModel() {
@@ -83,6 +86,10 @@ class Form extends PureComponent {
     this.setState({ isValid }, complete);
   }
 
+  setLocked(isLocked, done) {
+    this.setState({ isLocked }, done);
+  }
+
   addInput(Component) {
     if (!this.inputs.includes(Component)) this.inputs.push(Component);
   }
@@ -92,7 +99,7 @@ class Form extends PureComponent {
   }
 
   isDisabled() {
-    return !this.state.isValid || this.props.locked;
+    return !this.state.isValid || this.props.locked || this.state.isLocked;
   }
 
   isValid() {
@@ -108,8 +115,8 @@ class Form extends PureComponent {
   }
 
   updateValidity(done) {
-    const isValid = this.props.defaultLocked ? this.isValidatedAndValid() : this.isValid();
-    this.setValid(isValid, done);
+    if (this.props.defaultLocked) this.setLocked(!this.isValidatedAndValid());
+    this.setValid(this.isValid(), done);
   }
 
   reset(done) {
@@ -144,7 +151,11 @@ class Form extends PureComponent {
     const args = [this.getModel(), this.setErrors, this.setValues];
 
     const success = () => {
-      const complete = () => invoke(onValidSubmit, ...args);
+      const complete = () => {
+        invoke(onValidSubmit, ...args);
+        this.setLocked(false);
+      };
+
       this.setPristine(complete);
     };
     const fail = () => invoke(onInvalidSubmit, ...args);

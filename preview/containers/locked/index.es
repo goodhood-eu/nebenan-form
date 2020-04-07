@@ -74,6 +74,12 @@ class LockedPreview extends PureComponent {
             </FormGroup>
             <FormGroup>
               <Input
+                type="text" label="Pattern validation - 'def'" name="pattern_def"
+                error="Value incorrect!" pattern="def"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Input
                 type="text" label="Pattern validation - '\d{5}'" name="pattern_numeric"
                 error="Value incorrect!" pattern="\d{5}" required
               />

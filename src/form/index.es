@@ -4,6 +4,7 @@ import omit from 'lodash/omit';
 import clsx from 'clsx';
 import { bindTo, invoke, has } from '../utils';
 import { Provider } from './context';
+import Button from './button';
 
 
 class Form extends PureComponent {
@@ -168,7 +169,7 @@ class Form extends PureComponent {
 
   render() {
     const {
-      as,
+      as: Component,
       formError,
       buttonClass,
       buttonText,
@@ -193,11 +194,10 @@ class Form extends PureComponent {
       'defaultLocked',
     );
 
-    const Component = as || 'form';
-    const isNativeForm = Component === 'form';
+    const isNative = Component === 'form';
 
     const formProps = { className };
-    if (isNativeForm) {
+    if (isNative) {
       formProps.method = 'post';
       formProps.onSubmit = this.submit;
       formProps.noValidate = true;
@@ -210,22 +210,13 @@ class Form extends PureComponent {
 
     let button;
     if (buttonText) {
-      const ButtonComponent = isNativeForm ? 'button' : 'span';
-
-      const buttonProps = {
-        className: clsx(buttonClass || 'ui-button ui-button-primary', {
-          'is-disabled': isDisabled,
-        }),
-      };
-
-      if (isNativeForm) {
-        buttonProps.type = 'submit';
-        buttonProps.disabled = isDisabled;
-      } else {
-        buttonProps.onClick = this.submit;
-      }
-
-      button = <ButtonComponent {...buttonProps}>{buttonText}</ButtonComponent>;
+      button = (
+        <Button
+          className={buttonClass} text={buttonText}
+          as={isNative ? 'button' : 'span'} disabled={isDisabled}
+          onSubmit={this.submit}
+        />
+      );
     }
 
     let footer;
@@ -251,6 +242,7 @@ class Form extends PureComponent {
 }
 
 Form.defaultProps = {
+  as: 'form',
   locked: false,
   defaultLocked: false,
 };

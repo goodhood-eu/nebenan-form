@@ -13,7 +13,7 @@ const Button = ({ className, text, as: Component, disabled, onSubmit }) => {
   if (Component === 'button') {
     props.type = 'submit';
     props.disabled = disabled;
-  } else {
+  } else if (!disabled) {
     props.onClick = onSubmit;
   }
 

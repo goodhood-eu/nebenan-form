@@ -36,7 +36,7 @@ class Form extends PureComponent {
   getDefaultState(props) {
     return {
       isValid: true,
-      isLocked: props.defaultLocked,
+      isLocked: Boolean(props.defaultLocked),
     };
   }
 

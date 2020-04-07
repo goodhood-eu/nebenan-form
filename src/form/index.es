@@ -56,9 +56,10 @@ class Form extends PureComponent {
   setErrors(data = {}) {
     const collect = (acc, Component) => {
       const name = Component.getName();
+
       if (has(data, name)) {
         Component.setError(data[name]);
-        acc.push(name);
+        return [...acc, name];
       }
 
       return acc;

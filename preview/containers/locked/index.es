@@ -15,12 +15,19 @@ class LockedPreview extends PureComponent {
     };
 
     this.setError = this.setError.bind(this);
+    this.setFormError = this.setFormError.bind(this);
     this.resetForm = this.resetForm.bind(this);
   }
 
   setError() {
     this.setState({
       error: 'Unknown server error! Please insert 100EUR into your mouth and press eject.',
+    });
+  }
+
+  setFormError() {
+    this.form.setErrors({
+      pattern_az: 'This is already taken, use another!',
     });
   }
 
@@ -46,7 +53,8 @@ class LockedPreview extends PureComponent {
 
     const alternativeAction = (
       <span className="preview-form-actions">
-        <span className="ui-link" onClick={this.setError}>Error</span>
+        <span className="ui-link" onClick={this.setError}>Error</span>{' '}
+        <span className="ui-link" onClick={this.setFormError}>FormError</span>{' '}
         <span className="ui-button ui-button-danger ui-button-small" onClick={this.resetForm}>
           Reset
         </span>
@@ -68,14 +76,14 @@ class LockedPreview extends PureComponent {
           >
             <FormGroup>
               <Input
-                type="text" label="Pattern validation - 'abc'" name="pattern_abc"
-                error="Value incorrect!" pattern="abc" required
+                type="text" label="Pattern validation - '[a-z]'" name="pattern_az"
+                error="Value incorrect!" pattern="[a-z]+" required
               />
             </FormGroup>
             <FormGroup>
               <Input
-                type="text" label="Pattern validation - 'def'" name="pattern_def"
-                error="Value incorrect!" pattern="def"
+                type="text" label="Pattern validation - 'abc'" name="pattern_abc"
+                error="Value incorrect!" pattern="abc"
               />
             </FormGroup>
             <FormGroup>

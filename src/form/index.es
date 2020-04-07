@@ -108,10 +108,10 @@ class Form extends PureComponent {
     return this.inputs.every((Component) => Component.isValid());
   }
 
-  isValidatedAndValid() {
-    return this.inputs.every((Component) => (
-      Component.isPristine() ? !Component.isRequired() : Component.isValid()
-    ));
+  isValidatedAndValidAsync() {
+    return Promise.all(this.inputs.map((Component) => (
+      Component.getValidation(Component.getValue())
+    )));
   }
 
   isPristine() {
@@ -119,8 +119,12 @@ class Form extends PureComponent {
   }
 
   updateValidity(done) {
-    if (this.props.defaultLocked) this.setLocked(!this.isValidatedAndValid());
     this.setValid(this.isValid(), done);
+    if (!this.props.defaultLocked) return;
+
+    this.isValidatedAndValidAsync()
+      .then(() => this.setLocked(false))
+      .catch(() => this.setLocked(true));
   }
 
   reset(done) {

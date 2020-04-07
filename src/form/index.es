@@ -109,7 +109,10 @@ class Form extends PureComponent {
   }
 
   isValidatedAndValid() {
-    return this.inputs.every((Component) => !Component.isPristine() && Component.isValid());
+    return this.inputs.every((Component) => (
+      (!Component.isPristine() && Component.isValid())
+      || (Component.isPristine() && !Component.isRequired())
+    ));
   }
 
   isPristine() {

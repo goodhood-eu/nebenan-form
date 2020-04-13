@@ -209,12 +209,12 @@ class FormPreview extends PureComponent {
 
             <FormGroup>
               <Time
-                name="time" label="Time Picker"
+                name="time" label="Time Picker" placeholder="hh:mm"
                 error="Required" required
               />
               <Time
-                name="time" label="Time Picker with defaultValue"
                 defaultValue="12:56"
+                name="time" label="Time Picker with defaultValue" placeholder="hh:mm"
                 error="Required" required
               />
             </FormGroup>

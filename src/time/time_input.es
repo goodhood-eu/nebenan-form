@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { isInt } from 'string-validate';
 import { invoke } from '../utils';
 import {
-  cleanValue,
+  isTimeFormat,
   formatValue,
-  restoreCaret,
-  increaseValue,
-  decreaseValue,
+  transformValue,
   getCaretPosition,
 } from './utils';
 
@@ -15,26 +13,26 @@ import {
 const DOWN = 40;
 const UP = 38;
 
-const TimeInput = (props, ref) => {
+const TimeInput = forwardRef((props, ref) => {
   const { onChange, onKeyDown, ...cleanProps } = props;
 
   const inputRef = useRef();
   useImperativeHandle(ref, () => inputRef.current);
 
   const changeValue = (value) => {
-    const cleanedValue = cleanValue(value);
+    const nextValue = isInt(value) ? formatValue(value) : value;
 
-    if (!value) return invoke(onChange, value);
-    if (!isInt(cleanedValue)) return;
+    if (!nextValue) return invoke(onChange, value);
+    if (!isTimeFormat(nextValue)) return;
 
-    const { selectionEnd } = inputRef.current;
-    const formattedValue = formatValue(cleanedValue);
+    const { selectionEnd, value: prevValue } = inputRef.current;
 
     // Change value in DOM to restore caret position
-    inputRef.current.value = formattedValue;
-    restoreCaret(inputRef.current, getCaretPosition(selectionEnd, value, formattedValue));
+    inputRef.current.value = nextValue;
+    const caretPosition = getCaretPosition(selectionEnd, prevValue, nextValue);
+    inputRef.current.setSelectionRange(caretPosition, caretPosition);
 
-    invoke(onChange, formattedValue);
+    invoke(onChange, nextValue);
   };
 
   const handleChange = (event) => changeValue(event.target.value);
@@ -42,14 +40,14 @@ const TimeInput = (props, ref) => {
   const handleKeyDown = (event) => {
     const { value, selectionEnd } = event.target;
 
-    if (event.keyCode === UP) {
+    if (event.keyCode === UP || event.keyCode === DOWN) {
       event.preventDefault();
-      changeValue(increaseValue(value, selectionEnd));
-    }
+      const colonIndex = value.indexOf(':');
+      const changeMinutes = colonIndex >= 0 && selectionEnd > colonIndex;
 
-    if (event.keyCode === DOWN) {
-      event.preventDefault();
-      changeValue(decreaseValue(value, selectionEnd));
+      const diff = event.keyCode === UP ? 1 : -1;
+      const newValue = transformValue(value, changeMinutes, diff);
+      changeValue(newValue);
     }
   };
 
@@ -63,13 +61,11 @@ const TimeInput = (props, ref) => {
       onKeyDown={handleKeyDown}
     />
   );
-};
+});
 
-const WrappedTimeInput = forwardRef(TimeInput);
-
-WrappedTimeInput.propTypes = {
+TimeInput.propTypes = {
   onChange: PropTypes.func,
   onKeyDown: PropTypes.func,
 };
 
-export default WrappedTimeInput;
+export default TimeInput;

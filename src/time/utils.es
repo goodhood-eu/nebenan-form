@@ -1,9 +1,7 @@
-export const cleanValue = (value) => value.replace(/:/g, '');
-export const formatValue = (value) => value.replace(/^(\d{2})(\d{1,2})(.*)$/, '$1:$2');
+const TIME_REGEX = /^(\d{1,2})?(:(\d{1,2})?)?$/;
 
-export const restoreCaret = (input, position) => {
-  input.setSelectionRange(position, position);
-};
+export const isTimeFormat = (value) => TIME_REGEX.test(value);
+export const formatValue = (value) => value.replace(/^(\d{2}):?(\d{1,2})(.*)$/, '$1:$2');
 
 export const getCaretPosition = (currentPosition, oldValue, newValue) => {
   const isCaretAtEnd = currentPosition >= oldValue.length;
@@ -12,20 +10,22 @@ export const getCaretPosition = (currentPosition, oldValue, newValue) => {
 
 const limitHours = (value) => Math.min(23, Math.max(value, 0));
 const limitMinutes = (value) => Math.min(59, Math.max(value, 0));
+const padLeft = (value) => value.toString().padStart(2, '0');
 
-const transformValue = (value, caretPosition, transform) => {
-  let [hours = '', minutes = ''] = value.split(':');
+export const transformValue = (value, changeMinutes, diff) => {
+  const [hours = '', minutes = ''] = value.split(':');
 
-  if (caretPosition > 2) minutes = limitMinutes(transform(parseInt(minutes, 10)));
-  else hours = limitHours(transform(parseInt(hours, 10)));
+  if (changeMinutes) {
+    let intMinutes = parseInt(minutes || 0, 10);
+    intMinutes = limitMinutes(intMinutes + diff);
+    return `${padLeft(hours)}:${padLeft(intMinutes)}`;
+  }
 
-  return `${hours}:${minutes}`;
+  let intHours = parseInt(hours || 0, 10);
+  intHours = limitHours(intHours + diff);
+
+  let result = padLeft(intHours);
+  if (minutes) result += `:${minutes}`;
+
+  return result;
 };
-
-export const increaseValue = (value, caretPosition) => (
-  transformValue(value, caretPosition, (number) => number + 1)
-);
-
-export const decreaseValue = (value, caretPosition) => (
-  transformValue(value, caretPosition, (number) => number - 1)
-);

@@ -261,15 +261,15 @@ class Inputs extends PureComponent {
           <ul className="preview-times">
             <li>
               <Time
-                label="Time input"
+                label="Time input" placeholder="hh:mm"
                 onUpdate={this.constructor.handleUpdate}
               />
             </li>
 
             <li>
               <Time
-                label="Time input with defaultValue"
                 defaultValue="23:45"
+                label="Time input with defaultValue" placeholder="hh:mm"
                 onUpdate={this.constructor.handleUpdate}
               />
             </li>

@@ -4,18 +4,24 @@ import Time from './time';
 import Input from '../input';
 
 
-const mobileDeviceRegex = /iPad|iPhone|iPod|Android|Windows Phone/;
+const MEDIA_M = '(min-width: 690px)';
+const getMedia = (node, query) => node.matchMedia(query).matches;
 
-const AdaptiveTimeInput = (props, ref) => {
-  const [isMobile, setMobile] = useState(false);
+export const useMediumScreen = (defaultState) => {
+  const [value, setValue] = useState(defaultState);
 
   useEffect(() => {
-    const mobile = mobileDeviceRegex.test(global.navigator.userAgent);
-    setMobile(mobile);
+    setValue(getMedia(global, MEDIA_M));
   }, []);
 
-  if (isMobile) return <Input {...props} className="c-time-native" ref={ref} type="time" />;
-  return <Time {...props} ref={ref} />;
+  return value;
 };
 
-export default forwardRef(AdaptiveTimeInput);
+const AdaptiveTimeInput = forwardRef((props, ref) => {
+  const isMediumScreen = useMediumScreen(true);
+
+  if (isMediumScreen) return <Time {...props} ref={ref} />;
+  return <Input {...props} className="c-time-native" ref={ref} type="time" />;
+});
+
+export default AdaptiveTimeInput;

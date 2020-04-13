@@ -1,64 +1,85 @@
 const { assert } = require('chai');
 
 const {
-  cleanValue,
+  isTimeFormat,
   formatValue,
-  increaseValue,
-  decreaseValue,
+  transformValue,
   getCaretPosition,
 } = require('../../lib/time/utils');
 
 
 describe('time/utils', () => {
-  it('cleanValue', () => {
-    assert.equal(cleanValue('12:12'), '1212', 'remove semicolon');
-    assert.equal(cleanValue('1123213:2:12'), '1123213212', 'remove multiple semicolons');
-    assert.equal(cleanValue('as2%:11k$2'), 'as2%11k$2', 'remove only semicolon');
+  it('isTimeFormat', () => {
+    const trueValues = [
+      '12',
+      '12:2',
+      '12:02',
+      '01:12',
+      '12:52',
+      '12:',
+      '1:',
+      ':1',
+      ':12',
+      ':',
+      '01',
+      '1',
+    ];
+
+    const falseValues = [
+      '12323sad',
+      '1232133',
+      '123',
+      '1234',
+      '12:1b',
+      'a1:12',
+      '132:12',
+      '123:1233',
+      '13:1233',
+      'asd45%#',
+    ];
+
+    trueValues.forEach((value) => {
+      assert.isTrue(isTimeFormat(value), `valid format: ${value}`);
+    });
+
+    falseValues.forEach((value) => {
+      assert.isFalse(isTimeFormat(value), `invalid format: ${value}`);
+    });
   });
 
   it('formatValue', () => {
-    assert.equal(formatValue('1212'), '12:12', 'add semicolon');
-    assert.equal(formatValue('233'), '23:3', 'add semicolon for 3 numbers');
+    assert.equal(formatValue('1212'), '12:12', 'add colon');
+    assert.equal(formatValue('233'), '23:3', 'add colon for 3 numbers');
 
-    assert.equal(formatValue('12'), '12', 'do not add semicolon if only 2 numbers');
-    assert.equal(formatValue('2'), '2', 'do not add semicolon if only 1 number');
+    assert.equal(formatValue('12'), '12', 'do not add colon if only 2 numbers');
+    assert.equal(formatValue('2'), '2', 'do not add colon if only 1 number');
+
+    assert.equal(formatValue('12:'), '12:', 'do not remove colon for 2 numbers');
+    assert.equal(formatValue('12:1'), '12:1', 'do not remove colon for 3 numbers');
+    assert.equal(formatValue('12:14'), '12:14', 'do not remove colon for 4 numbers');
 
     assert.equal(formatValue('1123213123'), '11:23', 'limit length');
   });
 
-  it('increaseValue', () => {
-    const caretPositionsForHours = [0, 1, 2];
-    const caretPositionsForMinutes = [3, 4];
+  it('transformValue', () => {
+    assert.equal(transformValue('11:12', false, 1), '12:12', 'increase hours');
+    assert.equal(transformValue('11:12', true, 1), '11:13', 'increase minutes');
+    assert.equal(transformValue('11:12', false, -1), '10:12', 'decrease hours');
+    assert.equal(transformValue('11:12', true, -1), '11:11', 'decrease minutes');
 
-    caretPositionsForHours.forEach((caretPosition) => {
-      assert.equal(increaseValue('11:12', caretPosition), '12:12', `increase hours at ${caretPosition}`);
-    });
+    assert.equal(transformValue('23:12', false, 1), '23:12', 'do not increase hours after 23');
+    assert.equal(transformValue('25:12', false, 1), '23:12', 'bottom bound - hours');
 
-    caretPositionsForMinutes.forEach((caretPosition) => {
-      assert.equal(increaseValue('11:12', caretPosition), '11:13', `increase minutes at ${caretPosition}`);
-    });
+    assert.equal(transformValue('23:59', true, 1), '23:59', 'do not increase minutes after 59');
+    assert.equal(transformValue('23:88', true, 1), '23:59', 'bottom bound - minutes');
 
-    assert.equal(increaseValue('23:12', 0), '23:12', 'do not change hours after 23');
-    assert.equal(increaseValue('25:12', 0), '23:12', 'retirict hours');
+    assert.equal(transformValue('00:12', false, -1), '00:12', 'do not decrease hours after 0');
+    assert.equal(transformValue('23:00', true, -1), '23:00', 'do not decrease minutes after 0');
 
-    assert.equal(increaseValue('23:59', 3), '23:59', 'do not change minutes after 59');
-    assert.equal(increaseValue('23:88', 3), '23:59', 'retirict minutes');
-  });
+    assert.equal(transformValue('11', false, 1), '12', 'do not add colon');
 
-  it('decreaseValue', () => {
-    const caretPositionsForHours = [0, 1, 2];
-    const caretPositionsForMinutes = [3, 4];
-
-    caretPositionsForHours.forEach((caretPosition) => {
-      assert.equal(decreaseValue('11:12', caretPosition), '10:12', `decrease hours at ${caretPosition}`);
-    });
-
-    caretPositionsForMinutes.forEach((caretPosition) => {
-      assert.equal(decreaseValue('11:12', caretPosition), '11:11', `decrease minutes at ${caretPosition}`);
-    });
-
-    assert.equal(decreaseValue('00:12', 0), '0:12', 'do not change hours after 0');
-    assert.equal(decreaseValue('23:00', 3), '23:0', 'do not change minutes after 0');
+    assert.equal(transformValue('1', false, 1), '02', 'pad hours');
+    assert.equal(transformValue('12:3', true, 1), '12:04', 'pad minutes');
   });
 
   it('getCaretPosition', () => {

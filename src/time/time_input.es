@@ -1,10 +1,8 @@
 import React, { useRef, forwardRef, useImperativeHandle } from 'react';
 import PropTypes from 'prop-types';
-import { isInt } from 'string-validate';
 import { invoke } from '../utils';
 import {
-  isTimeFormat,
-  formatValue,
+  getFormattedValue,
   transformValue,
   getCaretPosition,
 } from './utils';
@@ -20,19 +18,19 @@ const TimeInput = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => inputRef.current);
 
   const changeValue = (value) => {
-    const nextValue = isInt(value) ? formatValue(value) : value;
+    if (!value) return invoke(onChange, value);
 
-    if (!nextValue) return invoke(onChange, value);
-    if (!isTimeFormat(nextValue)) return;
+    const formattedValue = getFormattedValue(value);
+    if (!formattedValue) return;
 
     const { selectionEnd, value: prevValue } = inputRef.current;
 
     // Change value in DOM to restore caret position
-    inputRef.current.value = nextValue;
-    const caretPosition = getCaretPosition(selectionEnd, prevValue, nextValue);
+    inputRef.current.value = formattedValue;
+    const caretPosition = getCaretPosition(selectionEnd, prevValue, formattedValue);
     inputRef.current.setSelectionRange(caretPosition, caretPosition);
 
-    invoke(onChange, nextValue);
+    invoke(onChange, formattedValue);
   };
 
   const handleChange = (event) => changeValue(event.target.value);

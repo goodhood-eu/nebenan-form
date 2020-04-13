@@ -1,6 +1,7 @@
 const TIME_REGEX = /^(\d{1,2})?(:(\d{1,2})?)?$/;
 
 export const isTimeFormat = (value) => TIME_REGEX.test(value);
+export const cleanValue = (value) => value.replace(/:/g, '');
 export const formatValue = (value) => value.replace(/^(\d{2}):?(\d{1,2})(.*)$/, '$1:$2');
 
 export const getCaretPosition = (currentPosition, oldValue, newValue) => {
@@ -28,4 +29,11 @@ export const transformValue = (value, changeMinutes, diff) => {
   if (minutes) result += `:${minutes}`;
 
   return result;
+};
+
+export const getFormattedValue = (value) => {
+  if (isTimeFormat(value)) return value;
+  const formattedValue = formatValue(cleanValue(value));
+  if (isTimeFormat(formattedValue)) return formattedValue;
+  return null;
 };

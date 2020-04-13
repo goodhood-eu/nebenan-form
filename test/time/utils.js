@@ -2,9 +2,11 @@ const { assert } = require('chai');
 
 const {
   isTimeFormat,
+  cleanValue,
   formatValue,
   transformValue,
   getCaretPosition,
+  getFormattedValue,
 } = require('../../lib/time/utils');
 
 
@@ -47,6 +49,13 @@ describe('time/utils', () => {
     });
   });
 
+  it('cleanValue', () => {
+    assert.equal(cleanValue('12:12'), '1212', 'remove semicolon');
+    assert.equal(cleanValue('1123213:2:12'), '1123213212', 'remove multiple semicolons');
+    assert.equal(cleanValue('as2%:11k$2'), 'as2%11k$2', 'remove only semicolon');
+  });
+
+
   it('formatValue', () => {
     assert.equal(formatValue('1212'), '12:12', 'add colon');
     assert.equal(formatValue('233'), '23:3', 'add colon for 3 numbers');
@@ -88,5 +97,40 @@ describe('time/utils', () => {
 
     assert.equal(getCaretPosition(1, oldValue, newValue), 1, 'do not change caret if it was not at the end');
     assert.equal(getCaretPosition(5, oldValue, newValue), 11, 'move caret to end if it was at the end');
+  });
+
+  it('getFormattedValue', () => {
+    const alreadyFormatted = [
+      '12:02',
+      '12:',
+      ':01',
+      '1:1',
+    ];
+
+    const canBeFromatted = [
+      ['1234', '12:34'],
+      ['123', '12:3'],
+      ['113:3', '11:33'],
+      ['12:456', '12:45'],
+      ['1:123', '11:23'],
+      ['1234667', '12:34'],
+    ];
+
+    const canNotBeFromatted = [
+      'asdasd',
+      '#aspdok',
+    ];
+
+    alreadyFormatted.forEach((value) => {
+      assert.equal(getFormattedValue(value), value, 'do not change already formatted value:', value);
+    });
+
+    canBeFromatted.forEach(([passedValue, expectValue]) => {
+      assert.equal(getFormattedValue(passedValue), expectValue, 'format values than can be formatted: ', passedValue);
+    });
+
+    canNotBeFromatted.forEach((value) => {
+      assert.equal(getFormattedValue(value), null, 'null if can not be formatted: ', value);
+    });
   });
 });

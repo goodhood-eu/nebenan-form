@@ -1,7 +1,8 @@
+import { isInt } from 'string-validate';
+
 const TIME_REGEX = /^(\d{1,2})?(:(\d{1,2})?)?$/;
 
 export const isTimeFormat = (value) => TIME_REGEX.test(value);
-export const cleanValue = (value) => value.replace(/:/g, '');
 export const formatValue = (value) => value.replace(/^(\d{2}):?(\d{1,2})(.*)$/, '$1:$2');
 
 export const getCaretPosition = (currentPosition, oldValue, newValue) => {
@@ -19,7 +20,7 @@ export const transformValue = (value, changeMinutes, diff) => {
   if (changeMinutes) {
     let intMinutes = parseInt(minutes || 0, 10);
     intMinutes = limitMinutes(intMinutes + diff);
-    return `${padLeft(hours)}:${padLeft(intMinutes)}`;
+    return `${hours}:${padLeft(intMinutes)}`;
   }
 
   let intHours = parseInt(hours || 0, 10);
@@ -33,7 +34,6 @@ export const transformValue = (value, changeMinutes, diff) => {
 
 export const getFormattedValue = (value) => {
   if (isTimeFormat(value)) return value;
-  const formattedValue = formatValue(cleanValue(value));
-  if (isTimeFormat(formattedValue)) return formattedValue;
+  if (isInt(value)) return formatValue(value);
   return null;
 };

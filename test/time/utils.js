@@ -2,7 +2,6 @@ const { assert } = require('chai');
 
 const {
   isTimeFormat,
-  cleanValue,
   formatValue,
   transformValue,
   getCaretPosition,
@@ -48,13 +47,6 @@ describe('time/utils', () => {
       assert.isFalse(isTimeFormat(value), `invalid format: ${value}`);
     });
   });
-
-  it('cleanValue', () => {
-    assert.equal(cleanValue('12:12'), '1212', 'remove semicolon');
-    assert.equal(cleanValue('1123213:2:12'), '1123213212', 'remove multiple semicolons');
-    assert.equal(cleanValue('as2%:11k$2'), 'as2%11k$2', 'remove only semicolon');
-  });
-
 
   it('formatValue', () => {
     assert.equal(formatValue('1212'), '12:12', 'add colon');
@@ -110,13 +102,13 @@ describe('time/utils', () => {
     const canBeFromatted = [
       ['1234', '12:34'],
       ['123', '12:3'],
-      ['113:3', '11:33'],
-      ['12:456', '12:45'],
-      ['1:123', '11:23'],
       ['1234667', '12:34'],
     ];
 
     const canNotBeFromatted = [
+      '1:123',
+      '1f:12',
+      '113:3',
       'asdasd',
       '#aspdok',
     ];

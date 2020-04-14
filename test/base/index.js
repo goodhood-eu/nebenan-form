@@ -240,6 +240,14 @@ describe('base/help functions', () => {
     const isNumber = parseValidations('isNumber');
     assert.isTrue(isNumber[0](7), '7 is a number');
     assert.isFalse(isNumber[0]('string'), 'string is not a number');
+
+    const [isTime] = parseValidations('isTime');
+    assert.isTrue(isTime('12:46'), '12:46 is valid time');
+    assert.isFalse(isTime('asdasd'), 'string is not a time');
+
+    const [isRestrictedTime] = parseValidations('isTime:01:00,19:00');
+    assert.isFalse(isRestrictedTime('00:46'), '00:46 is less than mininmum value');
+    assert.isFalse(isRestrictedTime('21:24'), '21:24 is more than maximum value');
   });
 
   it('getRegexValidation', () => {

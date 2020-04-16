@@ -80,6 +80,8 @@ class Datepicker extends InputComponent {
       label,
       placeholder,
       children,
+      minDate,
+      maxDate,
       dateFormat,
       firstDay,
       weekdayShortLabels,
@@ -102,6 +104,8 @@ class Datepicker extends InputComponent {
           firstDay={firstDay}
           weekdayShortLabels={weekdayShortLabels}
           monthLabels={monthLabels}
+          minDate={minDate}
+          maxDate={maxDate}
           theme={theme}
           onChange={this.handleSelect}
           selected={value}
@@ -136,6 +140,15 @@ Datepicker.propTypes = {
   weekdayShortLabels: PropTypes.arrayOf(PropTypes.string),
   monthLabels: PropTypes.arrayOf(PropTypes.string),
   dateFormat: PropTypes.string.isRequired,
+
+  minDate: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
+  maxDate: PropTypes.oneOfType([
+    PropTypes.object,
+    PropTypes.string,
+  ]),
 };
 
 export default Datepicker;

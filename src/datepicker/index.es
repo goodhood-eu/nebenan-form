@@ -21,6 +21,7 @@ class Datepicker extends InputComponent {
       'deactivate',
       'handleSelect',
       'handleClick',
+      'handleClear',
     );
   }
 
@@ -90,12 +91,17 @@ class Datepicker extends InputComponent {
     else this.deactivate();
   }
 
+  handleClear() {
+    this.setValue(null);
+  }
+
   isVisible() {
     return this.state.isVisible;
   }
 
-  hasChanged() {
-    return this.state.value !== this.props.defaultValue;
+  isClearable() {
+    const { value } = this.state;
+    return value !== null && value !== undefined;
   }
 
   render() {
@@ -127,24 +133,17 @@ class Datepicker extends InputComponent {
       picker = (
         <Picker
           className={clsx({ 'is-top': isTop })}
-          firstDay={firstDay}
-          weekdayShortLabels={weekdayShortLabels}
-          monthLabels={monthLabels}
-          minDate={minDate}
-          maxDate={maxDate}
-          theme={theme}
           onChange={this.handleSelect}
           selected={value}
+          {...{ theme, minDate, maxDate, monthLabels, weekdayShortLabels, firstDay }}
         />
       );
     }
 
     let clearButton;
-    if (this.hasChanged()) {
-      const handleClear = this.reset.bind(this, null);
-
+    if (this.isClearable()) {
       clearButton = (
-        <i className="c-datepicker-icon icon-cross" onClick={handleClear} />
+        <i className="c-datepicker-icon icon-cross" onClick={this.handleClear} />
       );
     }
 

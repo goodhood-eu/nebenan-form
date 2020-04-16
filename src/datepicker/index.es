@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 
+import { screenPosition, screenSize, size } from 'nebenan-helpers/lib/dom';
 import keymanager from 'nebenan-helpers/lib/keymanager';
 import eventproxy from 'nebenan-helpers/lib/eventproxy';
 
@@ -32,6 +33,7 @@ class Datepicker extends InputComponent {
     return {
       ...super.getDefaultState(props),
       isVisible: false,
+      isTop: false,
     };
   }
 
@@ -41,13 +43,32 @@ class Datepicker extends InputComponent {
     if (isOutside) this.deactivate();
   }
 
+  getPosition() {
+    const { container } = this.els;
+
+    const { top } = screenPosition(container);
+    const { height } = size(container);
+    const { height: screenHeight } = screenSize(global);
+
+    const availableSpace = screenHeight - top;
+    const neededSpace = height * 2;
+    const isTop = neededSpace > availableSpace;
+
+    return { isTop };
+  }
+
   activate() {
     if (this.isVisible()) return;
 
     this.stopListeningToKeys = keymanager('esc', this.deactivate);
     this.stopListeningToClicks = eventproxy('click', this.handleGlobalClick);
 
-    this.setState({ isVisible: true });
+    const updater = () => {
+      const { isTop } = this.getPosition();
+      return { isVisible: true, isTop };
+    };
+
+    this.setState(updater);
   }
 
   deactivate() {
@@ -56,7 +77,7 @@ class Datepicker extends InputComponent {
     this.stopListeningToKeys();
     this.stopListeningToClicks();
 
-    this.setState({ isVisible: false }, this.validate);
+    this.setState({ isVisible: false, isTop: false }, this.validate);
   }
 
   handleSelect(value) {
@@ -75,7 +96,7 @@ class Datepicker extends InputComponent {
 
   render() {
     const className = clsx('c-datepicker', this.props.className);
-    const { value } = this.state;
+    const { value, isTop } = this.state;
     const {
       label,
       placeholder,
@@ -101,6 +122,7 @@ class Datepicker extends InputComponent {
     if (this.isVisible()) {
       picker = (
         <Picker
+          className={clsx({ 'is-top': isTop })}
           firstDay={firstDay}
           weekdayShortLabels={weekdayShortLabels}
           monthLabels={monthLabels}
@@ -114,8 +136,8 @@ class Datepicker extends InputComponent {
     }
 
     return (
-      <div ref={this.setEl('container')}>
-        <label className={className} onClick={this.handleClick}>
+      <div ref={this.setEl('container')} className={className}>
+        <label onClick={this.handleClick}>
           {labelNode}
           <div className="c-input-container">
             <input

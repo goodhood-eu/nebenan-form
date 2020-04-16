@@ -13,9 +13,15 @@
   background: #fff;
 
   font-family: $font-family;
+  z-index: 2;
   border: $border-dark;
   border-radius: $border-radius-m;
   color: $color-gray-02;
+
+  &.is-top {
+    top: auto;
+    bottom: 100%;
+  }
 }
 
 .c-picker-cell {

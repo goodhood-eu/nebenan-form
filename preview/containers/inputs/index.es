@@ -276,6 +276,7 @@ class Inputs extends PureComponent {
             <li>
               <Datepicker
                 {...datepickerLocale}
+                label="Picker with minDate and maxDate"
                 onUpdate={this.constructor.handleUpdate}
                 minDate="1988-04-03"
                 maxDate={new Date(1988, 5, 15)}

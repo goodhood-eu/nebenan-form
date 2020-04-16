@@ -94,6 +94,10 @@ class Datepicker extends InputComponent {
     return this.state.isVisible;
   }
 
+  hasChanged() {
+    return this.state.value !== this.props.defaultValue;
+  }
+
   render() {
     const className = clsx('c-datepicker', this.props.className);
     const { value, isTop } = this.state;
@@ -135,15 +139,25 @@ class Datepicker extends InputComponent {
       );
     }
 
+    let clearButton;
+    if (this.hasChanged()) {
+      const handleClear = this.reset.bind(this, null);
+
+      clearButton = (
+        <i className="c-datepicker-icon icon-cross" onClick={handleClear} />
+      );
+    }
+
     return (
       <div ref={this.setEl('container')} className={className}>
         <label onClick={this.handleClick}>
           {labelNode}
-          <div className="c-input-container">
+          <div className="c-datepicker-container">
             <input
               className={inputClassName}
               placeholder={placeholder} value={localizedValue} readOnly
             />
+            {clearButton}
             <input ref={this.setEl('input')} type="hidden" value={value || ''} />
             {children}
           </div>

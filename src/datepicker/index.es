@@ -6,7 +6,7 @@ import { screenPosition, screenSize, size } from 'nebenan-helpers/lib/dom';
 import keymanager from 'nebenan-helpers/lib/keymanager';
 import eventproxy from 'nebenan-helpers/lib/eventproxy';
 
-import Picker from './calendar';
+import Picker from 'nebenan-react-datepicker/lib';
 import { bindTo } from '../utils';
 
 import InputComponent from '../base';

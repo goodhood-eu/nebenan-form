@@ -15,7 +15,6 @@ import Radio from '../../../lib/radio';
 import Datepicker from '../../../lib/datepicker';
 
 import content from '../../sample_data';
-import datepickerLocale from './datepicker_locale';
 
 class Inputs extends PureComponent {
   static handleUpdate(value) { console.info('Got value:', value); }
@@ -261,21 +260,21 @@ class Inputs extends PureComponent {
           <ul className="preview-pickers">
             <li>
               <Datepicker
-                {...datepickerLocale}
+                {...content.datepickerLocale}
                 onUpdate={this.constructor.handleUpdate}
                 placeholder="Datepicker placeholder"
               />
             </li>
             <li>
               <Datepicker
-                {...datepickerLocale}
+                {...content.datepickerLocale}
                 onUpdate={this.constructor.handleUpdate}
                 placeholder="Datepicker placeholder"
               />
             </li>
             <li>
               <Datepicker
-                {...datepickerLocale}
+                {...content.datepickerLocale}
                 label="Picker with minDate and maxDate"
                 onUpdate={this.constructor.handleUpdate}
                 minDate="1988-04-03"

@@ -97,7 +97,7 @@ class Datepicker extends InputComponent {
 
   isClearable() {
     const { value } = this.state;
-    return !value;
+    return Boolean(value);
   }
 
   render() {

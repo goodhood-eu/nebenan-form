@@ -153,11 +153,13 @@ class Datepicker extends InputComponent {
           {labelNode}
           <div className="c-datepicker-container">
             <input
+              ref={this.setEl('input')}
               className={inputClassName}
-              placeholder={placeholder} value={localizedValue} readOnly
+              placeholder={placeholder}
+              value={localizedValue}
+              readOnly
             />
             {clearButton}
-            <input ref={this.setEl('input')} type="hidden" value={value || ''} />
             {children}
           </div>
           {error}

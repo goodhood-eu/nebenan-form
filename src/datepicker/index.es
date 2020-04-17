@@ -18,7 +18,7 @@ class Datepicker extends InputComponent {
     super(props);
     bindTo(this,
       'handleGlobalClick',
-      'deactivate',
+      'hide',
       'handleSelect',
       'handleClick',
       'handleClear',
@@ -41,7 +41,7 @@ class Datepicker extends InputComponent {
   handleGlobalClick(event) {
     if (!this.isComponentMounted) return;
     const isOutside = !this.els.container.contains(event.target);
-    if (isOutside) this.deactivate();
+    if (isOutside) this.hide();
   }
 
   getPosition() {
@@ -58,15 +58,25 @@ class Datepicker extends InputComponent {
     return { isTop };
   }
 
+  show() {
+    const { isTop } = this.getPosition();
+
+    this.activate();
+    this.setState({ isVisible: true, isTop });
+  }
+
+  hide() {
+    this.deactivate();
+    this.setState({ isVisible: false, isTop: false }, this.validate);
+  }
+
   activate() {
     if (this.isActive) return;
 
-    this.stopListeningToKeys = keymanager('esc', this.deactivate);
+    this.stopListeningToKeys = keymanager('esc', this.hide);
     this.stopListeningToClicks = eventproxy('click', this.handleGlobalClick);
 
-    const { isTop } = this.getPosition();
     this.isActive = true;
-    this.setState({ isVisible: true, isTop });
   }
 
   deactivate() {
@@ -76,17 +86,16 @@ class Datepicker extends InputComponent {
     this.stopListeningToClicks();
 
     this.isActive = false;
-    this.setState({ isVisible: false, isTop: false });
   }
 
   handleSelect(value) {
     this.setValue(value, this.validate);
-    this.deactivate();
+    this.hide();
   }
 
   handleClick() {
-    if (!this.isActive) this.activate();
-    else this.deactivate();
+    if (!this.isActive) this.show();
+    else this.hide();
   }
 
   handleClear() {

@@ -76,7 +76,7 @@ class Datepicker extends InputComponent {
     this.stopListeningToClicks();
 
     this.isActive = false;
-    this.setState({ isVisible: false, isTop: false }, this.validate);
+    this.setState({ isVisible: false, isTop: false });
   }
 
   handleSelect(value) {
@@ -90,7 +90,7 @@ class Datepicker extends InputComponent {
   }
 
   handleClear() {
-    this.setValue(null);
+    this.setValue(null, this.validate);
   }
 
   isClearable() {

@@ -172,8 +172,8 @@ Datepicker.propTypes = {
   ...InputComponent.propTypes,
 
   firstDay: PropTypes.number.isRequired,
-  weekdayShortLabels: PropTypes.arrayOf(PropTypes.string),
-  monthLabels: PropTypes.arrayOf(PropTypes.string),
+  weekdayShortLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
+  monthLabels: PropTypes.arrayOf(PropTypes.string).isRequired,
   dateFormat: PropTypes.string.isRequired,
 
   minDate: PropTypes.oneOfType([

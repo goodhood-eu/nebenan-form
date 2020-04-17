@@ -64,12 +64,8 @@ class Datepicker extends InputComponent {
     this.stopListeningToKeys = keymanager('esc', this.deactivate);
     this.stopListeningToClicks = eventproxy('click', this.handleGlobalClick);
 
-    const updater = () => {
-      const { isTop } = this.getPosition();
-      return { isVisible: true, isTop };
-    };
-
-    this.setState(updater);
+    const { isTop } = this.getPosition();
+    this.setState({ isVisible: true, isTop });
   }
 
   deactivate() {

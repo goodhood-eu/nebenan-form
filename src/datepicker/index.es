@@ -59,21 +59,23 @@ class Datepicker extends InputComponent {
   }
 
   activate() {
-    if (this.isVisible()) return;
+    if (this.isActive) return;
 
     this.stopListeningToKeys = keymanager('esc', this.deactivate);
     this.stopListeningToClicks = eventproxy('click', this.handleGlobalClick);
 
     const { isTop } = this.getPosition();
+    this.isActive = true;
     this.setState({ isVisible: true, isTop });
   }
 
   deactivate() {
-    if (!this.isVisible()) return;
+    if (!this.isActive) return;
 
     this.stopListeningToKeys();
     this.stopListeningToClicks();
 
+    this.isActive = false;
     this.setState({ isVisible: false, isTop: false }, this.validate);
   }
 
@@ -83,16 +85,12 @@ class Datepicker extends InputComponent {
   }
 
   handleClick() {
-    if (!this.isVisible()) this.activate();
+    if (!this.isActive) this.activate();
     else this.deactivate();
   }
 
   handleClear() {
     this.setValue(null);
-  }
-
-  isVisible() {
-    return this.state.isVisible;
   }
 
   isClearable() {
@@ -102,7 +100,7 @@ class Datepicker extends InputComponent {
 
   render() {
     const className = clsx('c-datepicker', this.props.className);
-    const { value, isTop } = this.state;
+    const { value, isTop, isVisible } = this.state;
     const {
       label,
       placeholder,
@@ -125,7 +123,7 @@ class Datepicker extends InputComponent {
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     let picker;
-    if (this.isVisible()) {
+    if (isVisible) {
       picker = (
         <Picker
           className={clsx({ 'is-top': isTop })}

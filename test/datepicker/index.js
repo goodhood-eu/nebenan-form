@@ -40,9 +40,9 @@ describe('Datepicker', () => {
     instance.setValue('2019-01-01');
     wrapper.update();
 
-    assert.equal(wrapper.find('.c-datepicker .c-datepicker-icon').length, 1, 'Clear button was rendered');
+    assert.equal(wrapper.find('.c-datepicker .c-datepicker-clear').length, 1, 'Clear button was rendered');
 
-    wrapper.find('.c-datepicker .c-datepicker-icon').last().simulate('click');
+    wrapper.find('.c-datepicker .c-datepicker-clear').last().simulate('click');
 
     assert.equal(instance.state.value, null, 'value was cleared');
   });

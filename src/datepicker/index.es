@@ -143,7 +143,7 @@ class Datepicker extends InputComponent {
     let clearButton;
     if (this.isClearable()) {
       clearButton = (
-        <i className="c-datepicker-icon icon-cross" onClick={this.handleClear} />
+        <i className="c-datepicker-clear icon-cross" onClick={this.handleClear} />
       );
     }
 

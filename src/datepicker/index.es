@@ -11,7 +11,7 @@ import { bindTo } from '../utils';
 
 import InputComponent from '../base';
 import theme from './theme';
-import { getValue } from './utils';
+import { getDate, getValueFromDate, getValueFromISO } from './utils';
 
 class Datepicker extends InputComponent {
   constructor(props) {
@@ -88,8 +88,8 @@ class Datepicker extends InputComponent {
     this.isActive = false;
   }
 
-  handleSelect(value) {
-    this.setValue(value, this.validate);
+  handleSelect(date) {
+    this.setValue(getValueFromDate(date), this.validate);
     this.hide();
   }
 
@@ -122,7 +122,7 @@ class Datepicker extends InputComponent {
       monthLabels,
     } = this.props;
 
-    const localizedValue = getValue(value, dateFormat);
+    const localizedValue = getValueFromISO(value, dateFormat);
     const inputClassName = clsx('ui-input', { 'ui-input-error': this.isErrorActive() });
 
     let labelNode;
@@ -137,8 +137,10 @@ class Datepicker extends InputComponent {
         <Picker
           className={clsx({ 'is-top': isTop })}
           onChange={this.handleSelect}
-          selected={value}
-          {...{ theme, minDate, maxDate, monthLabels, weekdayShortLabels, firstDay }}
+          selected={getDate(value)}
+          minDate={getDate(minDate)}
+          maxDate={getDate(maxDate)}
+          {...{ theme, monthLabels, weekdayShortLabels, firstDay }}
         />
       );
     }

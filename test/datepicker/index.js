@@ -56,7 +56,7 @@ describe('Datepicker', () => {
 
     wrapper.find('.c-datepicker .ui-input').last().simulate('click');
 
-    instance.handleSelect('2020-01-05');
+    instance.handleSelect(new Date(2020, 0, 5));
     wrapper.update();
 
     assert.equal(wrapper.find('.c-picker').length, 0, 'Picker was hidden');

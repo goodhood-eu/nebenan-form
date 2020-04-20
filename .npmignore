@@ -13,3 +13,4 @@ test/
 gulpfile.js
 !src/
 !style.css
+.idea

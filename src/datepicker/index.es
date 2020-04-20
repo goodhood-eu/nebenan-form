@@ -89,8 +89,7 @@ class Datepicker extends InputComponent {
   }
 
   handleSelect(date) {
-    this.setValue(getValueFromDate(date), this.validate);
-    this.hide();
+    this.setValue(getValueFromDate(date), this.hide);
   }
 
   handleClick() {

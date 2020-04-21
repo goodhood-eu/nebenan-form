@@ -97,7 +97,8 @@ class Datepicker extends InputComponent {
     else this.hide();
   }
 
-  handleClear() {
+  handleClear(event) {
+    event.preventDefault();
     this.setValue(null, this.validate);
   }
 
@@ -153,10 +154,11 @@ class Datepicker extends InputComponent {
 
     return (
       <div ref={this.setEl('container')} className={className}>
-        <label onClick={this.handleClick}>
+        <label>
           {labelNode}
           <div className="c-datepicker-container">
             <input
+              onClick={this.handleClick}
               ref={this.setEl('input')}
               className={inputClassName}
               placeholder={placeholder}

@@ -3,9 +3,57 @@ const {
   getValueFromISO,
   getValueFromDate,
   getDate,
+  mergeThemes,
+  getSubTheme,
 } = require('../../lib/datepicker/utils');
 
 describe('ui/datepicker/utils', () => {
+  describe('mergeThemes', () => {
+    it('returns first theme if second one is falsey', () => {
+      const baseTheme = {
+        root: 'classname',
+      };
+
+      assert.deepEqual(mergeThemes(baseTheme, undefined), baseTheme);
+    });
+
+    it('joins strings if both objects contain the same key', () => {
+      const baseTheme = {
+        root: 'rootClass',
+        clever: 'cleverClass',
+      };
+      const otherTheme = {
+        root: 'my-own-root',
+        notInBase: 'not-there',
+      };
+
+      assert.deepEqual(mergeThemes(baseTheme, otherTheme), {
+        root: 'rootClass my-own-root',
+        clever: 'cleverClass',
+      });
+    });
+  });
+
+  describe('getSubTheme', () => {
+    it('returns empty object for falsy theme', () => {
+      assert.deepEqual(getSubTheme(null, 'picker'), {});
+    });
+
+    it('returns object with stripped keys matching prefix', () => {
+      const theme = {
+        pickerRoot: 'some-class',
+        pickerBaseElement: 'some-base',
+        otherRoot: 'other-root',
+        otherPicker: 'other-picker',
+      };
+
+      assert.deepEqual(getSubTheme(theme, 'picker'), {
+        root: 'some-class',
+        baseElement: 'some-base',
+      });
+    });
+  });
+
   describe('getValueFromISO', () => {
     it('returns empty string for falsey values', () => {
       assert.equal(getValueFromISO(null, 'yyyy'), '');

@@ -10,8 +10,8 @@ import Picker from 'nebenan-react-datepicker/lib';
 import { bindTo } from '../utils';
 
 import InputComponent from '../base';
-import theme from './theme';
-import { getDate, getValueFromDate, getValueFromISO } from './utils';
+import calendarTheme from './calendar_theme';
+import { getDate, getSubTheme, getValueFromDate, getValueFromISO, mergeThemes } from './utils';
 
 class Datepicker extends InputComponent {
   constructor(props) {
@@ -120,6 +120,7 @@ class Datepicker extends InputComponent {
       firstDay,
       weekdayShortLabels,
       monthLabels,
+      theme: passedTheme,
     } = this.props;
 
     const localizedValue = getValueFromISO(value, dateFormat);
@@ -140,7 +141,8 @@ class Datepicker extends InputComponent {
           selected={getDate(value)}
           minDate={getDate(minDate)}
           maxDate={getDate(maxDate)}
-          {...{ theme, monthLabels, weekdayShortLabels, firstDay }}
+          theme={mergeThemes(calendarTheme, getSubTheme(passedTheme, 'calendar'))}
+          {...{ monthLabels, weekdayShortLabels, firstDay }}
         />
       );
     }
@@ -178,6 +180,8 @@ class Datepicker extends InputComponent {
 
 Datepicker.propTypes = {
   ...InputComponent.propTypes,
+
+  theme: PropTypes.object,
 
   firstDay: PropTypes.number.isRequired,
   weekdayShortLabels: PropTypes.arrayOf(PropTypes.string).isRequired,

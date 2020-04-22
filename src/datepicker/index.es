@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import memorize from 'lodash/memoize';
 
 import { screenPosition, screenSize, size } from 'nebenan-helpers/lib/dom';
 import keymanager from 'nebenan-helpers/lib/keymanager';
@@ -11,10 +12,9 @@ import { bindTo } from '../utils';
 
 import InputComponent from '../base';
 import baseCalendarTheme from './calendar_theme';
-import { getDate, getValueFromDate, getValueFromISO } from './utils';
-import { useComposedTheme, useSubTheme } from './hooks';
+import { getCalendarTheme, getDate, getValueFromDate, getValueFromISO } from './utils';
 
-class DatepickerComponent extends InputComponent {
+class Datepicker extends InputComponent {
   constructor(props) {
     super(props);
     bindTo(this,
@@ -24,6 +24,7 @@ class DatepickerComponent extends InputComponent {
       'handleClick',
       'handleClear',
     );
+    this.getCalendarTheme = memorize(getCalendarTheme);
   }
 
   componentWillUnmount() {
@@ -121,7 +122,7 @@ class DatepickerComponent extends InputComponent {
       firstDay,
       weekdayShortLabels,
       monthLabels,
-      calendarTheme,
+      theme: passedTheme,
     } = this.props;
 
     const localizedValue = getValueFromISO(value, dateFormat);
@@ -142,7 +143,7 @@ class DatepickerComponent extends InputComponent {
           selected={getDate(value)}
           minDate={getDate(minDate)}
           maxDate={getDate(maxDate)}
-          theme={calendarTheme}
+          theme={this.getCalendarTheme(baseCalendarTheme, passedTheme)}
           {...{ monthLabels, weekdayShortLabels, firstDay }}
         />
       );
@@ -178,13 +179,6 @@ class DatepickerComponent extends InputComponent {
     );
   }
 }
-
-const Datepicker = ({ theme: passedTheme, ...props }) => {
-  const passedCalendarTheme = useSubTheme(passedTheme, 'calendar');
-  const calendarTheme = useComposedTheme(baseCalendarTheme, passedCalendarTheme);
-
-  return <DatepickerComponent {...{ calendarTheme }} {...props} />;
-};
 
 Datepicker.propTypes = {
   ...InputComponent.propTypes,

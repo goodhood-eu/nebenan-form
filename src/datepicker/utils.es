@@ -47,3 +47,7 @@ export const mergeThemes = (baseTheme, otherTheme) => {
 
   return result;
 };
+
+export const getCalendarTheme = (baseCalendarTheme, passedTheme) => (
+  mergeThemes(baseCalendarTheme, getSubTheme(passedTheme, 'calendar'))
+);

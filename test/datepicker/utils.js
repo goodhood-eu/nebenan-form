@@ -5,9 +5,26 @@ const {
   getDate,
   mergeThemes,
   getSubTheme,
+  getCalendarTheme,
 } = require('../../lib/datepicker/utils');
 
 describe('ui/datepicker/utils', () => {
+  describe('getCalendarTheme', () => {
+    it('merges base theme with calendar prefixed keys from passed theme', () => {
+      const baseCalendarTheme = {
+        root: 'base-root',
+        clever: 'base-clever',
+      };
+      const passedTheme = {
+        calendarRoot: 'my-root',
+        blubb: 'my-blubb',
+      };
+      assert.deepEqual(getCalendarTheme(baseCalendarTheme, passedTheme), {
+        root: 'base-root my-root',
+        clever: 'base-clever',
+      });
+    });
+  });
   describe('mergeThemes', () => {
     it('returns first theme if second one is undefined', () => {
       const baseTheme = {
@@ -35,8 +52,8 @@ describe('ui/datepicker/utils', () => {
   });
 
   describe('getSubTheme', () => {
-    it('returns empty object for falsy theme', () => {
-      assert.deepEqual(getSubTheme(null, 'picker'), {});
+    it('returns empty object for undefined theme', () => {
+      assert.deepEqual(getSubTheme(undefined, 'picker'), {});
     });
 
     it('returns object with stripped keys matching prefix', () => {

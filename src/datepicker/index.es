@@ -24,7 +24,7 @@ class Datepicker extends InputComponent {
       'handleClick',
       'handleClear',
     );
-    this.getCalendarTheme = memorize(getCalendarTheme);
+    this.getCalendarTheme = memorize(getCalendarTheme.bind(null, baseCalendarTheme));
   }
 
   componentWillUnmount() {
@@ -143,7 +143,7 @@ class Datepicker extends InputComponent {
           selected={getDate(value)}
           minDate={getDate(minDate)}
           maxDate={getDate(maxDate)}
-          theme={this.getCalendarTheme(baseCalendarTheme, passedTheme)}
+          theme={this.getCalendarTheme(passedTheme)}
           {...{ monthLabels, weekdayShortLabels, firstDay }}
         />
       );

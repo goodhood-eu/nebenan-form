@@ -10,10 +10,11 @@ import Picker from 'nebenan-react-datepicker/lib';
 import { bindTo } from '../utils';
 
 import InputComponent from '../base';
-import calendarTheme from './calendar_theme';
-import { getDate, getSubTheme, getValueFromDate, getValueFromISO, mergeThemes } from './utils';
+import baseCalendarTheme from './calendar_theme';
+import { getDate, getValueFromDate, getValueFromISO } from './utils';
+import { useComposedTheme, useSubTheme } from './hooks';
 
-class Datepicker extends InputComponent {
+class DatepickerComponent extends InputComponent {
   constructor(props) {
     super(props);
     bindTo(this,
@@ -120,7 +121,7 @@ class Datepicker extends InputComponent {
       firstDay,
       weekdayShortLabels,
       monthLabels,
-      theme: passedTheme,
+      calendarTheme,
     } = this.props;
 
     const localizedValue = getValueFromISO(value, dateFormat);
@@ -141,7 +142,7 @@ class Datepicker extends InputComponent {
           selected={getDate(value)}
           minDate={getDate(minDate)}
           maxDate={getDate(maxDate)}
-          theme={mergeThemes(calendarTheme, getSubTheme(passedTheme, 'calendar'))}
+          theme={calendarTheme}
           {...{ monthLabels, weekdayShortLabels, firstDay }}
         />
       );
@@ -177,6 +178,13 @@ class Datepicker extends InputComponent {
     );
   }
 }
+
+const Datepicker = ({ theme: passedTheme, ...props }) => {
+  const passedCalendarTheme = useSubTheme(passedTheme, 'calendar');
+  const calendarTheme = useComposedTheme(baseCalendarTheme, passedCalendarTheme);
+
+  return <DatepickerComponent {...{ calendarTheme }} {...props} />;
+};
 
 Datepicker.propTypes = {
   ...InputComponent.propTypes,

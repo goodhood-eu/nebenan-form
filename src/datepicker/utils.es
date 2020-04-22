@@ -1,5 +1,6 @@
 import parseISO from 'date-fns/parseISO';
 import formatDate from 'date-fns/format';
+import clsx from 'clsx';
 
 const DATE_FORMAT_ISO = 'yyyy-MM-dd';
 
@@ -41,7 +42,7 @@ export const mergeThemes = (baseTheme, otherTheme) => {
     const baseValue = baseTheme[key];
     const extendValue = otherTheme[key];
 
-    result[key] = [baseValue, extendValue].filter((v) => Boolean(v)).join(' ');
+    result[key] = clsx(baseValue, extendValue);
   });
 
   return result;

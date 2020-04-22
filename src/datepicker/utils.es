@@ -23,8 +23,8 @@ const stripPrefix = (key, prefix) => {
   return strippedKey.charAt(0).toLowerCase() + strippedKey.slice(1);
 };
 
-export const getSubTheme = (theme, prefix) => (
-  Object.entries(theme || {})
+export const getSubTheme = (theme = {}, prefix) => (
+  Object.entries(theme)
     .reduce((acc, [key, value]) => {
       if (key.startsWith(prefix)) {
         acc[stripPrefix(key, prefix)] = value;

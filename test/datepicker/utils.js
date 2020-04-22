@@ -9,7 +9,7 @@ const {
 
 describe('ui/datepicker/utils', () => {
   describe('mergeThemes', () => {
-    it('returns first theme if second one is falsey', () => {
+    it('returns first theme if second one is undefined', () => {
       const baseTheme = {
         root: 'classname',
       };

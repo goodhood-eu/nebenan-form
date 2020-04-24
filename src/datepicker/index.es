@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
+import memorize from 'lodash/memoize';
 
 import { screenPosition, screenSize, size } from 'nebenan-helpers/lib/dom';
 import keymanager from 'nebenan-helpers/lib/keymanager';
@@ -10,8 +11,8 @@ import Picker from 'nebenan-react-datepicker/lib';
 import { bindTo } from '../utils';
 
 import InputComponent from '../base';
-import theme from './theme';
-import { getDate, getValueFromDate, getValueFromISO } from './utils';
+import baseCalendarTheme from './calendar_theme';
+import { getCalendarTheme, getDate, getValueFromDate, getValueFromISO } from './utils';
 
 class Datepicker extends InputComponent {
   constructor(props) {
@@ -23,6 +24,7 @@ class Datepicker extends InputComponent {
       'handleClick',
       'handleClear',
     );
+    this.getCalendarTheme = memorize(getCalendarTheme.bind(null, baseCalendarTheme));
   }
 
   componentWillUnmount() {
@@ -97,7 +99,8 @@ class Datepicker extends InputComponent {
     else this.hide();
   }
 
-  handleClear() {
+  handleClear(event) {
+    event.preventDefault();
     this.setValue(null, this.validate);
   }
 
@@ -119,6 +122,7 @@ class Datepicker extends InputComponent {
       firstDay,
       weekdayShortLabels,
       monthLabels,
+      theme: passedTheme,
     } = this.props;
 
     const localizedValue = getValueFromISO(value, dateFormat);
@@ -139,7 +143,8 @@ class Datepicker extends InputComponent {
           selected={getDate(value)}
           minDate={getDate(minDate)}
           maxDate={getDate(maxDate)}
-          {...{ theme, monthLabels, weekdayShortLabels, firstDay }}
+          theme={this.getCalendarTheme(passedTheme)}
+          {...{ monthLabels, weekdayShortLabels, firstDay }}
         />
       );
     }
@@ -153,10 +158,11 @@ class Datepicker extends InputComponent {
 
     return (
       <div ref={this.setEl('container')} className={className}>
-        <label onClick={this.handleClick}>
+        <label>
           {labelNode}
           <div className="c-datepicker-container">
             <input
+              onClick={this.handleClick}
               ref={this.setEl('input')}
               className={inputClassName}
               placeholder={placeholder}
@@ -176,6 +182,8 @@ class Datepicker extends InputComponent {
 
 Datepicker.propTypes = {
   ...InputComponent.propTypes,
+
+  theme: PropTypes.object,
 
   firstDay: PropTypes.number.isRequired,
   weekdayShortLabels: PropTypes.arrayOf(PropTypes.string).isRequired,

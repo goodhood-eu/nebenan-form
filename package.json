@@ -82,7 +82,7 @@
     "stylelint": "^13.2.1",
     "stylelint-config-nebenan": "^1.6.0",
     "terser": "^4.6.7",
-    "nebenan-helpers": "^4.2.0-beta.0",
+    "nebenan-helpers": "^4.2.0",
     "tiny-lr": "^1.1.1",
     "vinyl-source-stream": "^2.0.0"
   },
@@ -92,7 +92,7 @@
   "peerDependencies": {
     "@babel/runtime": "^7.9.2",
     "clsx": "^1.1.0",
-    "nebenan-helpers": "^4.2.0-beta.0",
+    "nebenan-helpers": "^4.2.0",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",

@@ -12,6 +12,7 @@ import FancySelect from '../../../lib/fancy_select';
 import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
+import Time from '../../../lib/time';
 import Datepicker from '../../../lib/datepicker';
 
 import content from '../../sample_data';
@@ -281,6 +282,22 @@ class Inputs extends PureComponent {
                 maxDate={new Date(1988, 5, 15)}
                 defaultValue="1988-05-27"
                 placeholder="Datepicker placeholder"
+              />
+            </li>
+          </ul>
+          <ul className="preview-times">
+            <li>
+              <Time
+                label="Time input" placeholder="hh:mm"
+                onUpdate={this.constructor.handleUpdate}
+              />
+            </li>
+
+            <li>
+              <Time
+                defaultValue="23:45"
+                label="Time input with defaultValue" placeholder="hh:mm"
+                onUpdate={this.constructor.handleUpdate}
               />
             </li>
           </ul>

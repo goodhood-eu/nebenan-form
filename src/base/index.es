@@ -9,15 +9,23 @@ import { bindTo, invoke, objectPropsMatch } from '../utils';
 import FormContext from '../form/context';
 
 
+const parseArgument = (value) => {
+  try {
+    return JSON.parse(value);
+  } catch (err) {
+    return value;
+  }
+};
+
 export const parseValidations = (validationsString) => {
   if (!validationsString) return [];
   if (typeof validationsString !== 'string') throw new Error('Validation must be a string');
 
   return validationsString.split(';').reduce((acc, validation) => {
-    const [name, argString] = validation.split(':');
+    const [name, argString] = validation.split(/:(.*)/);
     if (name === 'isRequired' || name === 'isRegex' || !validations[name]) return acc;
     const args = argString ? argString.split(',') : [];
-    acc.push((...ownArgs) => validations[name](...ownArgs, ...args.map(JSON.parse)));
+    acc.push((...ownArgs) => validations[name](...ownArgs, ...args.map(parseArgument)));
     return acc;
   }, []);
 };

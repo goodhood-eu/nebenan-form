@@ -104,8 +104,7 @@ class InputComponent extends PureComponent {
   }
 
   getInput() {
-    // TODO: update all inputs and remove this check
-    return this.refs.input || this.els.input;
+    return this.els.input;
   }
 
   getValidation(value) {
@@ -118,8 +117,6 @@ class InputComponent extends PureComponent {
     }
 
     // Prevent custom validation triggering if default validations are invalid
-    // eslint counts func as unused variable
-    /* eslint-disable-next-line */
     for (const func of this.syncValidations) {
       if (!func(value)) return Promise.reject();
     }
@@ -157,25 +154,23 @@ class InputComponent extends PureComponent {
   setValue(value, done, options = {}) {
     if (!this.isComponentMounted) return;
 
-    const isPristine = false;
-    const isValid = true;
-    const error = null;
+    const updater = (state, props) => {
+      const isPristine = false;
+      const { isValid, error } = this.getDefaultState(props);
+      return { isPristine, isValid, error, value };
+    };
 
     const complete = () => {
-      const { onUpdate, onError } = this.props;
+      const { onUpdate } = this.props;
       const { silent } = options;
 
       if (!silent) invoke(onUpdate, this.getValue());
-
-      if (this.getError()) {
-        if (!silent) invoke(onError, this.getError());
-        if (this.isConnected()) this.getFormContext().updateValidity();
-      }
+      if (this.isConnected()) this.getFormContext().updateValidity();
 
       invoke(done);
     };
 
-    this.setState({ isPristine, isValid, error, value }, complete);
+    this.setState(updater, complete);
   }
 
   setError(error, done) {
@@ -186,6 +181,7 @@ class InputComponent extends PureComponent {
     const complete = () => {
       invoke(this.props.onError, this.getError());
       if (this.isConnected()) this.getFormContext().updateValidity();
+
       invoke(done);
     };
 
@@ -199,6 +195,8 @@ class InputComponent extends PureComponent {
   }
 
   isConnected() {
+    // Note: this might cause a loose form state if name prop becomes reset to a falsy value.
+    // The input will either never connect or never disconnect. Very unlikely to happen in the wild.
     return Boolean(this.getFormContext() && this.getName());
   }
 

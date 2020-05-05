@@ -11,6 +11,7 @@ import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
 import Time from '../../../lib/time';
+import Datepicker from '../../../lib/datepicker';
 
 import Form from '../../../lib/form';
 import FormGroup from '../../../lib/form_group';
@@ -138,6 +139,15 @@ class FormPreview extends PureComponent {
               <Input
                 type="email" label="Email validation - no error" name="email"
                 validate="isEmail"
+              />
+            </FormGroup>
+            <FormGroup>
+              <Datepicker
+                {...content.datepickerLocale}
+                required
+                error="Required!"
+                name="date"
+                label="Required date"
               />
             </FormGroup>
 

@@ -13,9 +13,9 @@ import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
 import Time from '../../../lib/time';
+import Datepicker from '../../../lib/datepicker';
 
 import content from '../../sample_data';
-
 
 class Inputs extends PureComponent {
   static handleUpdate(value) { console.info('Got value:', value); }
@@ -258,6 +258,33 @@ class Inputs extends PureComponent {
             </li>
           </ul>
 
+          <ul className="preview-pickers">
+            <li>
+              <Datepicker
+                {...content.datepickerLocale}
+                onUpdate={this.constructor.handleUpdate}
+                placeholder="Datepicker placeholder"
+              />
+            </li>
+            <li>
+              <Datepicker
+                {...content.datepickerLocale}
+                onUpdate={this.constructor.handleUpdate}
+                placeholder="Datepicker placeholder"
+              />
+            </li>
+            <li>
+              <Datepicker
+                {...content.datepickerLocale}
+                label="Picker with minDate and maxDate"
+                onUpdate={this.constructor.handleUpdate}
+                minDate="1988-04-03"
+                maxDate={new Date(1988, 5, 15)}
+                defaultValue="1988-05-27"
+                placeholder="Datepicker placeholder"
+              />
+            </li>
+          </ul>
           <ul className="preview-times">
             <li>
               <Time

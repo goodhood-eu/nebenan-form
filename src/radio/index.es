@@ -76,11 +76,14 @@ class Radio extends InputComponent {
   }
 
   render() {
-    const { type, options, children } = this.props;
+    const { type, options, children, label } = this.props;
     const className = clsx('c-radio', this.props.className, {
       [`is-type-${type}`]: type,
       'is-error': this.isErrorActive(),
     });
+
+    let labelNode;
+    if (label) labelNode = <legend className="ui-label ui-strong">{label}</legend>;
 
     const radios = options.map(this.renderRadio);
 
@@ -88,11 +91,12 @@ class Radio extends InputComponent {
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
     return (
-      <article className={className}>
+      <fieldset className={className}>
+        {labelNode}
         {radios}
         {children}
         {error}
-      </article>
+      </fieldset>
     );
   }
 }
@@ -102,6 +106,8 @@ Radio.propTypes = {
 
   className: PropTypes.string,
   children: PropTypes.node,
+
+  label: PropTypes.node,
 
   options: PropTypes.array.isRequired,
   onChange: PropTypes.func,

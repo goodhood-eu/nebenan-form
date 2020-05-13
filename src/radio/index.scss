@@ -2,9 +2,21 @@
   $size: 22px;
   $padding: 8px;
 
+  margin: 8px 0 0 0;
+  padding: 0;
+  border: none;
+
+  > .ui-label {
+    margin-bottom: -3px;
+  }
+
   .c-radio-item {
     margin-top: 8px;
     display: block;
+
+    &:first-child {
+      margin-top: 0;
+    }
 
     &.is-disabled {
       opacity: .4;

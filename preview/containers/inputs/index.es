@@ -244,6 +244,7 @@ class Inputs extends PureComponent {
 
             <li>
               <Radio
+                label="Overall radio label"
                 onUpdate={this.constructor.handleUpdate}
                 type="small" options={radios} defaultValue={radios[2].value}
               />

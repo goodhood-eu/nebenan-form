@@ -1,17 +1,18 @@
 .c-radio {
   $size: 22px;
   $padding: 8px;
+  $radio-margin-top: 8px;
 
-  margin: 8px 0 0 0;
+  margin: $radio-margin-top 0 0 0;
   padding: 0;
   border: none;
 
   > .ui-label {
-    margin-bottom: -3px;
+    margin-bottom: -$radio-margin-top + 5px;
   }
 
   .c-radio-item {
-    margin-top: 8px;
+    margin-top: $radio-margin-top;
     display: block;
 
     &:first-child {

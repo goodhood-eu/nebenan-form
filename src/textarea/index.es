@@ -74,6 +74,7 @@ class Textarea extends TextInputComponent {
       onFocus,
       onBlur,
       children,
+      counter,
     } = this.props;
 
     const className = clsx('c-textarea', this.props.className, {
@@ -104,6 +105,15 @@ class Textarea extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
+    let counterNode;
+    if (counter) {
+      const count = this.state.value.length;
+      const counterClassName = clsx('c-textarea-counter', {
+        'ui-text-error': count > counter,
+      });
+      counterNode = <aside className={counterClassName}>{count} / {counter}</aside>;
+    }
+
     // Needs rows="1" for `auto` height to determine height correctly
     return (
       <label className={className}>
@@ -119,7 +129,10 @@ class Textarea extends TextInputComponent {
           />
           {children}
         </div>
-        {error}
+        <div className="c-textarea-info">
+          {error}
+          {counterNode}
+        </div>
       </label>
     );
   }
@@ -131,6 +144,8 @@ Textarea.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   label: PropTypes.node,
+
+  counter: PropTypes.number,
 
   onUpdateHeight: PropTypes.func,
 

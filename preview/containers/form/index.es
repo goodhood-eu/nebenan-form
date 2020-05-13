@@ -178,6 +178,7 @@ class FormPreview extends PureComponent {
                 label="Length and required validation" name="text"
                 placeholder="5, 20" validate="isLength:5,20"
                 error="Required and/or wrong length!" required
+                counter={20}
               />
             </FormGroup>
 

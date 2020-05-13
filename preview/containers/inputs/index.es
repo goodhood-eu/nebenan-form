@@ -127,6 +127,13 @@ class Inputs extends PureComponent {
             <li>
               <Textarea
                 onUpdate={this.constructor.handleUpdate}
+                placeholder="Textarea placeholder"
+                counter={50}
+              />
+            </li>
+            <li>
+              <Textarea
+                onUpdate={this.constructor.handleUpdate}
                 label="Disabled" disabled
               />
             </li>

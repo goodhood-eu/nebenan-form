@@ -61,6 +61,7 @@
         font-size: 10px;
         line-height: $size;
         text-transform: uppercase;
+        user-select: none;
       }
 
       em.is-positive {

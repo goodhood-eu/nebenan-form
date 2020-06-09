@@ -54,7 +54,7 @@ class Select extends InputComponent {
 
   renderOption(item, index) {
     const { key } = getOption(item);
-    return <option value={index} key={key}>{key}</option>;
+    return <option value={index} key={index + key}>{key}</option>;
   }
 
   render() {

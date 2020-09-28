@@ -21,11 +21,11 @@ class Textarea extends TextInputComponent {
     super.componentDidMount();
     this.updateHeight();
     this.debouncedHandler = debounce(this.updateHeight, RESIZE_RATE);
-    window.addEventListener('resize', this.debouncedHandler);
+    window.addEventListener('resize', this.debouncedHandler, { passive: true });
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.debouncedHandler);
+    window.removeEventListener('resize', this.debouncedHandler, { passive: true });
     super.componentWillUnmount();
   }
 

@@ -165,6 +165,7 @@ class Form extends PureComponent {
       'formError',
       'buttonText',
       'buttonClass',
+      'buttonDataTrack',
       'alternativeAction',
       'locked',
     );

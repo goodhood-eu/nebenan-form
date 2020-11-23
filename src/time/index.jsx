@@ -1,4 +1,4 @@
-import React, { useEffect, useState, forwardRef } from 'react';
+import { useEffect, useState, forwardRef } from 'react';
 
 import Time from './time';
 import Input from '../input';

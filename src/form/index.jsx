@@ -151,6 +151,7 @@ class Form extends PureComponent {
       formError,
       buttonClass,
       buttonText,
+      buttonDataTrack,
       alternativeAction,
       children,
     } = this.props;
@@ -164,6 +165,7 @@ class Form extends PureComponent {
       'formError',
       'buttonText',
       'buttonClass',
+      'buttonDataTrack',
       'alternativeAction',
       'locked',
     );
@@ -176,8 +178,10 @@ class Form extends PureComponent {
     let button;
     if (buttonText) {
       const buttonClassName = buttonClass || 'ui-button ui-button-primary';
+      const trackProps = buttonDataTrack && { 'data-track': buttonDataTrack };
+
       button = (
-        <button className={buttonClassName} type="submit" disabled={this.isDisabled()}>
+        <button className={buttonClassName} type="submit" disabled={this.isDisabled()} {...trackProps}>
           {buttonText}
         </button>
       );
@@ -212,6 +216,7 @@ Form.propTypes = {
   className: PropTypes.string,
   formError: PropTypes.node,
   buttonClass: PropTypes.string,
+  buttonDataTrack: PropTypes.string,
   buttonText: PropTypes.node,
   alternativeAction: PropTypes.node,
 

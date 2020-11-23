@@ -5,7 +5,7 @@ require('./build/preview');
 
 const nodemonOptions = {
   script: './preview/server.js',
-  ext: 'js es',
+  ext: 'js jsx',
   watch: [
     'lib/*',
     'preview/*',
@@ -21,8 +21,8 @@ const nodemonOptions = {
 };
 
 const scripts = [
-  'src/**/*.es',
-  'preview/**/*.es',
+  'src/**/*.jsx',
+  'preview/**/*.jsx',
   'preview/**/*.js',
   '!preview/public/*.js',
   '!preview/server.js',

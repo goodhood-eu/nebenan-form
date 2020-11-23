@@ -1,44 +1,47 @@
-import React from 'react';
 import PropTypes from 'prop-types';
-import clsx from 'clsx';
 import omit from 'lodash/omit';
-import { invoke } from '../utils';
+import clsx from 'clsx';
 
-import TimeInput from './time_input';
-import TextInputComponent from '../input/base';
+import TextInputComponent from './base';
 
 
-class Time extends TextInputComponent {
-  actionChange(action) {
-    return (value) => {
-      this.setValue(value);
-      invoke(action, value);
-    };
-  }
-
+class Input extends TextInputComponent {
   render() {
+    const { value } = this.state;
     const {
       disabled,
-      children,
+      name: originalName,
+      disableAutoComplete,
+      onEnterKey,
+      onShiftEnterKey,
       label,
-      name,
+      type,
       onChange,
-      onBlur,
       onFocus,
+      onBlur,
+      children,
     } = this.props;
 
+    const className = clsx('c-input', this.props.className, {
+      'is-disabled': disabled,
+    });
+
     const cleanProps = omit(this.props,
+      'disableAutoComplete',
       'label',
       'name',
       'error',
       'children',
       'onUpdate',
+      'onEnterKey',
+      'onShiftEnterKey',
+      'onGetValue',
       'defaultValue',
       'validate',
     );
 
-    const className = clsx(this.props.className, 'c-time', { 'is-disabled': disabled });
-    const inputClassName = clsx('ui-input', className, { 'ui-input-error': this.isErrorActive() });
+    const inputClassName = clsx('ui-input', { 'ui-input-error': this.isErrorActive() });
+    if (onEnterKey || onShiftEnterKey) cleanProps.onKeyDown = this.handleKeyDown;
 
     let labelNode;
     if (label) labelNode = <strong className="ui-label">{label}</strong>;
@@ -46,17 +49,21 @@ class Time extends TextInputComponent {
     let error;
     if (this.isErrorActive()) error = <em className="ui-error">{this.getError()}</em>;
 
+    let name;
+    if (!disableAutoComplete) {
+      name = originalName;
+    }
+
     return (
       <label className={className}>
         {labelNode}
         <div className="c-input-container">
-          <TimeInput
+          <input
             {...cleanProps}
+            {...{ value, name }}
             ref={this.setEl('input')}
             className={inputClassName}
-            name={name}
-            disabled={disabled}
-            value={this.state.value}
+            type={type || 'text'}
             onChange={this.actionChange(onChange)}
             onFocus={this.actionClearError(onFocus)}
             onBlur={this.actionValidate(onBlur)}
@@ -69,17 +76,24 @@ class Time extends TextInputComponent {
   }
 }
 
-Time.propTypes = {
+Input.defaultProps = {
+  disableAutoComplete: false,
+};
+
+Input.propTypes = {
   ...TextInputComponent.propTypes,
+
+  disableAutoComplete: PropTypes.bool.isRequired,
 
   className: PropTypes.string,
   children: PropTypes.node,
   label: PropTypes.node,
   name: PropTypes.string,
 
+  type: PropTypes.string,
   onChange: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
 };
 
-export default Time;
+export default Input;

@@ -5,7 +5,7 @@ const sourcemaps = require('gulp-sourcemaps');
 
 const PUBLIC_FOLDER = `${__dirname}/../preview/public`;
 
-const SCRIPT_SOURCE = `${__dirname}/../preview/app.es`;
+const SCRIPT_SOURCE = `${__dirname}/../preview/app.jsx`;
 const SCRIPT_FILE = 'script.js';
 
 const STYLE_SOURCE = `${__dirname}/../preview/index.scss`;
@@ -25,7 +25,7 @@ const sassOptions = {
 
 const browserifyOptions = {
   entries: SCRIPT_SOURCE,
-  extensions: ['.es'],
+  extensions: ['.jsx'],
   debug: true,
 
   cache: {},
@@ -43,7 +43,7 @@ gulp.task('preview:babel', () => {
   const bundler = require('browserify')(browserifyOptions);
   const watcher = require('browserify-incremental')(bundler, cacheOptions);
 
-  watcher.transform(require('babelify').configure({ extensions: ['.es'] }));
+  watcher.transform(require('babelify').configure({ extensions: ['.jsx'] }));
 
   return watcher
     .bundle()

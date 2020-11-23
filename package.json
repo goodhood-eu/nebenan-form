@@ -8,6 +8,14 @@
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
   "version": "8.7.0",
+  "files": [
+    "lib/*.js",
+    "lib/*/*.js",
+    "src/*.scss",
+    "src/*/*.scss",
+    "index.scss",
+    "style.css"
+  ],
   "scripts": {
     "reinstall": "rm -rf node_modules package-lock.json && npm install && npm run decache",
     "decache": "find ./build -type f -name '.browserify-cache.json' -delete || echo \"\\033[0;32mAlready decached!\\033[0m\"",
@@ -15,8 +23,8 @@
     "gulp": "gulp",
     "build": "NODE_ENV=production npm run gulp compile",
     "prepublishOnly": "npm run check && npm run build",
-    "lint": "stylelint \"./*.scss\" \"./**/*.scss\" && eslint --ext .es,.js ./",
-    "lint:tofile": "eslint --ext .es,.js --no-color -o ./eslint-report.log ./",
+    "lint": "stylelint \"./*.scss\" \"./**/*.scss\" && eslint --ext .jsx,.js ./",
+    "lint:tofile": "eslint --ext .jsx,.js --no-color -o ./eslint-report.log ./",
     "test": "npm run build && TZ='GMT' mocha \"test/**/*.js\"",
     "test:tofile": "NODE_ENV=production npm run gulp compile && TZ='GMT' mocha --no-colors -R spec \"test/**/*.js\" 2>&1 | tee test-report.log",
     "start": "npm run gulp"

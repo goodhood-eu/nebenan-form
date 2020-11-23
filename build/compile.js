@@ -3,7 +3,7 @@ const sass = require('sass');
 const gulpSass = require('gulp-sass');
 const sourcemaps = require('gulp-sourcemaps');
 
-const SCRIPT_SOURCE = `${__dirname}/../src/**/*.es`;
+const SCRIPT_SOURCE = `${__dirname}/../src/**/*.jsx`;
 const SCRIPT_OUTPUT = `${__dirname}/../lib`;
 
 const STYLE_SOURCE = `${__dirname}/../index.scss`;

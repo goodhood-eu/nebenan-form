@@ -5,5 +5,5 @@ export const useStateControlledInput = (ref, state) => {
     if (!ref.current) return;
 
     ref.current.setValue(state, null, { silent: true });
-  });
+  }, [state]);
 };

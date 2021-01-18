@@ -278,4 +278,5 @@ InputComponent.propTypes = {
 };
 
 export default InputComponent;
+export { useStateControlledInput } from './hooks';
 export { FormContext };

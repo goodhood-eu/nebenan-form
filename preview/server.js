@@ -46,9 +46,11 @@ app.set('port', port);
 
 app.use(morgan('dev'));
 
-const fonts = serveStatic(`${__dirname}/../node_modules/nebenan-ui-kit/fonts/`, { redirect: false });
+const nebenanFonts = serveStatic(`${__dirname}/../node_modules/nebenan-ui-kit/fonts/`, { redirect: false });
+const fontsourceFonts = serveStatic(`${__dirname}/../node_modules/@fontsource/open-sans/files/`, { redirect: false });
 
-app.use('/fonts/nebenan-ui-kit', fonts);
+app.use('/fonts/', nebenanFonts);
+app.use('/files/', fontsourceFonts);
 app.use(serveStatic(`${__dirname}/public`, { redirect: false }));
 
 app.use(renderApp);

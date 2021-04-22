@@ -1,5 +1,5 @@
 const enzyme = require('enzyme');
-const Adapter = require('enzyme-adapter-react-16');
+const Adapter = require('@wojtekmaj/enzyme-adapter-react-17');
 const { JSDOM } = require('jsdom');
 const chai = require('chai');
 const chaiAsPromised = require('chai-as-promised');

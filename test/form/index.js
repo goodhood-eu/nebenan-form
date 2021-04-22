@@ -65,10 +65,10 @@ describe('<Form />', () => {
     assert.deepEqual(instance.state, instance.getDefaultState(), 'state is back to default');
     assert.isTrue(setPristine.calledOnce, 'setPristine on component was called');
 
-    process.nextTick(() => {
+    setTimeout(() => {
       assert.isTrue(callback.calledOnce, 'callback was called');
       done();
-    });
+    }, 0);
   });
 
   it('setValid', () => {

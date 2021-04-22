@@ -69,7 +69,7 @@ class Form extends PureComponent {
     this.inputs.forEach((Component) => Component.setPristine());
 
     let complete;
-    if (done) complete = () => process.nextTick(done);
+    if (done) complete = () => setTimeout(done, 0);
 
     this.setState(this.getDefaultState(), complete);
   }
@@ -112,7 +112,7 @@ class Form extends PureComponent {
     this.inputs.forEach((Component) => Component.reset());
 
     let complete;
-    if (done) complete = () => process.nextTick(done);
+    if (done) complete = () => setTimeout(done, 0);
 
     this.setState(this.getDefaultState(), complete);
   }

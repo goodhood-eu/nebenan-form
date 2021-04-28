@@ -10,7 +10,6 @@ import FancySelect from '../../../lib/fancy_select';
 import Checkbox from '../../../lib/checkbox';
 import Toggle from '../../../lib/toggle';
 import Radio from '../../../lib/radio';
-import Time from '../../../lib/time';
 import Datepicker from '../../../lib/datepicker';
 
 import Form from '../../../lib/form';
@@ -216,18 +215,6 @@ class FormPreview extends PureComponent {
                 labelOn="Ja" labelOff="Nein"
                 label={content.tooltip} name="toggle_2"
                 defaultChecked
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <Time
-                name="time" label="Time Picker (from 01:00 to 22:00)" placeholder="hh:mm"
-                validate="isTime:01:00,22:00" error="Min value: 01:00, Max value: 22:00" required
-              />
-              <Time
-                defaultValue="12:56"
-                name="time" label="Time Picker with defaultValue" placeholder="hh:mm"
-                validate="isTime" error="Wrong time format" required
               />
             </FormGroup>
           </Form>

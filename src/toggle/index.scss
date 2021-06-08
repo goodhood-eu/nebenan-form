@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .c-toggle {
   $size: 22px;
   $padding: 8px;
@@ -31,13 +33,13 @@
     overflow: hidden;
     background: $color-off;
     border: 1px solid $color-gray-02;
-    border-radius: (($width + 2) / 2);
+    border-radius: math.div($width + 2, 2);
 
     transition: background $transition;
 
     .c-toggle-state {
       // [(___O)___]
-      width: ($width - ($size / 2)) * 2;
+      width: ($width - math.div($size, 2)) * 2;
       display: block;
 
       overflow: hidden;
@@ -48,9 +50,9 @@
 
       em {
         // ([___]O)
-        width: $width - ($size / 2);
+        width: $width - math.div($size, 2);
         height: $size;
-        padding-left: ($size / 2) + 3px;
+        padding-left: math.div($size, 2) + 3px;
 
         display: block;
         float: left;
@@ -65,7 +67,7 @@
       }
 
       em.is-positive {
-        padding-right: ($size / 2) + 5px;
+        padding-right: math.div($size, 2) + 5px;
         padding-left: 0;
         text-align: right;
       }

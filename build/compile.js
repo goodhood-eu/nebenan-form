@@ -10,6 +10,8 @@ const STYLE_SOURCE = `${__dirname}/../index.scss`;
 const STYLE_OUTPUT_FOLDER = `${__dirname}/../`;
 const STYLE_FILE = 'style.css';
 
+gulpSass.compiler = sass;
+
 const sassOptions = {
   fiber: require('fibers'),
   includePaths: [

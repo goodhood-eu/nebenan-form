@@ -1,3 +1,5 @@
+@use "sass:math";
+
 $form-group-spacing: 15px;
 
 .c-form_group-item {
@@ -25,7 +27,7 @@ $form-group-spacing: 15px;
   @media ($media-m) {
     @for $size from 2 through 4 {
       &.is-size-#{$size} .c-form_group-item {
-        width: (100% / $size);
+        width: math.div(100%, $size);
       }
     }
   }

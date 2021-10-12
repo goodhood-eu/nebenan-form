@@ -132,13 +132,15 @@ describe('<Form />', () => {
       onSubmit: fake(),
     };
     const preventDefault = fake();
+    const stopPropagation = fake();
     const wrapper = shallow(createElement(Form, props));
     const instance = wrapper.instance();
     instance.validate = spy(() => Promise.resolve());
 
-    wrapper.find('form').simulate('submit', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault, stopPropagation });
 
     assert.isTrue(preventDefault.calledOnce, 'preventDefault was called');
+    assert.isTrue(stopPropagation.calledOnce, 'stopPropagation was called');
     assert.isTrue(instance.validate.calledOnce, 'validate was called');
     assert.isTrue(props.onSubmit.calledOnce, 'onSubmit was called');
 
@@ -156,13 +158,17 @@ describe('<Form />', () => {
       onSubmit: fake(),
     };
     const preventDefault = fake();
+    const stopPropagation = fake();
+
     const wrapper = shallow(createElement(Form, props));
     const instance = wrapper.instance();
     instance.validate = spy(() => Promise.reject());
 
-    wrapper.find('form').simulate('submit', { preventDefault });
+    wrapper.find('form').simulate('submit', { preventDefault, stopPropagation });
 
     assert.isTrue(preventDefault.calledOnce, 'preventDefault was called');
+    assert.isTrue(stopPropagation.calledOnce, 'stopPropagation was called');
+
     assert.isTrue(instance.validate.calledOnce, 'validate was called');
     assert.isTrue(props.onSubmit.calledOnce, 'onSubmit was called');
 

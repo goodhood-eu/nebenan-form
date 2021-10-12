@@ -129,7 +129,13 @@ class Form extends PureComponent {
   }
 
   submit(event) {
-    if (event) event.preventDefault();
+    if (event) {
+      event.preventDefault();
+
+      // Do not propagate this event to parent forms
+      //  (we support forms in forms but they are not connected)
+      event.stopPropagation();
+    }
     if (this.isDisabled()) return;
     const { onValidSubmit, onInvalidSubmit, onSubmit } = this.props;
 

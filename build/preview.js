@@ -1,6 +1,6 @@
 const gulp = require('gulp');
 const sass = require('sass');
-const gulpSass = require('gulp-sass');
+const gulpSass = require('gulp-sass')(sass);
 const sourcemaps = require('gulp-sourcemaps');
 
 const PUBLIC_FOLDER = `${__dirname}/../preview/public`;
@@ -12,7 +12,6 @@ const STYLE_SOURCE = `${__dirname}/../preview/index.scss`;
 const STYLE_FILE = 'style.css';
 
 const sassOptions = {
-  fiber: require('fibers'),
   includePaths: [
     `${__dirname}/../client`,
     `${__dirname}/../node_modules`,

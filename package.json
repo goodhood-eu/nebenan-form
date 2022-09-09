@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
-  "version": "10.0.1",
+  "version": "10.0.2",
   "files": [
     "lib/*.js",
     "lib/*/*.js",
@@ -89,7 +89,9 @@
     "stylelint": "^13.9.0",
     "stylelint-config-nebenan": "^1.6.2",
     "tiny-lr": "^2.0.0",
-    "vinyl-source-stream": "^2.0.0"
+    "vinyl-source-stream": "^2.0.0",
+    "nebenan-eventproxy": "^1.0.0",
+    "nebenan-keymanager": "^1.0.1"
   },
   "dependencies": {
     "clsx": "^1.1.1",

@@ -63,6 +63,20 @@ class Textarea extends TextInputComponent {
     super.setValue(value, complete);
   }
 
+  /**
+   * @override
+   */
+  isDOMValueEqualTo(domValue, rawValue) {
+    const getDOMStrippedValue = (originalValue) => {
+      const textAreaElement = document.createElement('textarea');
+      const textNode = document.createTextNode(originalValue);
+      textAreaElement.appendChild(textNode);
+      return textAreaElement.value;
+    };
+
+    return domValue === getDOMStrippedValue(rawValue);
+  }
+
   render() {
     const {
       onEnterKey,

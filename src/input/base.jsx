@@ -41,11 +41,15 @@ class TextInputComponent extends InputComponent {
     return this.getInput().selectionEnd || this.state.value.length;
   }
 
+  isDOMValueEqualTo(domValue, rawValue) {
+    return domValue === rawValue;
+  }
+
   // Fixes the autofill feature in some of the dumbass browsers that are incapable of
   // triggering "change" event when they change values.
   readDomValue() {
     const { value } = this.getInput();
-    if (value !== this.state.value) this.setValue(value, this.validate);
+    if (!this.isDOMValueEqualTo(value, this.state.value)) this.setValue(value, this.validate);
   }
 
   focus() {

@@ -88,9 +88,7 @@
     "stylelint": "^13.9.0",
     "stylelint-config-nebenan": "^1.6.2",
     "tiny-lr": "^2.0.0",
-    "vinyl-source-stream": "^2.0.0",
-    "nebenan-eventproxy": "^1.0.0",
-    "nebenan-keymanager": "^1.0.1"
+    "vinyl-source-stream": "^2.0.0"
   },
   "dependencies": {
     "clsx": "^1.1.1",

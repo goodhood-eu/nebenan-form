@@ -15,6 +15,26 @@ describe('<Textarea />', () => {
     wrapper.unmount();
   });
 
+  it('isDOMValueEqualTo', () => {
+    const wrapper = mount(createElement(Textarea));
+
+    assert.isTrue(
+      wrapper.instance().isDOMValueEqualTo(
+        'This is my textarea\ntext   simply\nFUN!!',
+        'This is my textarea\r\ntext   simply\r\nFUN!!',
+      ),
+    );
+
+    assert.isFalse(
+      wrapper.instance().isDOMValueEqualTo(
+        'This is my textarea',
+        'This is my textarea\r\ntext   simply\r\nFUN!!',
+      ),
+    );
+
+    wrapper.unmount();
+  });
+
   it('setValue', () => {
     const wrapper = mount(createElement(Textarea));
 

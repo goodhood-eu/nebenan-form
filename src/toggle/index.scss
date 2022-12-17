@@ -1,0 +1,126 @@
+@use "sass:math";
+
+.c-toggle {
+  $size: 22px;
+  $padding: 8px;
+  $mult: 2.5;
+
+  $width: $size * $mult;
+
+  $color-on: $color-green-02;
+  $color-off: $color-gray-03;
+
+  display: block;
+  text-align: left;
+
+  .c-toggle-container {
+    overflow: hidden;
+  }
+
+  .c-toggle-control {
+    display: block;
+    float: left;
+
+    position: relative;
+  }
+
+  .c-toggle-slide {
+    // [(___O)]
+    width: $width + 4;
+    height: $size + 4;
+    padding: 1px;
+
+    display: block;
+
+    overflow: hidden;
+    background: $color-off;
+    border: 1px solid $color-gray-02;
+    border-radius: math.div($width + 2, 2);
+
+    transition: background $transition;
+
+    .c-toggle-state {
+      // [(___O)___]
+      width: ($width - math.div($size, 2)) * 2;
+      display: block;
+
+      overflow: hidden;
+      position: relative;
+
+      transition: transform $transition;
+      transform: translateX(-($width - $size));
+
+      em {
+        // ([___]O)
+        width: $width - math.div($size, 2);
+        height: $size;
+        padding-left: math.div($size, 2) + 3px;
+
+        display: block;
+        float: left;
+
+        color: $color-gray-09;
+
+        font-style: normal;
+        font-size: 10px;
+        line-height: $size;
+        text-transform: uppercase;
+        user-select: none;
+      }
+
+      em.is-positive {
+        padding-right: math.div($size, 2) + 5px;
+        padding-left: 0;
+        text-align: right;
+      }
+
+      i {
+        // (___[O])
+        @include block-round($size);
+
+        position: absolute;
+        top: 0;
+        left: ($size * $mult) - $size;
+
+        background: $color-gray-09;
+      }
+    }
+  }
+
+  input[type='checkbox'] {
+    @include block-invisible;
+
+    &:checked + .c-toggle-slide {
+      background: $color-on;
+      border-color: $color-green-00;
+
+      .c-toggle-state {
+        transform: translateX(0);
+      }
+    }
+  }
+
+  &.is-error .c-toggle-container .c-toggle-control .c-toggle-slide {
+    transition: none;
+    background: $color-orange-01;
+    border-color: $color-orange-00;
+  }
+
+  .c-toggle-label {
+    margin-left: $width + 2 + $padding;
+    display: block;
+    line-height: $size + 2;
+  }
+
+  &.is-checked .c-toggle-label {
+    color: $color-gray-00;
+  }
+
+  &.has-label .ui-error {
+    margin-left: $width + 2 + $padding;
+  }
+
+  &.is-disabled .c-toggle-container {
+    opacity: .4;
+  }
+}

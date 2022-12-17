@@ -1,0 +1,86 @@
+.c-radio {
+  $size: 22px;
+  $padding: 8px;
+  $radio-margin-top: 8px;
+
+  margin: $radio-margin-top 0 0 0;
+  padding: 0;
+  border: none;
+
+  > .ui-label {
+    margin-bottom: -$radio-margin-top + 5px;
+  }
+
+  .c-radio-item {
+    margin-top: $radio-margin-top;
+    display: block;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &.is-disabled {
+      opacity: .4;
+    }
+
+    .c-radio-item-label {
+      margin-left: $size + $padding;
+      display: block;
+      line-height: $size;
+    }
+  }
+
+  .c-radio-item-container {
+    overflow: hidden;
+  }
+
+  .c-radio-item-control {
+    @include block-round($size);
+
+    display: block;
+    float: left;
+
+    position: relative;
+
+    background: $color-gray-09;
+    border: $border-dark;
+  }
+
+  .c-radio-item-state {
+    @include block-round(10px);
+    @include block-center;
+    background: $color-gray-09;
+    display: none;
+  }
+
+  input[type='radio'] {
+    @include block-invisible;
+
+    &:checked + .c-radio-item-state {
+      display: block;
+    }
+  }
+
+  .is-checked .c-radio-item-control {
+    background: $color-green-02;
+    border-color: $color-green-02;
+  }
+
+  .is-checked .c-radio-item-label {
+    color: $color-gray-00;
+  }
+
+  &.is-error .c-radio-item-control {
+    border-color: $color-orange-01;
+    background: $color-orange-03;
+  }
+
+  &.is-type-small .ui-label-primary {
+    font-size: $font-size-s;
+  }
+
+  .ui-error {
+    margin-top: 8px;
+    margin-left: $size + $padding;
+  }
+}

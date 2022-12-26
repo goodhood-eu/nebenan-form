@@ -102,8 +102,8 @@
 
   &.is-error .c-toggle-container .c-toggle-control .c-toggle-slide {
     transition: none;
-    background: $color-orange-01;
-    border-color: $color-orange-00;
+    background: $color-red-00;
+    border-color: darken($color-red-00  , 7%);
   }
 
   .c-toggle-label {

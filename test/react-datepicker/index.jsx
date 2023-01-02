@@ -8,6 +8,11 @@ import locale from './locale';
 import theme from './theme';
 import MonthCalendar from '../../lib/react-datepicker';
 
+/**
+ * The tests are here only for historical reasons. They are not called due to being written
+ * differently / modern. But since both repos (forms and react-datepicker) are deprecated,
+ * we didn't convert any of them.
+ */
 describe('MonthCalendar', () => {
   it('renders MonthCalendar', () => {
     const props = {

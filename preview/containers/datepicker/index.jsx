@@ -12,51 +12,42 @@ export default () => {
 
   return (
     <article>
-      <Header noLink>nebenan-react-datepicker</Header>
+      <Header>React Datepicker</Header>
       <div className="preview-section">
         <ul>
           <li>
-
             <h3>Simple</h3>
             <DatePicker
               selected={selectedDate}
               onChange={setSelectedDate}
-
               {...defaults}
             />
           </li>
           <li>
-
             <h3>Preselected Date</h3>
             <DatePicker
               selected={preselectedDate}
               onChange={setPreselectedDate}
-
               {...defaults}
             />
           </li>
           <li>
-
             <h3>Min-Date</h3>
             <DatePicker
               selected={selectedDate}
               onChange={setSelectedDate}
               minDate={new Date(2020, 2, 1)}
-
               {...defaults}
             />
           </li>
           <li>
-
             <h3>Max-Date</h3>
             <DatePicker
               selected={selectedDate}
               onChange={setSelectedDate}
               maxDate={new Date(2020, 4, 1)}
-
               {...defaults}
             />
-
           </li>
           <li>
             <h3>Min-Date & Max-Date</h3>
@@ -65,7 +56,6 @@ export default () => {
               onChange={setSelectedDate}
               maxDate={new Date(2020, 4, 1)}
               minDate={new Date(2020, 2, 1)}
-
               {...defaults}
             />
           </li>

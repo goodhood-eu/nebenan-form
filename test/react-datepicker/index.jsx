@@ -6,7 +6,7 @@ import { spy } from 'sinon';
 import { findDate, findDatepicker, navigateToNextMonth, navigateToPreviousMonth } from './helpers';
 import locale from './locale';
 import theme from './theme';
-import MonthCalendar from '../lib';
+import MonthCalendar from '../../lib/react-datepicker';
 
 describe('MonthCalendar', () => {
   it('renders MonthCalendar', () => {

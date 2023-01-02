@@ -4,7 +4,7 @@ import {
   getMonth,
   getMonthLabel,
   getMonthDetails,
-} from '../lib/utils';
+} from '../../lib/utils';
 
 describe('utils', () => {
   describe('arrayOf', () => {

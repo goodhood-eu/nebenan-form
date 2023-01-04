@@ -13,7 +13,7 @@ const Controls = ({ theme, label, onNext, onPrevious }) => (
   </div>
 );
 
-const MonthCalendar = ({
+const DatePickerUnstyled = ({
   className: passedClassName,
   theme,
 
@@ -59,7 +59,7 @@ const MonthCalendar = ({
   );
 };
 
-MonthCalendar.propTypes = {
+DatePickerUnstyled.propTypes = {
   className: PropTypes.string,
 
   theme: PropTypes.object.isRequired,
@@ -74,4 +74,4 @@ MonthCalendar.propTypes = {
   maxDate: PropTypes.object,
 };
 
-export default MonthCalendar;
+export default DatePickerUnstyled;

@@ -23,8 +23,11 @@
     "gulp": "gulp",
     "build": "NODE_ENV=production npm run gulp compile",
     "prepublishOnly": "npm run check && npm run build",
-    "lint": "stylelint \"./*.scss\" \"./**/*.scss\" && eslint --ext .jsx,.js ./",
-    "lint:tofile": "eslint --ext .jsx,.js --no-color -o ./eslint-report.log ./",
+    "lint": "npm run lint:javascript && npm run lint:styles",
+    "lint:fix": "npm run lint:javascript -- --fix && npm run lint:styles -- --fix",
+    "lint:tofile": "npm run lint:javascript -- -o ./eslint-report.log && npm run lint:styles -- -o ./stylelint-report.log",
+    "lint:javascript": "eslint -f stylish \"./**/*.{js,jsx,ts,tsx}\"",
+    "lint:styles": "stylelint \"./**/*.scss\" ",
     "test": "npm run build && TZ='GMT' mocha \"test/**/*.js\"",
     "test:tofile": "NODE_ENV=production npm run gulp compile && TZ='GMT' mocha --no-colors -R spec \"test/**/*.js\" 2>&1 | tee test-report.log",
     "start": "npm run gulp"

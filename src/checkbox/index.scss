@@ -52,7 +52,7 @@
     color: $color-gray-00;
   }
 
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     @include block-invisible;
   }
 

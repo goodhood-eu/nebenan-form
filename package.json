@@ -7,7 +7,7 @@
   "homepage": "https://nebenan.de/",
   "repository": "good-hood-gmbh/nebenan-form",
   "bugs": "https://github.com/good-hood-gmbh/nebenan-form/issues",
-  "version": "10.0.3",
+  "version": "10.0.4",
   "files": [
     "lib/*.js",
     "lib/*/*.js",
@@ -94,7 +94,6 @@
     "clsx": "^1.1.1",
     "lodash": "^4.17.20",
     "nebenan-helpers": "^7.0.0",
-    "nebenan-react-datepicker": "^2.0.0",
     "string-validate": "^3.5.0"
   },
   "peerDependencies": {

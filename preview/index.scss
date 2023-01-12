@@ -1,7 +1,7 @@
-@import 'nebenan-ui-kit/styles';
-@import '../src/**/index.scss';
-@import './components/**/*.scss';
-@import './containers/**/*.scss';
+@import "nebenan-ui-kit/styles";
+@import "../src/**/index.scss";
+@import "./components/**/*.scss";
+@import "./containers/**/*.scss";
 
 html {
   background: $color-gray-07;

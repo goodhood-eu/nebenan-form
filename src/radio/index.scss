@@ -53,7 +53,7 @@
     display: none;
   }
 
-  input[type='radio'] {
+  input[type="radio"] {
     @include block-invisible;
 
     &:checked + .c-radio-item-state {

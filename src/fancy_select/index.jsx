@@ -61,7 +61,7 @@ class FancySelect extends InputComponent {
     this.setValue(value, this.validate);
   }
 
-  renderOption({ key, imageClass, children }, index) {
+  renderOption({ key, imageClass, testId, children }, index) {
     const { disabled } = this.props;
 
     const className = clsx('c-fancy_select-item', {
@@ -74,7 +74,16 @@ class FancySelect extends InputComponent {
     let icon;
     if (imageClass) icon = <i className={imageClass} />;
 
-    return <li key={key} className={className} onClick={handler}>{icon}{content}</li>;
+    return (
+      <li
+        key={key}
+        className={className}
+        onClick={handler}
+        data-testid={testId}
+      >
+        {icon}{content}
+      </li>
+    );
   }
 
   render() {

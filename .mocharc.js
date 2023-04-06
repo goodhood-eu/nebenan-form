@@ -1,5 +1,4 @@
 module.exports = {
-  require: './test/setup',
   globals: 'document',
   'check-leaks': true,
   recursive: true,

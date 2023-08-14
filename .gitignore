@@ -26,13 +26,21 @@ node_modules/*
 
 # Users Environment Variables
 .lock-wscript
-.idea
 .scripts
 
-# MacOS files
+# MacOS
 .DS_Store
 
+# Compiled files
 lib/
 style.css
 preview/public/
 build/.browserify-cache.json
+
+# Code editors
+.vscode
+.idea
+
+# Yalc
+.yalc
+yalc.lock

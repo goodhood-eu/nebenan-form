@@ -80,8 +80,8 @@
     "sass-functions": "^2.0.0 || ^1.4.0",
     "serve-static": "^1.15.0",
     "sinon": "^10.0.0",
-    "stylelint": "^14.16.1",
-    "stylelint-config-nebenan": "^2.0.0",
+    "stylelint": "^15.10.2",
+    "stylelint-config-nebenan": "^3.0.0",
     "tiny-lr": "^2.0.0",
     "vinyl-source-stream": "^2.0.0"
   },

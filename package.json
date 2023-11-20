@@ -41,7 +41,6 @@
     "@babel/register": "^7.22.15",
     "@babel/runtime": "^7.23.4",
     "autoprefixer": "^10.4.16",
-    "babel-eslint": "^10.1.0",
     "babel-plugin-add-module-exports": "^1.0.4",
     "babel-plugin-transform-node-env-inline": "0.4.3",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",

@@ -6,7 +6,7 @@
   "homepage": "https://github.com/goodhood-eu/nebenan-form#readme",
   "repository": "github:goodhood-eu/nebenan-form",
   "bugs": "https://github.com/goodhood-eu/nebenan-form/issues",
-  "version": "12.0.0-beta.0",
+  "version": "12.0.0-beta.1",
   "files": [
     "lib/*.js",
     "lib/**/*.js",
@@ -32,14 +32,14 @@
     "start": "npm run gulp"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.23.4",
     "@babel/core": "^7.23.3",
-    "@babel/plugin-transform-runtime": "^7.23.3",
+    "@babel/plugin-transform-runtime": "^7.23.4",
     "@babel/plugin-transform-strict-mode": "^7.23.3",
     "@babel/preset-env": "^7.23.3",
     "@babel/preset-react": "^7.23.3",
     "@babel/register": "^7.22.15",
-    "@babel/runtime": "^7.23.2",
+    "@babel/runtime": "^7.23.4",
     "autoprefixer": "^10.4.16",
     "babel-eslint": "^10.1.0",
     "babel-plugin-add-module-exports": "^1.0.4",

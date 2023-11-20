@@ -197,8 +197,8 @@ class Form extends PureComponent {
     if (button || alternativeAction) {
       footer = (
         <div className="c-form-footer ui-controls">
-          {button}
           {alternativeAction}
+          {button}
         </div>
       );
     }

@@ -8,18 +8,9 @@ $form-group-spacing: 15px;
 
 .c-form_group.is-multiple {
   @media ($media-m) {
-    @include legacy-clearfix;
     margin-top: $form-group-spacing;
-
-    .c-form_group-item {
-      margin-top: 0;
-      padding-left: 10px;
-      float: left;
-
-      &:first-child {
-        padding-left: 0;
-      }
-    }
+    display: flex;
+    gap: 10px;
   }
 }
 
@@ -27,7 +18,7 @@ $form-group-spacing: 15px;
   @media ($media-m) {
     @for $size from 2 through 4 {
       &.is-size-#{$size} .c-form_group-item {
-        width: math.div(100%, $size);
+        flex-basis: math.div(100%, $size);
       }
     }
   }

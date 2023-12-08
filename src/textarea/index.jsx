@@ -33,14 +33,10 @@ class Textarea extends TextInputComponent {
     // ref can be null in delayed function
     if (!this.els.input) return;
 
-    // has to go first, to make scrollHeight recalculate
-    this.els.input.style.height = 'auto';
-
     const { input } = this.els;
     const { scrollHeight: height } = input;
 
     input.style.height = `${height}px`;
-    input.scrollTop = height;
 
     invoke(this.props.onUpdateHeight);
   }

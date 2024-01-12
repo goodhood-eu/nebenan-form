@@ -11,6 +11,10 @@ $form-group-spacing: 15px;
     margin-top: $form-group-spacing;
     display: flex;
     gap: 10px;
+
+    .c-form_group-item {
+      margin-top: 0;
+    }
   }
 }
 

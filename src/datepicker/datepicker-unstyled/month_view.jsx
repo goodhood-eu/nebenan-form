@@ -1,8 +1,5 @@
 import clsx from 'clsx';
-import addMonths from 'date-fns/addMonths';
-import setDate from 'date-fns/setDate';
-import isSameDay from 'date-fns/isSameDay';
-import startOfDay from 'date-fns/startOfDay';
+import { addMonths, isSameDay, setDate, startOfDay } from 'date-fns';
 import { arrayOf, getMonthDetails } from './utils';
 
 const DAYS_COUNT = 7;

@@ -1,4 +1,4 @@
-import getDaysInMonth from 'date-fns/getDaysInMonth';
+import { getDaysInMonth } from 'date-fns';
 
 export const arrayOf = (number) => Array.from(new Array(number)).map((_, index) => index);
 export const getMonth = (date) => new Date(date.getFullYear(), date.getMonth());

@@ -1,15 +1,14 @@
-import parseISO from 'date-fns/parseISO';
-import formatDate from 'date-fns/format';
+import { format, parseISO } from 'date-fns';
 import { getSubTheme, mergeThemes } from 'nebenan-helpers/lib/themes';
 
 const DATE_FORMAT_ISO = 'yyyy-MM-dd';
 
 export const getValueFromISO = (value, dateFormat) => (
-  (value ? formatDate(parseISO(value), dateFormat) : '')
+  (value ? format(parseISO(value), dateFormat) : '')
 );
 
 export const getValueFromDate = (date) => (
-  date ? formatDate(date, DATE_FORMAT_ISO) : ''
+  date ? format(date, DATE_FORMAT_ISO) : ''
 );
 
 export const getDate = (dateOrIso) => {

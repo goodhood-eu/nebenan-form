@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import addMonths from 'date-fns/addMonths';
+import { addMonths } from 'date-fns';
 import { getMonth, getMonthLabel } from './utils';
 import MonthView from './month_view';
 

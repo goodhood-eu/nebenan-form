@@ -50,7 +50,7 @@
     "browserslist-config-nebenan": "^1.0.2",
     "chai": "^4.3.10",
     "chai-as-promised": "^7.1.1",
-    "date-fns": "^2.30.0",
+    "date-fns": "^3.6.0",
     "del": "^6.0.0",
     "errorhandler": "^1.5.1",
     "eslint": "^8.56.0",
@@ -88,7 +88,7 @@
     "@frsource/autoresize-textarea": "^2.0.68",
     "clsx": "^2.1.1",
     "lodash": "^4.17.21",
-    "nebenan-helpers": "^7.2.2",
+    "nebenan-helpers": "^8.0.0",
     "nebenan-ui-kit": "^7.0.0",
     "string-validate": "^3.9.1"
   },

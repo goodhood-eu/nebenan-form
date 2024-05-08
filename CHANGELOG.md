@@ -1,3 +1,11 @@
+## v13.0.0 Breaking changes
+
+- Added support for node20 and date-fns v3
+
+## v12.0.0 Breaking changes
+
+- Updated ui-kit to get rid of legacy clearfix
+
 ## v11.0.0 Breaking changes
 
 - Updated ui-kit to fresh typography

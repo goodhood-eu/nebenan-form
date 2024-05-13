@@ -6,7 +6,7 @@
   "homepage": "https://github.com/goodhood-eu/nebenan-form#readme",
   "repository": "github:goodhood-eu/nebenan-form",
   "bugs": "https://github.com/goodhood-eu/nebenan-form/issues",
-  "version": "13.0.0",
+  "version": "13.0.1",
   "files": [
     "lib/*.js",
     "lib/**/*.js",
